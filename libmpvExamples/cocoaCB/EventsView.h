@@ -7,7 +7,14 @@
 //
 
 #import <Cocoa/Cocoa.h>
+@class MPVHelper, CocoaCB;
 
 @interface EventsView : NSView
+
+- (instancetype)initWithCocoaCB:(CocoaCB *)ccb;
+@property (weak, nonatomic) CocoaCB *cocoaCB;
+@property (nonatomic) MPVHelper *mpv;
+@property (nonatomic) NSTrackingArea *tracker;
+@property (nonatomic) BOOL hasMouseDown;
 
 @end

@@ -14,6 +14,11 @@
 		CE91A73F22F338E500A6F57F /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE91A73E22F338E500A6F57F /* Quartz.framework */; };
 		CE91A74122F338ED00A6F57F /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE91A74022F338EC00A6F57F /* OpenGL.framework */; };
 		CE91A74322F3390200A6F57F /* libmpv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = CE91A74222F3390200A6F57F /* libmpv.dylib */; };
+		CE91A74B22F33A2100A6F57F /* VideoLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = CE91A74A22F33A2100A6F57F /* VideoLayer.m */; };
+		CE91A74F22F33A6000A6F57F /* MPVHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = CE91A74E22F33A6000A6F57F /* MPVHelper.m */; };
+		CE91A75222F33A8500A6F57F /* EventsView.m in Sources */ = {isa = PBXBuildFile; fileRef = CE91A75122F33A8500A6F57F /* EventsView.m */; };
+		CE91A75522F33AAF00A6F57F /* Window.m in Sources */ = {isa = PBXBuildFile; fileRef = CE91A75422F33AAF00A6F57F /* Window.m */; };
+		CE91A75822F33ACD00A6F57F /* CocoaCB.m in Sources */ = {isa = PBXBuildFile; fileRef = CE91A75722F33ACD00A6F57F /* CocoaCB.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,6 +32,16 @@
 		CE91A73E22F338E500A6F57F /* Quartz.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quartz.framework; path = System/Library/Frameworks/Quartz.framework; sourceTree = SDKROOT; };
 		CE91A74022F338EC00A6F57F /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
 		CE91A74222F3390200A6F57F /* libmpv.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libmpv.dylib; path = ../../../opt/lib/libmpv.dylib; sourceTree = "<group>"; };
+		CE91A74922F33A2100A6F57F /* VideoLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VideoLayer.h; path = cocoaCB/VideoLayer.h; sourceTree = "<group>"; };
+		CE91A74A22F33A2100A6F57F /* VideoLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VideoLayer.m; path = cocoaCB/VideoLayer.m; sourceTree = "<group>"; };
+		CE91A74D22F33A6000A6F57F /* MPVHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MPVHelper.h; path = cocoaCB/MPVHelper.h; sourceTree = "<group>"; };
+		CE91A74E22F33A6000A6F57F /* MPVHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MPVHelper.m; path = cocoaCB/MPVHelper.m; sourceTree = "<group>"; };
+		CE91A75022F33A8500A6F57F /* EventsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EventsView.h; path = cocoaCB/EventsView.h; sourceTree = "<group>"; };
+		CE91A75122F33A8500A6F57F /* EventsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EventsView.m; path = cocoaCB/EventsView.m; sourceTree = "<group>"; };
+		CE91A75322F33AAF00A6F57F /* Window.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Window.h; path = cocoaCB/Window.h; sourceTree = "<group>"; };
+		CE91A75422F33AAF00A6F57F /* Window.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Window.m; path = cocoaCB/Window.m; sourceTree = "<group>"; };
+		CE91A75622F33ACD00A6F57F /* CocoaCB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CocoaCB.h; path = cocoaCB/CocoaCB.h; sourceTree = "<group>"; };
+		CE91A75722F33ACD00A6F57F /* CocoaCB.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CocoaCB.m; path = cocoaCB/CocoaCB.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +78,7 @@
 		CE91A72C22F3382500A6F57F /* libmpvExamples */ = {
 			isa = PBXGroup;
 			children = (
+				CE91A74C22F33A2600A6F57F /* CocoaCB */,
 				CE91A72D22F3382500A6F57F /* AppDelegate.h */,
 				CE91A72E22F3382500A6F57F /* AppDelegate.m */,
 				CE91A73322F3382500A6F57F /* Assets.xcassets */,
@@ -89,6 +105,23 @@
 				CE91A74222F3390200A6F57F /* libmpv.dylib */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		CE91A74C22F33A2600A6F57F /* CocoaCB */ = {
+			isa = PBXGroup;
+			children = (
+				CE91A74922F33A2100A6F57F /* VideoLayer.h */,
+				CE91A74A22F33A2100A6F57F /* VideoLayer.m */,
+				CE91A74D22F33A6000A6F57F /* MPVHelper.h */,
+				CE91A74E22F33A6000A6F57F /* MPVHelper.m */,
+				CE91A75022F33A8500A6F57F /* EventsView.h */,
+				CE91A75122F33A8500A6F57F /* EventsView.m */,
+				CE91A75322F33AAF00A6F57F /* Window.h */,
+				CE91A75422F33AAF00A6F57F /* Window.m */,
+				CE91A75622F33ACD00A6F57F /* CocoaCB.h */,
+				CE91A75722F33ACD00A6F57F /* CocoaCB.m */,
+			);
+			name = CocoaCB;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -160,8 +193,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CE91A75822F33ACD00A6F57F /* CocoaCB.m in Sources */,
+				CE91A75222F33A8500A6F57F /* EventsView.m in Sources */,
 				CE91A73222F3382500A6F57F /* main.m in Sources */,
+				CE91A74F22F33A6000A6F57F /* MPVHelper.m in Sources */,
+				CE91A75522F33AAF00A6F57F /* Window.m in Sources */,
 				CE91A72F22F3382500A6F57F /* AppDelegate.m in Sources */,
+				CE91A74B22F33A2100A6F57F /* VideoLayer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

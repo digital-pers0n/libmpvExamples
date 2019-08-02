@@ -22,6 +22,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		CE5EA94022F485EC00E15610 /* libmpvExamples.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = libmpvExamples.h; sourceTree = "<group>"; };
 		CE91A72A22F3382500A6F57F /* libmpvExamples.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = libmpvExamples.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE91A72D22F3382500A6F57F /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		CE91A72E22F3382500A6F57F /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -79,6 +80,7 @@
 			isa = PBXGroup;
 			children = (
 				CE91A74C22F33A2600A6F57F /* CocoaCB */,
+				CE5EA94022F485EC00E15610 /* libmpvExamples.h */,
 				CE91A72D22F3382500A6F57F /* AppDelegate.h */,
 				CE91A72E22F3382500A6F57F /* AppDelegate.m */,
 				CE91A73322F3382500A6F57F /* Assets.xcassets */,
@@ -348,6 +350,7 @@
 				CE91A73D22F3382500A6F57F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

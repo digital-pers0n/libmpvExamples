@@ -10,8 +10,15 @@
 
 @class MPVHelper, CocoaCB;
 
-@interface Window : NSWindow
+@interface Window : NSWindow <NSWindowDelegate>
 
 - (instancetype)initWithContentRect:(NSRect)rect screen:(NSScreen *)screen view:(NSView *)view cocoaCB:(CocoaCB *)ccb;
+
+@property (weak, nonatomic) CocoaCB *cocoaCB;
+@property (nonatomic) MPVHelper *mpv;
+
+- (void)showTitleBar;
+- (void)hideTitleBar;
+- (void)hideTitleBarDelayed;
 
 @end

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CE5EA94322F48CE400E15610 /* LEClipView.m in Sources */ = {isa = PBXBuildFile; fileRef = CE5EA94222F48CE400E15610 /* LEClipView.m */; };
 		CE91A72F22F3382500A6F57F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = CE91A72E22F3382500A6F57F /* AppDelegate.m */; };
 		CE91A73222F3382500A6F57F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = CE91A73122F3382500A6F57F /* main.m */; };
 		CE91A73422F3382500A6F57F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE91A73322F3382500A6F57F /* Assets.xcassets */; };
@@ -23,6 +24,8 @@
 
 /* Begin PBXFileReference section */
 		CE5EA94022F485EC00E15610 /* libmpvExamples.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = libmpvExamples.h; sourceTree = "<group>"; };
+		CE5EA94122F48CE400E15610 /* LEClipView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LEClipView.h; sourceTree = "<group>"; };
+		CE5EA94222F48CE400E15610 /* LEClipView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LEClipView.m; sourceTree = "<group>"; };
 		CE91A72A22F3382500A6F57F /* libmpvExamples.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = libmpvExamples.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE91A72D22F3382500A6F57F /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		CE91A72E22F3382500A6F57F /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -83,6 +86,8 @@
 				CE5EA94022F485EC00E15610 /* libmpvExamples.h */,
 				CE91A72D22F3382500A6F57F /* AppDelegate.h */,
 				CE91A72E22F3382500A6F57F /* AppDelegate.m */,
+				CE5EA94122F48CE400E15610 /* LEClipView.h */,
+				CE5EA94222F48CE400E15610 /* LEClipView.m */,
 				CE91A73322F3382500A6F57F /* Assets.xcassets */,
 				CE91A73522F3382500A6F57F /* MainMenu.xib */,
 				CE91A73822F3382500A6F57F /* Info.plist */,
@@ -198,6 +203,7 @@
 				CE91A75822F33ACD00A6F57F /* CocoaCB.m in Sources */,
 				CE91A75222F33A8500A6F57F /* EventsView.m in Sources */,
 				CE91A73222F3382500A6F57F /* main.m in Sources */,
+				CE5EA94322F48CE400E15610 /* LEClipView.m in Sources */,
 				CE91A74F22F33A6000A6F57F /* MPVHelper.m in Sources */,
 				CE91A75522F33AAF00A6F57F /* Window.m in Sources */,
 				CE91A72F22F3382500A6F57F /* AppDelegate.m in Sources */,

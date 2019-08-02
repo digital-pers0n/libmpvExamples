@@ -24,4 +24,8 @@
 - (void)reportRenderFlip;
 - (void)drawRender:(NSSize)surface;
 
+- (BOOL)getBoolProperty:(NSString *)name;
+- (NSInteger)getIntProperty:(NSString *)name;
+- (NSString *)getStringProperty:(NSString *)name;
+
 @end

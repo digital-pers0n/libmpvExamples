@@ -13,7 +13,7 @@
 #import "EventsView.h"
 #import <mpv/client.h>
 
-#define ENABLE_LEGACY_GPU_SUPPORT 1
+//#define ENABLE_LEGACY_GPU_SUPPORT 1
 
 static inline void check_error(int status) {
     if (status < 0) {

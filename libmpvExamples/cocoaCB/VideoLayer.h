@@ -22,4 +22,20 @@ typedef enum : NSUInteger {
 - (void)update;
 - (void)setVideo:(BOOL)state;
 
+@property (nonatomic) CocoaCB *cocoaCB;
+@property (nonatomic) MPVHelper *mpv;
+
+@property (nonatomic) NSLock *videoLock;
+@property (nonatomic) NSLock *displayLock;
+
+@property (nonatomic) BOOL hasVideo;
+@property (nonatomic) BOOL needsFlip;
+@property (nonatomic) BOOL canDrawOffScreen;
+@property (nonatomic) CGLContextObj cglContext;
+@property (nonatomic) CGLPixelFormatObj cglPixelFormat;
+@property (nonatomic) NSSize surfaceSize;
+@property (nonatomic) VideoLayerDraw draw;
+@property (nonatomic) dispatch_queue_t queue;
+@property (nonatomic) BOOL inLiveResize;
+
 @end

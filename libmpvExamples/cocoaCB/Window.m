@@ -129,6 +129,38 @@
     [self performSelector:@selector(hideTitleBar) withObject:nil afterDelay:0.5];
 }
 
+-(void)setKeepAspect:(BOOL)keepAspect {
+    _keepAspect = keepAspect;
+    if (!_isInFullscreen) {
+        _unfsContetnFrame = [self convertRectToScreen:self.contentView.frame];
+    }
+    if (keepAspect) {
+        self.contentAspectRatio = _unfsContetnFrame.size;
+    } else {
+        self.resizeIncrements = NSMakeSize(1.0, 1.0);
+    }
+}
+- (void)setBorder:(BOOL)border {
+    _border = border;
+    if (!border) {
+        [self hideTitleBar];
+    }
+}
+
+- (NSView *)titleBar {
+    return [self standardWindowButton:NSWindowCloseButton].superview;
+}
+
+- (CGFloat)titleBarHeight {
+    return [NSWindow frameRectForContentRect:NSZeroRect styleMask:NSTitledWindowMask].size.height;
+}
+
+- (NSArray<NSButton *> *)titleButtons {
+    return @[[self standardWindowButton:NSWindowCloseButton],
+             [self standardWindowButton:NSWindowMiniaturizeButton],
+             [self standardWindowButton:NSWindowZoomButton]];
+}
+
 #pragma mark - Overrides
 
 - (BOOL)canBecomeKeyWindow {

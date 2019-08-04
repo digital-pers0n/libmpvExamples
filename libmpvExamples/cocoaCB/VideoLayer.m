@@ -172,15 +172,17 @@
     [_videoLock unlock];
 }
 
+static void _update_layer(VideoLayer *obj) {
+    [obj->_videoLock lock];
+    if (!obj->_inLiveResize && obj->_hasVideo) {
+        obj->_needsFlip = YES;
+        [obj display];
+    }
+    [obj->_videoLock unlock];
+}
+
 - (void)update {
-    dispatch_async(_queue, ^{
-        [self->_videoLock lock];
-        if (!self->_inLiveResize && self->_hasVideo) {
-            self->_needsFlip = YES;
-            [self display];
-        }
-        [self->_videoLock unlock];
-    });
+    dispatch_async_f(_queue, (__bridge void *)self, (void *)_update_layer);
 }
 
 static void updateCallback(void *ctx) {

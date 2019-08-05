@@ -126,7 +126,7 @@
 
 - (void)hideTitleBarDelayed {
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(hideTitleBar) object:nil];
-    [self performSelector:@selector(hideTitleBar) withObject:nil afterDelay:0.5];
+    [self performSelector:@selector(hideTitleBar) withObject:nil afterDelay:5];
 }
 
 -(void)setKeepAspect:(BOOL)keepAspect {

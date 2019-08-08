@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		CE5EA94322F48CE400E15610 /* LEClipView.m in Sources */ = {isa = PBXBuildFile; fileRef = CE5EA94222F48CE400E15610 /* LEClipView.m */; };
-		CE5FA4C822F5F201006F6A0C /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = CE5FA4C722F5F201006F6A0C /* README.md */; };
 		CE91A72F22F3382500A6F57F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = CE91A72E22F3382500A6F57F /* AppDelegate.m */; };
 		CE91A73222F3382500A6F57F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = CE91A73122F3382500A6F57F /* main.m */; };
 		CE91A73422F3382500A6F57F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE91A73322F3382500A6F57F /* Assets.xcassets */; };
@@ -209,7 +208,6 @@
 				CE5EA94322F48CE400E15610 /* LEClipView.m in Sources */,
 				CE91A74F22F33A6000A6F57F /* MPVHelper.m in Sources */,
 				CE91A75522F33AAF00A6F57F /* Window.m in Sources */,
-				CE5FA4C822F5F201006F6A0C /* README.md in Sources */,
 				CE91A72F22F3382500A6F57F /* AppDelegate.m in Sources */,
 				CE91A74B22F33A2100A6F57F /* VideoLayer.m in Sources */,
 			);

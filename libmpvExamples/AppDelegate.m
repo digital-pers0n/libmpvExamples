@@ -26,6 +26,7 @@
 }
 
 - (void)applicationWillTerminate:(NSNotification *)aNotification {
+    [_currentExample shutdown];
     _currentExample = nil;
 }
 
@@ -50,7 +51,8 @@
 
 - (IBAction)runCocoaCBExample:(id)sender {
     if (_currentExample) {
-        _currentExample = nil;
+        [_currentExample shutdown];
+        self.currentExample = nil;
     }
     
     if (!_fileURL) {
@@ -79,5 +81,9 @@
     }
 }
 
+- (IBAction)stopExample:(id)sender {
+    [_currentExample shutdown];
+    self.currentExample = nil;
+}
 
 @end

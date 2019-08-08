@@ -26,4 +26,6 @@ typedef enum : NSUInteger {
 @property (nonatomic) NSString *title;
 @property (nonatomic) dispatch_queue_t queue;
 
+- (void)shutdown;
+
 @end

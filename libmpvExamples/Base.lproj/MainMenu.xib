@@ -677,15 +677,31 @@
                 <rect key="frame" x="0.0" y="0.0" width="381" height="183"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
+                    <button verticalHuggingPriority="750" id="75l-B0-342">
+                        <rect key="frame" x="304" y="6" width="69" height="25"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                        <buttonCell key="cell" type="roundTextured" title="Stop" bezelStyle="texturedRounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="TL6-po-HwD">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="stopExample:" target="Voe-Tx-rLC" id="9bH-Fg-goc"/>
+                            <binding destination="Voe-Tx-rLC" name="hidden" keyPath="self.currentExample" id="YIO-E1-m1Q">
+                                <dictionary key="options">
+                                    <string key="NSValueTransformerName">NSIsNil</string>
+                                </dictionary>
+                            </binding>
+                        </connections>
+                    </button>
                     <scrollView horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" usesPredominantAxisScrolling="NO" id="red-pQ-aCF">
-                        <rect key="frame" x="-1" y="-1" width="383" height="185"/>
+                        <rect key="frame" x="-1" y="37" width="383" height="147"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <clipView key="contentView" id="B3z-hJ-2I1" customClass="LEClipView">
-                            <rect key="frame" x="1" y="1" width="381" height="183"/>
+                            <rect key="frame" x="1" y="1" width="381" height="145"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <view id="KBU-fn-mXu">
-                                    <rect key="frame" x="0.0" y="0.0" width="381" height="183"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="381" height="145"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 </view>
                             </subviews>
@@ -694,17 +710,17 @@
                             </connections>
                         </clipView>
                         <scroller key="horizontalScroller" verticalHuggingPriority="750" horizontal="YES" id="4bz-98-Gd0">
-                            <rect key="frame" x="1" y="168" width="381" height="16"/>
+                            <rect key="frame" x="1" y="130" width="381" height="16"/>
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
                         <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="Khp-nM-IAI">
-                            <rect key="frame" x="367" y="1" width="15" height="183"/>
+                            <rect key="frame" x="366" y="1" width="16" height="145"/>
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
                     </scrollView>
                 </subviews>
             </view>
-            <point key="canvasLocation" x="230.5" y="260"/>
+            <point key="canvasLocation" x="230.5" y="259.5"/>
         </window>
         <customView translatesAutoresizingMaskIntoConstraints="NO" id="SEI-iY-qx4">
             <rect key="frame" x="0.0" y="0.0" width="381" height="127"/>
@@ -771,7 +787,7 @@
                     <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 </box>
             </subviews>
-            <point key="canvasLocation" x="652.5" y="139.5"/>
+            <point key="canvasLocation" x="647.5" y="231.5"/>
         </customView>
     </objects>
 </document>

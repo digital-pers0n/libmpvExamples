@@ -54,17 +54,20 @@
     }
     
     if (!_fileURL) {
-        if (!(_fileURL = [self selectFile])) {
+        if ((_fileURL = [self selectFile])) {
+            _window.representedURL = _fileURL;
+        } else {
             NSBeep();
             return;
         }
-    } else {
-        _window.representedURL = _fileURL;
-        CocoaCB *ccb = CocoaCB.new;
-        const char *args[] = { "loadfile", _fileURL.fileSystemRepresentation, NULL };
-        mpv_command(ccb.mpv.mpv_handle, args);
-        _currentExample = ccb;
     }
+    _window.representedURL = _fileURL;
+    CocoaCB *ccb = CocoaCB.new;
+    const char *args[] = { "loadfile", _fileURL.fileSystemRepresentation, NULL };
+    mpv_command(ccb.mpv.mpv_handle, args);
+    
+    self.currentExample = ccb;
+    
 }
 
 - (void)openDocument:(id)sender {

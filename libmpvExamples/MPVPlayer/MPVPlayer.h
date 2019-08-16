@@ -29,6 +29,16 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)shutdown;
 
+- (void)setBool:(BOOL)value forProperty:(NSString *)property;
+- (void)setString:(NSString *)value forProperty:(NSString *)property;
+- (void)setInteger:(NSInteger)value forProperty:(NSString *)property;
+- (void)setDouble:(double)value forProperty:(NSString *)property;
+
+- (BOOL)boolForProperty:(NSString *)property;
+- (NSString *)stringForProperty:(NSString *)property;
+- (NSInteger)integerForProperty:(NSString *)property;
+- (double)doubleForProperty:(NSString *)property;
+
 @end
 
 NS_ASSUME_NONNULL_END

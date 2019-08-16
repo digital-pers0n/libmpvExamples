@@ -8,6 +8,8 @@
 
 #import "MPVPlayer.h"
 
+#define func_attributes __attribute__((overloadable, always_inline))
+
 static inline void check_error(int status) {
     if (status < 0) {
         printf("mpv API error: %s\n", mpv_error_string(status));
@@ -38,7 +40,6 @@ static inline void check_error(int status) {
         check_error( mpv_initialize(mpv));
         check_error( mpv_set_option_string(mpv, "vo", "libmpv"));
         _mpv_handle = mpv;
-        
         dispatch_async(_queue, ^{
             mpv_set_wakeup_callback(_mpv_handle, wakeup, (__bridge void *)self);
         });
@@ -47,6 +48,52 @@ static inline void check_error(int status) {
     return self;
 }
 
+#pragma mark - Methods
+
+- (void)setBool:(BOOL)value forProperty:(NSString *)property {
+    mpv_set_value_for_key(_mpv_handle, (int)value, property.UTF8String);
+}
+
+- (void)setString:(NSString *)value forProperty:(NSString *)property {
+    mpv_set_value_for_key(_mpv_handle, value.UTF8String, property.UTF8String);
+}
+
+- (void)setInteger:(NSInteger)value forProperty:(NSString *)property {
+    mpv_set_value_for_key(_mpv_handle, (int64_t)value, property.UTF8String);
+}
+
+- (void)setDouble:(double)value forProperty:(NSString *)property {
+    mpv_set_value_for_key(_mpv_handle, value, property.UTF8String);
+}
+
+- (BOOL)boolForProperty:(NSString *)property {
+    int result = 0;
+    mpv_get_value_for_key(_mpv_handle, &result, property.UTF8String);
+    return result;
+}
+
+- (NSString *)stringForProperty:(NSString *)property {
+    char *result = NULL;
+    mpv_get_value_for_key(_mpv_handle, &result, property.UTF8String);
+    if (result) {
+        NSString *string = @(result);
+        mpv_free(result);
+        return string;
+    }
+    return nil;
+}
+
+- (NSInteger)integerForProperty:(NSString *)property {
+    int64_t result = 0;
+    mpv_get_value_for_key(_mpv_handle, &result, property.UTF8String);
+    return result;
+}
+
+- (double)doubleForProperty:(NSString *)property {
+    double result = 0;
+    mpv_get_value_for_key(_mpv_handle, &result, property.UTF8String);
+    return result;
+}
 
 #pragma mark - mpv update callback
 
@@ -83,6 +130,112 @@ static void read_events(void *ctx) {
 
 static void wakeup(void *ctx) {
     dispatch_async_f(dispatch_get_main_queue(), ctx, read_events);
+}
+
+#pragma mark - mpv functions
+
+/**
+ Set @c char string.
+ */
+static int func_attributes mpv_set_value_for_key(mpv_handle *mpv, const char *value, const char *key) {
+    mpv_node node = {
+        .u.string = (char *)value,
+        .format = MPV_FORMAT_STRING
+    };
+    int error = mpv_set_property(mpv, key, MPV_FORMAT_NODE, &node);
+    if (error < 0) {
+        fprintf(stderr, "%s: Cannot set value '%s' for key '%s' -> (%d) %s\n", __PRETTY_FUNCTION__, value, key, error, mpv_error_string(error));
+    }
+    return error;
+}
+
+/**
+ Set @c int flag.
+ */
+static int func_attributes mpv_set_value_for_key(mpv_handle *mpv, int value, const char *key) {
+    mpv_node node = {
+        .u.flag = value,
+        .format = MPV_FORMAT_FLAG
+    };
+    int error = mpv_set_property(mpv, key, MPV_FORMAT_NODE, &node);
+    if (error < 0) {
+        fprintf(stderr, "%s: Cannot set value '%d' for key '%s' -> (%d) %s\n", __PRETTY_FUNCTION__, value, key, error, mpv_error_string(error));
+    }
+    return error;
+}
+
+/**
+ Set @c int64_t value.
+ */
+static int func_attributes mpv_set_value_for_key(mpv_handle *mpv, int64_t value, const char *key) {
+    mpv_node node = {
+        .u.int64 = value,
+        .format = MPV_FORMAT_INT64
+    };
+    int error = mpv_set_property(mpv, key, MPV_FORMAT_NODE, &node);
+    if (error < 0) {
+        fprintf(stderr, "%s: Cannot set value '%lld' for key '%s' -> (%d) %s\n", __PRETTY_FUNCTION__, value, key, error, mpv_error_string(error));
+    }
+    return error;
+}
+
+/**
+ Set @c double value.
+ */
+static int func_attributes mpv_set_value_for_key(mpv_handle *mpv, double value, const char *key) {
+    mpv_node node = {
+        .u.double_ = value,
+        .format = MPV_FORMAT_DOUBLE
+    };
+    int error = mpv_set_property(mpv, key, MPV_FORMAT_NODE, &node);
+    if (error < 0) {
+        fprintf(stderr, "%s: Cannot set value '%g' for key '%s' -> (%d) %s\n", __PRETTY_FUNCTION__, value, key, error, mpv_error_string(error));
+    }
+    return error;
+}
+
+/**
+ Get @c char string. Free @c value with @c mpv_free() to avoid memory leaks.
+ */
+static int func_attributes mpv_get_value_for_key(mpv_handle *mpv, char **value, const char *key) {
+    int error = mpv_get_property(mpv, key, MPV_FORMAT_STRING, value);
+    if (error < 0) {
+        fprintf(stderr, "%s: Cannot get value for key '%s' -> (%d) %s\n", __PRETTY_FUNCTION__, key, error, mpv_error_string(error));
+    }
+    return error;
+}
+
+/**
+ Get @c int flag.
+ */
+static int func_attributes mpv_get_value_for_key(mpv_handle *mpv, int *value, const char *key) {
+    int error = mpv_get_property(mpv, key, MPV_FORMAT_FLAG, value);
+    if (error < 0) {
+        fprintf(stderr, "%s: Cannot get value for key '%s' -> (%d) %s\n", __PRETTY_FUNCTION__, key, error, mpv_error_string(error));
+    }
+    return error;
+}
+
+/**
+ Get @c int64_t value.
+ */
+static int func_attributes mpv_get_value_for_key(mpv_handle *mpv, int64_t *value, const char *key) {
+    int error = mpv_get_property(mpv, key, MPV_FORMAT_INT64, value);
+    if (error < 0) {
+        fprintf(stderr, "%s: Cannot get value for key '%s' -> (%d) %s\n", __PRETTY_FUNCTION__, key, error, mpv_error_string(error));
+    }
+    return error;
+}
+
+/**
+ Get @c double value.
+ */
+static int func_attributes mpv_get_value_for_key(mpv_handle *mpv, double *value, const char *key) {
+    int error = mpv_get_property(mpv, key, MPV_FORMAT_DOUBLE, value);
+    if (error < 0) {
+        fprintf(stderr, "%s: Cannot get value for key '%s' -> (%d) %s\n", __PRETTY_FUNCTION__, key, error, mpv_error_string(error));
+    }
+    return error;
 }
 
 @end

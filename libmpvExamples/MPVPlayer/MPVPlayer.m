@@ -8,6 +8,7 @@
 
 #import "MPVPlayer.h"
 
+NSString * const MPVPlayerErrorDomain = @"com.home.mpvPlayer.ErrorDomain";
 #define func_attributes __attribute__((overloadable, always_inline))
 
 static inline void check_error(int status) {
@@ -29,23 +30,72 @@ static inline void check_error(int status) {
 {
     self = [super init];
     if (self) {
-        _queue = dispatch_get_global_queue(QOS_CLASS_BACKGROUND, 0);
-        mpv_handle *mpv = mpv_create();
-        check_error( mpv_set_option_string(mpv, "hwdec", "videotoolbox"));
-#ifdef ENABLE_LEGACY_GPU_SUPPORT
-        check_error( mpv_set_option_string(mpv, "hwdec-image-format", "uyvy422"));
-#endif
-        check_error( mpv_request_log_messages(mpv, "warn"));
-        
-        check_error( mpv_initialize(mpv));
-        check_error( mpv_set_option_string(mpv, "vo", "libmpv"));
-        _mpv_handle = mpv;
-        dispatch_async(_queue, ^{
-            mpv_set_wakeup_callback(_mpv_handle, wakeup, (__bridge void *)self);
-        });
-
+        if ([self setUp] != 0) {
+            _status = MPVPlayerStatusFailed;
+        } else {
+            _status = MPVPlayerStatusReadyToPlay;
+        }
     }
     return self;
+}
+
+- (int)setUp {
+    _queue = dispatch_get_global_queue(QOS_CLASS_BACKGROUND, 0);
+    
+    mpv_handle *mpv = mpv_create();
+    if (!mpv) {
+        
+        NSLog(@"Cannot create mpv_handle.");
+        
+        _error = [[NSError alloc]
+                  initWithDomain:MPVPlayerErrorDomain
+                            code:MPV_ERROR_GENERIC
+                        userInfo:@{NSLocalizedDescriptionKey : @"Cannot create mpv_handle." }];
+        
+        return MPV_ERROR_GENERIC;
+    }
+    
+    check_error( mpv_set_option_string(mpv, "hwdec", "videotoolbox"));
+#ifdef ENABLE_LEGACY_GPU_SUPPORT
+    check_error( mpv_set_option_string(mpv, "hwdec-image-format", "uyvy422"));
+#endif
+    check_error( mpv_request_log_messages(mpv, "warn"));
+    
+    int error = mpv_initialize(mpv);
+    if (error < 0) {
+        
+        NSLog(@"Cannot initialize mpv_handle.");
+        
+        _error = [[NSError alloc]
+                  initWithDomain:MPVPlayerErrorDomain
+                            code:error
+                        userInfo:@{ NSLocalizedDescriptionKey :
+                                       [NSString stringWithFormat:@"%s\n", mpv_error_string(error)]
+                                   }];
+        mpv_destroy(mpv);
+        return error;
+    }
+    
+    check_error( mpv_set_option_string(mpv, "vo", "libmpv"));
+    _mpv_handle = mpv;
+    
+    dispatch_async(_queue, ^{
+        mpv_set_wakeup_callback(_mpv_handle, wakeup, (__bridge void *)self);
+    });
+    
+    return 0;
+}
+
+- (void)dealloc
+{
+    if (_status == MPVPlayerStatusReadyToPlay) {
+        [self shutdown];
+    }
+}
+
+- (void)shutdown {
+    mpv_destroy(_mpv_handle);
+    _status = MPVPlayerStatusUnknown;
 }
 
 #pragma mark - Methods

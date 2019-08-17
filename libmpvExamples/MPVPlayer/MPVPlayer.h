@@ -21,6 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, readonly, nullable) mpv_handle *mpv_handle;
 @property (readonly, nullable) NSError *error;
+@property (nonatomic, readonly) MPVPlayerStatus status;
 
 - (void)openURL:(NSURL *)url;
 @property (nonatomic, nullable) NSURL *url;

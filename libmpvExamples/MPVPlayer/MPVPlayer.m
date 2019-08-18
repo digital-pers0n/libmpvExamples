@@ -98,7 +98,27 @@ static inline void check_error(int status) {
     _status = MPVPlayerStatusUnknown;
 }
 
+#pragma mark - Properties
+
+- (void)setUrl:(NSURL *)url {
+    _url = url;
+    [self openURL:url];
+}
+
 #pragma mark - Methods
+
+- (void)openURL:(NSURL *)url {
+    const char *command[] = { "loadfile", url.fileSystemRepresentation, "append", NULL };
+    mpv_command(_mpv_handle, command);
+}
+
+- (void)play {
+    [self setBool:NO forProperty:@"pause"];
+}
+
+- (void)pause {
+    [self setBool:YES forProperty:@"pause"];
+}
 
 - (void)setBool:(BOOL)value forProperty:(NSString *)property {
     mpv_set_value_for_key(_mpv_handle, (int)value, property.UTF8String);

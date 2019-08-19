@@ -25,10 +25,20 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)openURL:(NSURL *)url;
 @property (nonatomic, nullable) NSURL *url;
+
+#pragma mark - Playback Control
+
 - (void)play;
 - (void)pause;
+- (void)stop;
+
+@property (nonatomic) double speed;
+@property (nonatomic) double timePosition;
+@property (nonatomic) double percentPosition;
 
 - (void)shutdown;
+
+#pragma mark - Properties
 
 - (void)setBool:(BOOL)value forProperty:(NSString *)property;
 - (void)setString:(NSString *)value forProperty:(NSString *)property;

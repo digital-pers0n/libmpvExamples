@@ -105,6 +105,30 @@ static inline void check_error(int status) {
     [self openURL:url];
 }
 
+- (void)setSpeed:(double)speed {
+    [self setDouble:speed forProperty:@"speed"];
+}
+
+- (double)speed {
+    return [self doubleForProperty:@"speed"];
+}
+
+- (double)timePosition {
+    return [self boolForProperty:@"time-pos"];
+}
+
+- (void)setTimePosition:(double)currentTimePosition {
+    [self setDouble:currentTimePosition forProperty:@"time-pos"];
+}
+
+- (double)percentPosition {
+    return [self doubleForProperty:@"percent-pos"];
+}
+
+- (void)setPercentPosition:(double)percentPosition {
+    [self setDouble:percentPosition forProperty:@"percent-pos"];
+}
+
 #pragma mark - Methods
 
 - (void)openURL:(NSURL *)url {
@@ -118,6 +142,11 @@ static inline void check_error(int status) {
 
 - (void)pause {
     [self setBool:YES forProperty:@"pause"];
+}
+
+- (void)stop {
+    const char *command[] = { "stop", NULL };
+    mpv_command(_mpv_handle, command);
 }
 
 - (void)setBool:(BOOL)value forProperty:(NSString *)property {

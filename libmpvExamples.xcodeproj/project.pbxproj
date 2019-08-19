@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		CE2152F722FB227B00079A6F /* MPVPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = CE2152F622FB227B00079A6F /* MPVPlayer.m */; };
+		CE3F2B1F230AF13A004F76B9 /* MPVPlayerProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3F2B1E230AF13A004F76B9 /* MPVPlayerProperties.m */; };
 		CE5EA94322F48CE400E15610 /* LEClipView.m in Sources */ = {isa = PBXBuildFile; fileRef = CE5EA94222F48CE400E15610 /* LEClipView.m */; };
 		CE7136E1230304E7000B154A /* MPVPlayerView.m in Sources */ = {isa = PBXBuildFile; fileRef = CE7136E0230304E7000B154A /* MPVPlayerView.m */; };
 		CE91A72F22F3382500A6F57F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = CE91A72E22F3382500A6F57F /* AppDelegate.m */; };
@@ -27,6 +28,8 @@
 /* Begin PBXFileReference section */
 		CE2152F522FB227B00079A6F /* MPVPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MPVPlayer.h; path = MPVPlayer/MPVPlayer.h; sourceTree = "<group>"; };
 		CE2152F622FB227B00079A6F /* MPVPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MPVPlayer.m; path = MPVPlayer/MPVPlayer.m; sourceTree = "<group>"; };
+		CE3F2B1E230AF13A004F76B9 /* MPVPlayerProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MPVPlayerProperties.m; path = MPVPlayer/MPVPlayerProperties.m; sourceTree = "<group>"; };
+		CE3F2B20230AF15D004F76B9 /* MPVPlayerProperties.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = MPVPlayerProperties.h; path = MPVPlayer/MPVPlayerProperties.h; sourceTree = "<group>"; };
 		CE5EA94022F485EC00E15610 /* libmpvExamples.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = libmpvExamples.h; sourceTree = "<group>"; };
 		CE5EA94122F48CE400E15610 /* LEClipView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LEClipView.h; sourceTree = "<group>"; };
 		CE5EA94222F48CE400E15610 /* LEClipView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LEClipView.m; sourceTree = "<group>"; };
@@ -72,6 +75,8 @@
 		CE2152F822FB228700079A6F /* MPVPlayer */ = {
 			isa = PBXGroup;
 			children = (
+				CE3F2B20230AF15D004F76B9 /* MPVPlayerProperties.h */,
+				CE3F2B1E230AF13A004F76B9 /* MPVPlayerProperties.m */,
 				CE7136DF230304E7000B154A /* MPVPlayerView.h */,
 				CE7136E0230304E7000B154A /* MPVPlayerView.m */,
 				CE2152F522FB227B00079A6F /* MPVPlayer.h */,
@@ -225,6 +230,7 @@
 				CE91A73222F3382500A6F57F /* main.m in Sources */,
 				CE5EA94322F48CE400E15610 /* LEClipView.m in Sources */,
 				CE2152F722FB227B00079A6F /* MPVPlayer.m in Sources */,
+				CE3F2B1F230AF13A004F76B9 /* MPVPlayerProperties.m in Sources */,
 				CE91A74F22F33A6000A6F57F /* MPVHelper.m in Sources */,
 				CE91A75522F33AAF00A6F57F /* Window.m in Sources */,
 				CE91A72F22F3382500A6F57F /* AppDelegate.m in Sources */,

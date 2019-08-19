@@ -106,27 +106,27 @@ static inline void check_error(int status) {
 }
 
 - (void)setSpeed:(double)speed {
-    [self setDouble:speed forProperty:@"speed"];
+    [self setDouble:speed forProperty:MPVPlayerPropertySpeed];
 }
 
 - (double)speed {
-    return [self doubleForProperty:@"speed"];
+    return [self doubleForProperty:MPVPlayerPropertySpeed];
 }
 
 - (double)timePosition {
-    return [self boolForProperty:@"time-pos"];
+    return [self boolForProperty:MPVPlayerPropertyTimePosition];
 }
 
 - (void)setTimePosition:(double)currentTimePosition {
-    [self setDouble:currentTimePosition forProperty:@"time-pos"];
+    [self setDouble:currentTimePosition forProperty:MPVPlayerPropertyTimePosition];
 }
 
 - (double)percentPosition {
-    return [self doubleForProperty:@"percent-pos"];
+    return [self doubleForProperty:MPVPlayerPropertyPercentPosition];
 }
 
 - (void)setPercentPosition:(double)percentPosition {
-    [self setDouble:percentPosition forProperty:@"percent-pos"];
+    [self setDouble:percentPosition forProperty:MPVPlayerPropertyPercentPosition];
 }
 
 #pragma mark - Methods
@@ -137,11 +137,11 @@ static inline void check_error(int status) {
 }
 
 - (void)play {
-    [self setBool:NO forProperty:@"pause"];
+    [self setBool:NO forProperty:MPVPlayerPropertyPause];
 }
 
 - (void)pause {
-    [self setBool:YES forProperty:@"pause"];
+    [self setBool:YES forProperty:MPVPlayerPropertyPause];
 }
 
 - (void)stop {

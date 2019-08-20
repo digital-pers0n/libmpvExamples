@@ -35,6 +35,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) double speed;
 @property (nonatomic) double timePosition;
 @property (nonatomic) double percentPosition;
+@property (nonatomic) double volume;
+@property (nonatomic, getter=isMuted) BOOL muted;
 
 - (void)shutdown;
 

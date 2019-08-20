@@ -7,6 +7,7 @@
 //
 
 #import "MPVPlayer.h"
+#import "MPVPlayerProperties.h"
 
 NSString * const MPVPlayerErrorDomain = @"com.home.mpvPlayer.ErrorDomain";
 #define func_attributes __attribute__((overloadable, always_inline))
@@ -127,6 +128,22 @@ static inline void check_error(int status) {
 
 - (void)setPercentPosition:(double)percentPosition {
     [self setDouble:percentPosition forProperty:MPVPlayerPropertyPercentPosition];
+}
+
+- (double)volume {
+    return [self doubleForProperty:MPVPlayerPropertyVolume];
+}
+
+- (void)setVolume:(double)volume {
+    [self setDouble:volume forProperty:MPVPlayerPropertyVolume];
+}
+
+- (BOOL)isMuted {
+    return [self boolForProperty:MPVPlayerPropertyMute];
+}
+
+- (void)setMuted:(BOOL)muted {
+    [self setBool:muted forProperty:MPVPlayerPropertyMute];
 }
 
 #pragma mark - Methods

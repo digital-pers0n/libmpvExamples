@@ -12,6 +12,14 @@
 NSString * const MPVPlayerErrorDomain = @"com.home.mpvPlayer.ErrorDomain";
 #define func_attributes __attribute__((overloadable, always_inline))
 
+#define mpv_print_error_set_property(error_code, property_name, value_format, value) \
+        fprintf(stderr, "%s Failed to set value '" value_format "' for property '%s' -> %d %s\n", \
+                __PRETTY_FUNCTION__, value, property_name, error_code, mpv_error_string(error_code))
+
+#define mpv_print_error_get_property(error_code, property_name) \
+        fprintf(stderr, "%s Failed to get value for property '%s' -> %d %s\n", \
+                __PRETTY_FUNCTION__, property_name, error_code, mpv_error_string(error_code))
+
 static inline void check_error(int status) {
     if (status < 0) {
         printf("mpv API error: %s\n", mpv_error_string(status));
@@ -167,47 +175,73 @@ static inline void check_error(int status) {
 }
 
 - (void)setBool:(BOOL)value forProperty:(NSString *)property {
-    mpv_set_value_for_key(_mpv_handle, (int)value, property.UTF8String);
+    int error = mpv_set_value_for_key(_mpv_handle, (int)value, property.UTF8String);
+    if (error != MPV_ERROR_SUCCESS) {
+        mpv_print_error_set_property(error, property.UTF8String, "%d", value);
+    }
 }
 
 - (void)setString:(NSString *)value forProperty:(NSString *)property {
-    mpv_set_value_for_key(_mpv_handle, value.UTF8String, property.UTF8String);
+    int error = mpv_set_value_for_key(_mpv_handle, value.UTF8String, property.UTF8String);
+    if (error != MPV_ERROR_SUCCESS) {
+        mpv_print_error_set_property(error, property.UTF8String, "%s", value.UTF8String);
+    }
 }
 
 - (void)setInteger:(NSInteger)value forProperty:(NSString *)property {
-    mpv_set_value_for_key(_mpv_handle, (int64_t)value, property.UTF8String);
+    int error = mpv_set_value_for_key(_mpv_handle, (int64_t)value, property.UTF8String);
+    if (error != MPV_ERROR_SUCCESS) {
+        mpv_print_error_set_property(error, property.UTF8String, "%ld", value);
+    }
 }
 
 - (void)setDouble:(double)value forProperty:(NSString *)property {
-    mpv_set_value_for_key(_mpv_handle, value, property.UTF8String);
+    int error = mpv_set_value_for_key(_mpv_handle, value, property.UTF8String);
+    if (error != MPV_ERROR_SUCCESS) {
+        mpv_print_error_set_property(error, property.UTF8String, "%g", value);
+    }
 }
 
 - (BOOL)boolForProperty:(NSString *)property {
     int result = 0;
-    mpv_get_value_for_key(_mpv_handle, &result, property.UTF8String);
+    int error = mpv_get_value_for_key(_mpv_handle, &result, property.UTF8String);
+    if (error != MPV_ERROR_SUCCESS) {
+        mpv_print_error_get_property(error, property.UTF8String);
+    }
     return result;
 }
 
 - (NSString *)stringForProperty:(NSString *)property {
     char *result = NULL;
-    mpv_get_value_for_key(_mpv_handle, &result, property.UTF8String);
+    int error = mpv_get_value_for_key(_mpv_handle, &result, property.UTF8String);
     if (result) {
         NSString *string = @(result);
         mpv_free(result);
         return string;
+    } else {
+        if (error != MPV_ERROR_SUCCESS) {
+            mpv_print_error_get_property(error, property.UTF8String);
+        }
     }
+    
     return nil;
 }
 
 - (NSInteger)integerForProperty:(NSString *)property {
     int64_t result = 0;
-    mpv_get_value_for_key(_mpv_handle, &result, property.UTF8String);
+    int error = mpv_get_value_for_key(_mpv_handle, &result, property.UTF8String);
+    if (error != MPV_ERROR_SUCCESS) {
+        mpv_print_error_get_property(error, property.UTF8String);
+    }
     return result;
 }
 
 - (double)doubleForProperty:(NSString *)property {
     double result = 0;
-    mpv_get_value_for_key(_mpv_handle, &result, property.UTF8String);
+    int error = mpv_get_value_for_key(_mpv_handle, &result, property.UTF8String);
+    if (error != MPV_ERROR_SUCCESS) {
+        mpv_print_error_get_property(error, property.UTF8String);
+    }
     return result;
 }
 
@@ -258,11 +292,7 @@ static int func_attributes mpv_set_value_for_key(mpv_handle *mpv, const char *va
         .u.string = (char *)value,
         .format = MPV_FORMAT_STRING
     };
-    int error = mpv_set_property(mpv, key, MPV_FORMAT_NODE, &node);
-    if (error < 0) {
-        fprintf(stderr, "%s: Cannot set value '%s' for key '%s' -> (%d) %s\n", __PRETTY_FUNCTION__, value, key, error, mpv_error_string(error));
-    }
-    return error;
+    return mpv_set_property(mpv, key, MPV_FORMAT_NODE, &node);
 }
 
 /**
@@ -273,11 +303,7 @@ static int func_attributes mpv_set_value_for_key(mpv_handle *mpv, int value, con
         .u.flag = value,
         .format = MPV_FORMAT_FLAG
     };
-    int error = mpv_set_property(mpv, key, MPV_FORMAT_NODE, &node);
-    if (error < 0) {
-        fprintf(stderr, "%s: Cannot set value '%d' for key '%s' -> (%d) %s\n", __PRETTY_FUNCTION__, value, key, error, mpv_error_string(error));
-    }
-    return error;
+    return mpv_set_property(mpv, key, MPV_FORMAT_NODE, &node);
 }
 
 /**
@@ -288,11 +314,7 @@ static int func_attributes mpv_set_value_for_key(mpv_handle *mpv, int64_t value,
         .u.int64 = value,
         .format = MPV_FORMAT_INT64
     };
-    int error = mpv_set_property(mpv, key, MPV_FORMAT_NODE, &node);
-    if (error < 0) {
-        fprintf(stderr, "%s: Cannot set value '%lld' for key '%s' -> (%d) %s\n", __PRETTY_FUNCTION__, value, key, error, mpv_error_string(error));
-    }
-    return error;
+    return mpv_set_property(mpv, key, MPV_FORMAT_NODE, &node);
 }
 
 /**
@@ -303,55 +325,35 @@ static int func_attributes mpv_set_value_for_key(mpv_handle *mpv, double value, 
         .u.double_ = value,
         .format = MPV_FORMAT_DOUBLE
     };
-    int error = mpv_set_property(mpv, key, MPV_FORMAT_NODE, &node);
-    if (error < 0) {
-        fprintf(stderr, "%s: Cannot set value '%g' for key '%s' -> (%d) %s\n", __PRETTY_FUNCTION__, value, key, error, mpv_error_string(error));
-    }
-    return error;
+    return mpv_set_property(mpv, key, MPV_FORMAT_NODE, &node);
 }
 
 /**
  Get @c char string. Free @c value with @c mpv_free() to avoid memory leaks.
  */
 static int func_attributes mpv_get_value_for_key(mpv_handle *mpv, char **value, const char *key) {
-    int error = mpv_get_property(mpv, key, MPV_FORMAT_STRING, value);
-    if (error < 0) {
-        fprintf(stderr, "%s: Cannot get value for key '%s' -> (%d) %s\n", __PRETTY_FUNCTION__, key, error, mpv_error_string(error));
-    }
-    return error;
+    return mpv_get_property(mpv, key, MPV_FORMAT_STRING, value);
 }
 
 /**
  Get @c int flag.
  */
 static int func_attributes mpv_get_value_for_key(mpv_handle *mpv, int *value, const char *key) {
-    int error = mpv_get_property(mpv, key, MPV_FORMAT_FLAG, value);
-    if (error < 0) {
-        fprintf(stderr, "%s: Cannot get value for key '%s' -> (%d) %s\n", __PRETTY_FUNCTION__, key, error, mpv_error_string(error));
-    }
-    return error;
+    return mpv_get_property(mpv, key, MPV_FORMAT_FLAG, value);
 }
 
 /**
  Get @c int64_t value.
  */
 static int func_attributes mpv_get_value_for_key(mpv_handle *mpv, int64_t *value, const char *key) {
-    int error = mpv_get_property(mpv, key, MPV_FORMAT_INT64, value);
-    if (error < 0) {
-        fprintf(stderr, "%s: Cannot get value for key '%s' -> (%d) %s\n", __PRETTY_FUNCTION__, key, error, mpv_error_string(error));
-    }
-    return error;
+    return mpv_get_property(mpv, key, MPV_FORMAT_INT64, value);
 }
 
 /**
  Get @c double value.
  */
 static int func_attributes mpv_get_value_for_key(mpv_handle *mpv, double *value, const char *key) {
-    int error = mpv_get_property(mpv, key, MPV_FORMAT_DOUBLE, value);
-    if (error < 0) {
-        fprintf(stderr, "%s: Cannot get value for key '%s' -> (%d) %s\n", __PRETTY_FUNCTION__, key, error, mpv_error_string(error));
-    }
-    return error;
+    return mpv_get_property(mpv, key, MPV_FORMAT_DOUBLE, value);
 }
 
 @end

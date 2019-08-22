@@ -20,6 +20,10 @@ NSString * const MPVPlayerErrorDomain = @"com.home.mpvPlayer.ErrorDomain";
         NSLog(@"%s Failed to get value for property '%@' -> %d %s\n", \
                 __PRETTY_FUNCTION__, property_name, error_code, mpv_error_string(error_code))
 
+#define mpv_print_error_generic(error_code, format, ...) \
+        NSLog(@"%s " format " -> %d %s", \
+                __PRETTY_FUNCTION__, ##__VA_ARGS__, error_code, mpv_error_string(error_code))
+
 static inline void check_error(int status) {
     if (status < 0) {
         printf("mpv API error: %s\n", mpv_error_string(status));
@@ -245,6 +249,27 @@ static inline void check_error(int status) {
     return result;
 }
 
+- (void)performCommand:(NSString *)command withArgument:(NSString *)arg1 withArgument:(NSString *)arg2 {
+    int error = mpv_perform_command_with_arguments(_mpv_handle, command.UTF8String, arg1.UTF8String, arg2.UTF8String);
+    if (error != MPV_ERROR_SUCCESS) {
+        mpv_print_error_generic(error, "Failed to perform command '%@' with arguments '%@', '%@'", command, arg1, arg2);
+    }
+}
+
+- (void)performCommand:(NSString *)command withArgument:(NSString *)arg1 {
+    int error = mpv_perform_command_with_arguments(_mpv_handle, command.UTF8String, arg1.UTF8String, NULL);
+    if (error != MPV_ERROR_SUCCESS) {
+        mpv_print_error_generic(error, "Failed to perform command '%@' with argument '%@'", command, arg1);
+    }
+}
+
+- (void)performCommand:(NSString *)command {
+    int error = mpv_perform_command_with_arguments(_mpv_handle, command.UTF8String, NULL, NULL);
+    if (error != MPV_ERROR_SUCCESS) {
+        mpv_print_error_generic(error, "Failed to perform command '%@'", command);
+    }
+}
+
 #pragma mark - mpv update callback
 
 static inline void _print_mpv_message(struct mpv_event_log_message *msg) {
@@ -283,6 +308,7 @@ static void wakeup(void *ctx) {
 }
 
 #pragma mark - mpv functions
+#pragma mark set/get mpv properties
 
 /**
  Set @c char string.
@@ -354,6 +380,13 @@ static int func_attributes mpv_get_value_for_key(mpv_handle *mpv, int64_t *value
  */
 static int func_attributes mpv_get_value_for_key(mpv_handle *mpv, double *value, const char *key) {
     return mpv_get_property(mpv, key, MPV_FORMAT_DOUBLE, value);
+}
+
+#pragma mark mpv commands
+
+static inline int mpv_perform_command_with_arguments(mpv_handle *mpv, const char *command, const char *arg1, const char *arg2) {
+    const char *cmd[] = { command, arg1, arg2, NULL };
+    return mpv_command(mpv, cmd);
 }
 
 @end

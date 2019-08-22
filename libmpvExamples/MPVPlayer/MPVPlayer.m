@@ -13,11 +13,11 @@ NSString * const MPVPlayerErrorDomain = @"com.home.mpvPlayer.ErrorDomain";
 #define func_attributes __attribute__((overloadable, always_inline))
 
 #define mpv_print_error_set_property(error_code, property_name, value_format, value) \
-        NSLog(@"%s Failed to set value '" value_format "' for property '%@' -> %d %s\n", \
+        NSLog(@"%s Failed to set value '" value_format "' for property '%@' -> %d %s", \
                 __PRETTY_FUNCTION__, value, property_name, error_code, mpv_error_string(error_code))
 
 #define mpv_print_error_get_property(error_code, property_name) \
-        NSLog(@"%s Failed to get value for property '%@' -> %d %s\n", \
+        NSLog(@"%s Failed to get value for property '%@' -> %d %s", \
                 __PRETTY_FUNCTION__, property_name, error_code, mpv_error_string(error_code))
 
 #define mpv_print_error_generic(error_code, format, ...) \

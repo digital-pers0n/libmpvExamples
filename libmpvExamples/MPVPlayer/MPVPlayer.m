@@ -13,11 +13,11 @@ NSString * const MPVPlayerErrorDomain = @"com.home.mpvPlayer.ErrorDomain";
 #define func_attributes __attribute__((overloadable, always_inline))
 
 #define mpv_print_error_set_property(error_code, property_name, value_format, value) \
-        fprintf(stderr, "%s Failed to set value '" value_format "' for property '%s' -> %d %s\n", \
+        NSLog(@"%s Failed to set value '" value_format "' for property '%@' -> %d %s\n", \
                 __PRETTY_FUNCTION__, value, property_name, error_code, mpv_error_string(error_code))
 
 #define mpv_print_error_get_property(error_code, property_name) \
-        fprintf(stderr, "%s Failed to get value for property '%s' -> %d %s\n", \
+        NSLog(@"%s Failed to get value for property '%@' -> %d %s\n", \
                 __PRETTY_FUNCTION__, property_name, error_code, mpv_error_string(error_code))
 
 static inline void check_error(int status) {
@@ -177,28 +177,28 @@ static inline void check_error(int status) {
 - (void)setBool:(BOOL)value forProperty:(NSString *)property {
     int error = mpv_set_value_for_key(_mpv_handle, (int)value, property.UTF8String);
     if (error != MPV_ERROR_SUCCESS) {
-        mpv_print_error_set_property(error, property.UTF8String, "%d", value);
+        mpv_print_error_set_property(error, property, "%d", value);
     }
 }
 
 - (void)setString:(NSString *)value forProperty:(NSString *)property {
     int error = mpv_set_value_for_key(_mpv_handle, value.UTF8String, property.UTF8String);
     if (error != MPV_ERROR_SUCCESS) {
-        mpv_print_error_set_property(error, property.UTF8String, "%s", value.UTF8String);
+        mpv_print_error_set_property(error, property, "%@", value);
     }
 }
 
 - (void)setInteger:(NSInteger)value forProperty:(NSString *)property {
     int error = mpv_set_value_for_key(_mpv_handle, (int64_t)value, property.UTF8String);
     if (error != MPV_ERROR_SUCCESS) {
-        mpv_print_error_set_property(error, property.UTF8String, "%ld", value);
+        mpv_print_error_set_property(error, property, "%ld", value);
     }
 }
 
 - (void)setDouble:(double)value forProperty:(NSString *)property {
     int error = mpv_set_value_for_key(_mpv_handle, value, property.UTF8String);
     if (error != MPV_ERROR_SUCCESS) {
-        mpv_print_error_set_property(error, property.UTF8String, "%g", value);
+        mpv_print_error_set_property(error, property, "%g", value);
     }
 }
 
@@ -206,7 +206,7 @@ static inline void check_error(int status) {
     int result = 0;
     int error = mpv_get_value_for_key(_mpv_handle, &result, property.UTF8String);
     if (error != MPV_ERROR_SUCCESS) {
-        mpv_print_error_get_property(error, property.UTF8String);
+        mpv_print_error_get_property(error, property);
     }
     return result;
 }
@@ -220,7 +220,7 @@ static inline void check_error(int status) {
         return string;
     } else {
         if (error != MPV_ERROR_SUCCESS) {
-            mpv_print_error_get_property(error, property.UTF8String);
+            mpv_print_error_get_property(error, property);
         }
     }
     
@@ -231,7 +231,7 @@ static inline void check_error(int status) {
     int64_t result = 0;
     int error = mpv_get_value_for_key(_mpv_handle, &result, property.UTF8String);
     if (error != MPV_ERROR_SUCCESS) {
-        mpv_print_error_get_property(error, property.UTF8String);
+        mpv_print_error_get_property(error, property);
     }
     return result;
 }
@@ -240,7 +240,7 @@ static inline void check_error(int status) {
     double result = 0;
     int error = mpv_get_value_for_key(_mpv_handle, &result, property.UTF8String);
     if (error != MPV_ERROR_SUCCESS) {
-        mpv_print_error_get_property(error, property.UTF8String);
+        mpv_print_error_get_property(error, property);
     }
     return result;
 }

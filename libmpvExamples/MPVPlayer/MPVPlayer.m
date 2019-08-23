@@ -8,6 +8,7 @@
 
 #import "MPVPlayer.h"
 #import "MPVPlayerProperties.h"
+#import "MPVPlayerCommands.h"
 
 NSString * const MPVPlayerErrorDomain = @"com.home.mpvPlayer.ErrorDomain";
 #define func_attributes __attribute__((overloadable, always_inline))
@@ -161,8 +162,7 @@ static inline void check_error(int status) {
 #pragma mark - Methods
 
 - (void)openURL:(NSURL *)url {
-    const char *command[] = { "loadfile", url.fileSystemRepresentation, "append", NULL };
-    mpv_command(_mpv_handle, command);
+    [self performCommand:MPVPlayerCommandLoadFile withArgument:url.absoluteString withArgument:@"append"];
 }
 
 - (void)play {
@@ -174,8 +174,7 @@ static inline void check_error(int status) {
 }
 
 - (void)stop {
-    const char *command[] = { "stop", NULL };
-    mpv_command(_mpv_handle, command);
+    [self performCommand:MPVPlayerCommandStop];
 }
 
 - (void)setBool:(BOOL)value forProperty:(NSString *)property {

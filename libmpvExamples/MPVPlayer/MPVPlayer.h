@@ -48,7 +48,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)setDouble:(double)value forProperty:(NSString *)property;
 
 - (BOOL)boolForProperty:(NSString *)property;
-- (NSString *)stringForProperty:(NSString *)property;
+- (nullable NSString *)stringForProperty:(NSString *)property;
 - (NSInteger)integerForProperty:(NSString *)property;
 - (double)doubleForProperty:(NSString *)property;
 

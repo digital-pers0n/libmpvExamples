@@ -109,6 +109,7 @@ static inline void check_error(int status) {
 
 - (void)shutdown {
     mpv_destroy(_mpv_handle);
+    _mpv_handle = NULL;
     _status = MPVPlayerStatusUnknown;
 }
 

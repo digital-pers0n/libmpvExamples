@@ -60,4 +60,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
+#pragma mark - Notifications
+
+extern NSString * const MPVPlayerWillShutdownNotification;
+
 NS_ASSUME_NONNULL_END

@@ -108,6 +108,7 @@ static inline void check_error(int status) {
 }
 
 - (void)shutdown {
+    [NSNotificationCenter.defaultCenter postNotificationName:MPVPlayerWillShutdownNotification object:self userInfo:nil];
     mpv_destroy(_mpv_handle);
     _mpv_handle = NULL;
     _status = MPVPlayerStatusUnknown;

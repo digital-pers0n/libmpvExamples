@@ -47,23 +47,37 @@
     return nil;
 }
 
-#pragma mark - IBAction methods
+- (void)destroyCurrentExample {
+    [_currentExample shutdown];
+    self.currentExample = nil;
+}
 
-- (IBAction)runCocoaCBExample:(id)sender {
-    if (_currentExample) {
-        [_currentExample shutdown];
-        self.currentExample = nil;
-    }
-    
+- (BOOL)hasFileURL {
     if (!_fileURL) {
         if ((_fileURL = [self selectFile])) {
             _window.representedURL = _fileURL;
         } else {
             NSBeep();
-            return;
+            return NO;
         }
+        _window.representedURL = _fileURL;
     }
-    _window.representedURL = _fileURL;
+    
+    return YES;
+}
+
+#pragma mark - IBAction methods
+
+- (IBAction)runCocoaCBExample:(id)sender {
+    
+    if (_currentExample) {
+        [self destroyCurrentExample];
+    }
+    
+    if (![self hasFileURL]) {
+        return;
+    }
+    
     CocoaCB *ccb = CocoaCB.new;
     const char *args[] = { "loadfile", _fileURL.fileSystemRepresentation, NULL };
     mpv_command(ccb.mpv.mpv_handle, args);
@@ -82,8 +96,7 @@
 }
 
 - (IBAction)stopExample:(id)sender {
-    [_currentExample shutdown];
-    self.currentExample = nil;
+    [self destroyCurrentExample];
 }
 
 @end

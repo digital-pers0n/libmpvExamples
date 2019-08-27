@@ -25,6 +25,8 @@
 		CE91A75222F33A8500A6F57F /* EventsView.m in Sources */ = {isa = PBXBuildFile; fileRef = CE91A75122F33A8500A6F57F /* EventsView.m */; };
 		CE91A75522F33AAF00A6F57F /* Window.m in Sources */ = {isa = PBXBuildFile; fileRef = CE91A75422F33AAF00A6F57F /* Window.m */; };
 		CE91A75822F33ACD00A6F57F /* CocoaCB.m in Sources */ = {isa = PBXBuildFile; fileRef = CE91A75722F33ACD00A6F57F /* CocoaCB.m */; };
+		CEA2BC792315840F00353057 /* MPVOpenGLView.m in Sources */ = {isa = PBXBuildFile; fileRef = CEA2BC782315840F00353057 /* MPVOpenGLView.m */; };
+		CEA2BC7C2315844C00353057 /* MPVPlayerLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = CEA2BC7B2315844C00353057 /* MPVPlayerLayer.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -61,6 +63,10 @@
 		CE91A75422F33AAF00A6F57F /* Window.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Window.m; path = cocoaCB/Window.m; sourceTree = "<group>"; };
 		CE91A75622F33ACD00A6F57F /* CocoaCB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CocoaCB.h; path = cocoaCB/CocoaCB.h; sourceTree = "<group>"; };
 		CE91A75722F33ACD00A6F57F /* CocoaCB.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CocoaCB.m; path = cocoaCB/CocoaCB.m; sourceTree = "<group>"; };
+		CEA2BC772315840F00353057 /* MPVOpenGLView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MPVOpenGLView.h; path = MPVPlayer/MPVOpenGLView.h; sourceTree = "<group>"; };
+		CEA2BC782315840F00353057 /* MPVOpenGLView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MPVOpenGLView.m; path = MPVPlayer/MPVOpenGLView.m; sourceTree = "<group>"; };
+		CEA2BC7A2315844C00353057 /* MPVPlayerLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MPVPlayerLayer.h; path = MPVPlayer/MPVPlayerLayer.h; sourceTree = "<group>"; };
+		CEA2BC7B2315844C00353057 /* MPVPlayerLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MPVPlayerLayer.m; path = MPVPlayer/MPVPlayerLayer.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,6 +91,10 @@
 				CE3F2B20230AF15D004F76B9 /* MPVPlayerProperties.h */,
 				CE3F2B1E230AF13A004F76B9 /* MPVPlayerProperties.m */,
 				CE0E31B8231195E600EE8E40 /* MPVPlayerNotifications.m */,
+				CEA2BC772315840F00353057 /* MPVOpenGLView.h */,
+				CEA2BC782315840F00353057 /* MPVOpenGLView.m */,
+				CEA2BC7A2315844C00353057 /* MPVPlayerLayer.h */,
+				CEA2BC7B2315844C00353057 /* MPVPlayerLayer.m */,
 				CE7136DF230304E7000B154A /* MPVPlayerView.h */,
 				CE7136E0230304E7000B154A /* MPVPlayerView.m */,
 				CE2152F522FB227B00079A6F /* MPVPlayer.h */,
@@ -236,6 +246,7 @@
 				CE91A75822F33ACD00A6F57F /* CocoaCB.m in Sources */,
 				CE91A75222F33A8500A6F57F /* EventsView.m in Sources */,
 				CE91A73222F3382500A6F57F /* main.m in Sources */,
+				CEA2BC7C2315844C00353057 /* MPVPlayerLayer.m in Sources */,
 				CE5EA94322F48CE400E15610 /* LEClipView.m in Sources */,
 				CE2152F722FB227B00079A6F /* MPVPlayer.m in Sources */,
 				CE3F2B1F230AF13A004F76B9 /* MPVPlayerProperties.m in Sources */,
@@ -244,6 +255,7 @@
 				CE91A75522F33AAF00A6F57F /* Window.m in Sources */,
 				CE0E31B72310170100EE8E40 /* MPVPlayerCommands.m in Sources */,
 				CE91A72F22F3382500A6F57F /* AppDelegate.m in Sources */,
+				CEA2BC792315840F00353057 /* MPVOpenGLView.m in Sources */,
 				CE91A74B22F33A2100A6F57F /* VideoLayer.m in Sources */,
 				CE7136E1230304E7000B154A /* MPVPlayerView.m in Sources */,
 			);

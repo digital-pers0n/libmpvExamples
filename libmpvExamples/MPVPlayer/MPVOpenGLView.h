@@ -8,6 +8,14 @@
 
 #import <Cocoa/Cocoa.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
+@class MPVPlayer;
+
 @interface MPVOpenGLView : NSOpenGLView
 
+@property (nonatomic, readonly) MPVPlayer *player;
+
 @end
+
+NS_ASSUME_NONNULL_END

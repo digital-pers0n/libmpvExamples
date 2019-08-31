@@ -86,6 +86,26 @@
     
 }
 
+- (IBAction)runMPVPlayerViewExample:(id)sender {
+    
+    if (_currentExample) {
+        [self destroyCurrentExample];
+    }
+    
+    if (![self hasFileURL]) {
+        return;
+    }
+    
+    MPVPlayerExample *example = MPVPlayerExample.new;
+
+    if (example) {
+        self.currentExample = example;
+        [example.player openURL:_fileURL];
+        [example.player play];
+
+    }
+}
+
 - (void)openDocument:(id)sender {
     NSURL *filename = [self selectFile];
     if (filename) {

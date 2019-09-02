@@ -138,6 +138,28 @@ extern void *g_opengl_framework_handle;
 
 #pragma mark - Overrides
 
+- (void)reshape {
+    CGLLockContext(_cglContext);
+    {
+        GLint dims[] = { 0, 0, 0, 0 };
+        glGetIntegerv(GL_VIEWPORT, dims);
+        NSSize surfaceSize = NSMakeSize(dims[2], dims[3]);
+        if (NSEqualSizes(surfaceSize, NSZeroSize)) {
+            surfaceSize = [self convertRectToBacking:self.bounds].size;
+        }
+        _mpv_opengl_fbo.w = surfaceSize.width;
+        _mpv_opengl_fbo.h = surfaceSize.height;
+    }
+    CGLUnlockContext(_cglContext);
+}
+
+- (void)update {
+    if (CGLGetCurrentContext() != _cglContext) {
+        [_glContext makeCurrentContext];
+    }
+    [_glContext update];
+}
+
 - (void)setFrame:(NSRect)frame {
     [super setFrame:frame];
     _mpv_opengl_fbo.w = NSWidth(frame);

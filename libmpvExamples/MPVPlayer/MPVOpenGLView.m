@@ -9,6 +9,7 @@
 #import "MPVOpenGLView.h"
 #import "MPVPlayer.h"
 #import <mpv/render_gl.h>
+#import <pthread/pthread.h>
 
 #import <dlfcn.h>           //    dlsym()
 
@@ -26,8 +27,6 @@ extern void *g_opengl_framework_handle;
     NSOpenGLContext *_glContext;
     struct _CGLContextObject *_cglContext;
     
-    dispatch_queue_t _mpv_render_context_update_queue;
-    dispatch_queue_t _mpv_render_live_resize_queue;
     dispatch_queue_t _main_queue;
     dispatch_group_t _dispatch_group;
 }
@@ -130,7 +129,30 @@ extern void *g_opengl_framework_handle;
 - (void)destroyMPVRenderContext {
     [_glContext clearDrawable];
     mpv_render_context_set_update_callback(_mpv_render_context, NULL, NULL);
-    dispatch_group_wait(_dispatch_group, dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)));
+    dispatch_source_cancel(_dispatch_timer);
+   // [_glContext clearDrawable];
+    //[_lock lock];
+    //[self clearGLContext];
+    //dispatch_suspend(_main_queue);
+    //dispatch_async(_mpv_render_live_resize_queue, ^{
+        //dispatch_group_wait(_dispatch_group, dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5 * NSEC_PER_SEC)));
+    //});
+//    int i = 0;
+//    while (i < 10) {
+//        long result = dispatch_group_wait(_dispatch_group, dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)));
+//        if (result == 0) {
+//            break;
+//        } else {
+//            puts("waiting...");
+//            dispatch_async(_mpv_render_live_resize_queue, ^{
+//                dispatch_group_wait(_dispatch_group, dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)));
+//            });
+//        }
+//        i++;
+//    }
+ //   dispatch_group_wait(_dispatch_group, dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5 * NSEC_PER_SEC)));
+ //   dispatch_suspend(_main_queue);
+   // mpv_render_context_set_update_callback(_mpv_render_context, NULL, render_crash);
     mpv_render_context_free(_mpv_render_context);
     _mpv_render_context = NULL;
     
@@ -171,9 +193,7 @@ extern void *g_opengl_framework_handle;
     if (_mpv_render_context) {
         self.wantsLayer = YES;
         self.layer.drawsAsynchronously = YES;
-        dispatch_async(_mpv_render_live_resize_queue, ^{
-            mpv_render_context_set_update_callback(_mpv_render_context, render_live_resize_callback, (__bridge void *)self );
-        });
+        mpv_render_context_set_update_callback(_mpv_render_context, render_live_resize_callback, (__bridge void *)self );
     }
 }
 
@@ -195,9 +215,6 @@ extern void *g_opengl_framework_handle;
 - (void)drawRect:(NSRect)dirtyRect {
     if (_mpv_render_context) {
         {
-            NSRect bounds = self.bounds;
-            _mpv_opengl_fbo.w = NSWidth(bounds);
-            _mpv_opengl_fbo.h = NSHeight(bounds);
             mpv_render_context_render(_mpv_render_context, _mpv_render_params);
             CGLFlushDrawable(_cglContext);
         }
@@ -213,9 +230,9 @@ extern void *g_opengl_framework_handle;
                 NSLog(@"Failed to create mpv_render_context. -> %s", mpv_error_string(error));
                 return;
             }
-            dispatch_async(_mpv_render_context_update_queue, ^{
-                mpv_render_context_set_update_callback(_mpv_render_context, render_context_callback, (__bridge void *)self );
-            });
+
+            mpv_render_context_set_update_callback(_mpv_render_context, render_context_callback, (__bridge void *)self);
+            
         }
     }
 }

@@ -60,19 +60,7 @@ extern void *g_opengl_framework_handle;
                    name:MPVPlayerWillShutdownNotification
                  object:_player];
         
-        dispatch_queue_attr_t attr = dispatch_queue_attr_make_with_qos_class(
-                                                                             DISPATCH_QUEUE_SERIAL,
-                                                                             QOS_CLASS_USER_INTERACTIVE, 0);
-        _mpv_render_context_update_queue = dispatch_queue_create("com.mpv_render_context.queue", attr);
-        
-        attr = dispatch_queue_attr_make_with_qos_class(
-                                                       DISPATCH_QUEUE_SERIAL,
-                                                       QOS_CLASS_USER_INTERACTIVE, 0);
-        _mpv_render_live_resize_queue = dispatch_queue_create("com.mpv_live_resize.queue", attr);
-        
-        
         _main_queue = dispatch_get_main_queue();
-        _dispatch_group = dispatch_group_create();
         _glContext = self.openGLContext;
         _cglContext = _glContext.CGLContextObj;
         
@@ -201,9 +189,7 @@ extern void *g_opengl_framework_handle;
     if (_mpv_render_context) {
         self.layer.drawsAsynchronously = NO;
         self.wantsLayer = NO;
-        dispatch_async(_mpv_render_context_update_queue, ^{
-            mpv_render_context_set_update_callback(_mpv_render_context, render_context_callback, (__bridge void *)self );
-        });
+        mpv_render_context_set_update_callback(_mpv_render_context, render_context_callback, (__bridge void *)self );
         [_glContext makeCurrentContext];
         [_glContext update];
         NSRect bounds = self.bounds;
@@ -264,7 +250,7 @@ static void _live_resize(MPVOpenGLView *obj) {
 
 static void render_live_resize_callback(void *ctx) {
     MPVOpenGLView *obj = (__bridge id)ctx;
-    dispatch_group_async_f(obj->_dispatch_group, obj->_main_queue, ctx, (void *)_live_resize);
+    dispatch_async_f(obj->_main_queue, ctx, (void *)_live_resize);
 }
 
 @end

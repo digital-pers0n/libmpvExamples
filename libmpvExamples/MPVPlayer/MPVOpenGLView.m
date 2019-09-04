@@ -28,7 +28,7 @@ extern void *g_opengl_framework_handle;
     struct _CGLContextObject *_cglContext;
     
     dispatch_queue_t _main_queue;
-    dispatch_group_t _dispatch_group;
+    dispatch_source_t _dispatch_source;
 }
 
 @end
@@ -63,7 +63,11 @@ extern void *g_opengl_framework_handle;
         _main_queue = dispatch_get_main_queue();
         _glContext = self.openGLContext;
         _cglContext = _glContext.CGLContextObj;
-        
+
+        _dispatch_source = dispatch_source_create(DISPATCH_SOURCE_TYPE_DATA_OR, 0, 0, _main_queue);
+        dispatch_source_set_event_handler_f(_dispatch_source, (void *)_render);
+        dispatch_set_context(_dispatch_source, (__bridge void *)self);
+        dispatch_resume(_dispatch_source);
     }
     return self;
 }
@@ -117,30 +121,7 @@ extern void *g_opengl_framework_handle;
 - (void)destroyMPVRenderContext {
     [_glContext clearDrawable];
     mpv_render_context_set_update_callback(_mpv_render_context, NULL, NULL);
-    dispatch_source_cancel(_dispatch_timer);
-   // [_glContext clearDrawable];
-    //[_lock lock];
-    //[self clearGLContext];
-    //dispatch_suspend(_main_queue);
-    //dispatch_async(_mpv_render_live_resize_queue, ^{
-        //dispatch_group_wait(_dispatch_group, dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5 * NSEC_PER_SEC)));
-    //});
-//    int i = 0;
-//    while (i < 10) {
-//        long result = dispatch_group_wait(_dispatch_group, dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)));
-//        if (result == 0) {
-//            break;
-//        } else {
-//            puts("waiting...");
-//            dispatch_async(_mpv_render_live_resize_queue, ^{
-//                dispatch_group_wait(_dispatch_group, dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)));
-//            });
-//        }
-//        i++;
-//    }
- //   dispatch_group_wait(_dispatch_group, dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5 * NSEC_PER_SEC)));
- //   dispatch_suspend(_main_queue);
-   // mpv_render_context_set_update_callback(_mpv_render_context, NULL, render_crash);
+    dispatch_source_cancel(_dispatch_source);
     mpv_render_context_free(_mpv_render_context);
     _mpv_render_context = NULL;
     
@@ -241,7 +222,7 @@ static void _render(MPVOpenGLView *obj) {
 
 static void render_context_callback(void *ctx) {
     MPVOpenGLView *obj = (__bridge id)ctx;
-    dispatch_group_async_f(obj->_dispatch_group, obj->_main_queue, ctx, (void *)_render);
+    dispatch_source_merge_data(obj->_dispatch_source, 1);
 }
 
 static void _live_resize(MPVOpenGLView *obj) {

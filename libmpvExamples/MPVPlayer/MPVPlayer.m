@@ -35,6 +35,8 @@ static inline void check_error(int status) {
 @interface MPVPlayer ()
 
 @property (nonatomic) dispatch_queue_t queue;
+@property (nonatomic) dispatch_queue_t event_queue;
+@property (nonatomic) dispatch_group_t dispatch_group;
 
 @end
 
@@ -55,7 +57,11 @@ static inline void check_error(int status) {
 
 - (int)setUp {
     _queue = dispatch_get_global_queue(QOS_CLASS_BACKGROUND, 0);
-    
+    dispatch_queue_attr_t attr = dispatch_queue_attr_make_with_qos_class(
+                                                                         DISPATCH_QUEUE_SERIAL,
+                                                                         QOS_CLASS_BACKGROUND, 0);
+    _event_queue = dispatch_queue_create("com.home.mpvPlayer.event-queue", attr);
+    _dispatch_group = dispatch_group_create(); 
     mpv_handle *mpv = mpv_create();
     if (!mpv) {
         
@@ -92,10 +98,9 @@ static inline void check_error(int status) {
     
     check_error( mpv_set_option_string(mpv, "vo", "libmpv"));
     _mpv_handle = mpv;
-    
-    dispatch_async(_queue, ^{
+   dispatch_group_async(_dispatch_group, _queue, ^{
         mpv_set_wakeup_callback(_mpv_handle, wakeup, (__bridge void *)self);
-    });
+   });
     
     return 0;
 }
@@ -109,9 +114,10 @@ static inline void check_error(int status) {
 
 - (void)shutdown {
     [NSNotificationCenter.defaultCenter postNotificationName:MPVPlayerWillShutdownNotification object:self userInfo:nil];
-    mpv_destroy(_mpv_handle);
-    _mpv_handle = NULL;
     _status = MPVPlayerStatusUnknown;
+    dispatch_group_wait(_dispatch_group, DISPATCH_TIME_FOREVER);
+    mpv_terminate_destroy(_mpv_handle);
+    _mpv_handle = NULL;
 }
 
 #pragma mark - Properties
@@ -163,8 +169,13 @@ static inline void check_error(int status) {
 
 #pragma mark - Methods
 
+- (void)performCommand:(const char *)command arguments:(const char *)arg, ... NS_REQUIRES_NIL_TERMINATION {
+    va_list args;
+    va_start(args, arg);
+}
+
 - (void)openURL:(NSURL *)url {
-    [self performCommand:MPVPlayerCommandLoadFile withArgument:url.absoluteString withArgument:@"append"];
+    [self performCommand:MPVPlayerCommandLoadFile withArgument:url.absoluteString withArgument:nil];
 }
 
 - (void)play {
@@ -281,7 +292,11 @@ static inline void _handle_event(MPVPlayer *obj, mpv_event *event) {
     switch (event->event_id) {
             
         case MPV_EVENT_SHUTDOWN:
-            [obj shutdown];
+        {
+            dispatch_async(obj->_queue, ^{
+                [obj shutdown];
+            });
+        }
             break;
             
         case MPV_EVENT_LOG_MESSAGE:
@@ -305,7 +320,8 @@ static void read_events(void *ctx) {
 }
 
 static void wakeup(void *ctx) {
-    dispatch_async_f(dispatch_get_main_queue(), ctx, read_events);
+    MPVPlayer *obj = (__bridge id)ctx;
+    dispatch_group_async_f(obj->_dispatch_group, obj->_event_queue, ctx, &read_events);
 }
 
 #pragma mark - mpv functions

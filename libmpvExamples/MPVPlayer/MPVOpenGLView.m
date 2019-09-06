@@ -127,6 +127,12 @@ extern void *g_opengl_framework_handle;
     
 }
 
+- (void)dealloc {
+    if (_mpv_render_context) {
+        [self destroyMPVRenderContext];
+    }
+}
+
 #pragma mark - Overrides
 
 - (void)reshape {

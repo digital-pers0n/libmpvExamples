@@ -151,12 +151,6 @@ extern void *g_opengl_framework_handle;
     [_glContext update];
 }
 
-- (void)setFrame:(NSRect)frame {
-    [super setFrame:frame];
-    _mpv_opengl_fbo.w = NSWidth(frame);
-    _mpv_opengl_fbo.h = NSHeight(frame);
-}
-
 - (void)viewWillStartLiveResize {
 
     if (_mpv_render_context) {

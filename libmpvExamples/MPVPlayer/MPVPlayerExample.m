@@ -25,29 +25,35 @@
 {
     self = [super init];
     if (self) {
-
-        _openGLView = [MPVOpenGLView.alloc initWithFrame:NSMakeRect(0, 0, 1280, 720)];
-        if (!_openGLView) {
-            NSLog(@"Failed to initialize MPVOpenGLView instance.");
-            return nil;
-        }
-        _openGLView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
-        _openGLView.translatesAutoresizingMaskIntoConstraints = NO;
-        
         _window = [MPVPlayerWindow.alloc initWithContentRect:NSMakeRect(0, 0, 1280, 720)
                                                    styleMask: NSTitledWindowMask | NSClosableWindowMask | NSMiniaturizableWindowMask | NSResizableWindowMask
                                                      backing:NSBackingStoreBuffered
                                                        defer:NO ];
         _window.releasedWhenClosed = NO;
         
+        
+        if ([self createOpenGLView] != 0) {
+            NSLog(@"Failed to initialize MPVOpenGLView");
+            return nil;
+        }
+        
         [_window center];
         [_window makeKeyAndOrderFront:nil];
-        
-        _player = _openGLView.player;
-        
-        [_window.contentView addSubview:_openGLView];
+    
     }
     return self;
+}
+
+- (int)createOpenGLView {
+    _openGLView = [MPVOpenGLView.alloc initWithFrame:NSMakeRect(0, 0, 1280, 720)];
+    if (!_openGLView) {
+        return -1;
+    }
+    _openGLView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
+    _openGLView.translatesAutoresizingMaskIntoConstraints = NO;
+    _player = _openGLView.player;
+    [_window.contentView addSubview:_openGLView];
+    return 0;
 }
 
 - (void)dealloc {

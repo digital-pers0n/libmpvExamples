@@ -9,6 +9,8 @@
 #import "MPVPlayerExample.h"
 #import "MPVPlayer.h"
 #import "MPVOpenGLView.h"
+#import "MPVPlayerLayer.h"
+#import "MPVPlayerView.h"
 #import "MPVPlayerWindow.h"
 
 @interface MPVPlayerExample () {
@@ -16,6 +18,8 @@
 }
 
 @property MPVOpenGLView *openGLView;
+@property MPVPlayerLayer *openGLLayer;
+@property MPVPlayerView *playerView;
 
 @end
 
@@ -53,6 +57,36 @@
     _openGLView.translatesAutoresizingMaskIntoConstraints = NO;
     _player = _openGLView.player;
     [_window.contentView addSubview:_openGLView];
+    return 0;
+}
+
+- (int)createPlayerView {
+    _playerView = [[MPVPlayerView alloc] initWithFrame:NSMakeRect(0, 0, 1280, 720)];
+    if (!_playerView) {
+        return -1;
+    }
+    _playerView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
+    _playerView.translatesAutoresizingMaskIntoConstraints = NO;
+    _player = _playerView.player;
+    [_window.contentView addSubview:_playerView];
+    
+    return 0;
+}
+
+- (int)createOpenGLLayer {
+    _openGLLayer = MPVPlayerLayer.new;
+    if (!_openGLLayer) {
+        return -1;
+    }
+    _openGLLayer.autoresizingMask = kCALayerWidthSizable | kCALayerHeightSizable;
+    _openGLLayer.backgroundColor = NSColor.blackColor.CGColor;
+    _player = _openGLLayer.player;
+    
+    NSView *contentView = _window.contentView;
+    contentView.layer = _openGLLayer;
+    contentView.wantsLayer = YES;
+    contentView.layerContentsPlacement = NSViewLayerContentsPlacementScaleProportionallyToFit;
+    
     return 0;
 }
 

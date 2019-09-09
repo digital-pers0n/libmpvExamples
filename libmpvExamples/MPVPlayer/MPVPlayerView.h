@@ -8,6 +8,15 @@
 
 #import <Cocoa/Cocoa.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
+@class MPVPlayer;
+
 @interface MPVPlayerView : NSView
 
+@property (readonly) MPVPlayer *player;
+@property (nonatomic, readonly, getter=isReadyForDisplay) BOOL readyForDisplay;
+
 @end
+
+NS_ASSUME_NONNULL_END

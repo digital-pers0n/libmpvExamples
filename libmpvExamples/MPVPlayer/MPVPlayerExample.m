@@ -25,7 +25,11 @@
 
 @implementation MPVPlayerExample
 
-- (instancetype)init
+- (instancetype)init {
+    return [self initWithExample:MPVPlayerExampleNSView];
+}
+
+- (instancetype)initWithExample:(MPVPlayerExampleType)type
 {
     self = [super init];
     if (self) {
@@ -35,12 +39,31 @@
                                                        defer:NO ];
         _window.releasedWhenClosed = NO;
         
-        
-        if ([self createOpenGLView] != 0) {
-            NSLog(@"Failed to initialize MPVOpenGLView");
-            return nil;
+        switch (type) {
+            case MPVPlayerExampleNSOpenGLView:
+                if ([self createOpenGLView] != 0) {
+                    NSLog(@"Failed to initialize MPVOpenGLView");
+                    return nil;
+                }
+                break;
+                
+            case MPVPlayerExampleNSView:
+                if ([self createPlayerView] != 0) {
+                    NSLog(@"Failed to initialize MPVPlayerView");
+                    return nil;
+                }
+                break;
+                
+            case MPVPlayerExampleCAOpenGLLayer:
+                if ([self createOpenGLLayer] != 0) {
+                    NSLog(@"Failed to initialize CAOpenGLLayer");
+                    return nil;
+                }
+                break;
+                
+            default:
+                break;
         }
-        
         [_window center];
         [_window makeKeyAndOrderFront:nil];
     
@@ -94,6 +117,8 @@
     [self shutdown];
     _player = nil;
     _openGLView = nil;
+    _playerView = nil;
+    _openGLLayer = nil;
     _window = nil;
 }
 
@@ -103,6 +128,8 @@
         [_player shutdown];
     }
     [_openGLView removeFromSuperview];
+    [_playerView removeFromSuperview];
+    _window.contentView.wantsLayer = NO;
 }
 
 @end

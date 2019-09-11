@@ -86,7 +86,19 @@
     
 }
 
-- (IBAction)runMPVPlayerViewExample:(id)sender {
+- (IBAction)runMPVPlayerNSOpenGLViewExample:(id)sender {
+    [self runMPVPlayerExample:MPVPlayerExampleNSOpenGLView];
+}
+
+- (IBAction)runMPVPlayerNSViewExample:(id)sender {
+    [self runMPVPlayerExample:MPVPlayerExampleNSView];
+}
+
+- (IBAction)runMPVPlayerCAOpenGLLayerExample:(id)sender {
+    [self runMPVPlayerExample:MPVPlayerExampleCAOpenGLLayer];
+}
+
+- (void)runMPVPlayerExample:(MPVPlayerExampleType)type {
     
     if (_currentExample) {
         [self destroyCurrentExample];
@@ -96,7 +108,7 @@
         return;
     }
     
-    MPVPlayerExample *example = MPVPlayerExample.new;
+    MPVPlayerExample *example = [[MPVPlayerExample alloc] initWithExample:type];
 
     if (example) {
         self.currentExample = example;

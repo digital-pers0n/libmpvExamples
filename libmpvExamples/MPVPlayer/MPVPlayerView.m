@@ -121,6 +121,11 @@ static void *get_proc_address(void *ctx, const char *symbol) {
         _mpv_render_queue = dispatch_queue_create("com.playerView.render-queue", attr);
         _main_queue = dispatch_get_main_queue();
         _lock = NSLock.new;
+       self.canDrawConcurrently = YES;
+        
+        NSSize surfaceSize = [self convertRectToBacking:frame].size;
+        _mpv_opengl_fbo.w = surfaceSize.width;
+        _mpv_opengl_fbo.h = surfaceSize.height;
         
     }
     return self;

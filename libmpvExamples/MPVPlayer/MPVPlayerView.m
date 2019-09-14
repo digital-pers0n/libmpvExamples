@@ -338,20 +338,12 @@ static inline void update_context_sync(__unsafe_unretained MPVPlayerView *obj) {
 }
 
 static void reshape_context(__unsafe_unretained MPVPlayerView *obj) {
-    NSRect bounds = obj.bounds;
-    NSRect glRect;
-    
-    glRect.size = NSIntegralRect([obj convertRectToBacking:bounds]).size;
-    CGFloat width = glRect.size.width;
-    CGFloat height = glRect.size.height;
-    
-    if (CGLGetCurrentContext() != obj->_cglContext) {
-        CGLSetCurrentContext(obj->_cglContext);
-    }
+    CGLSetCurrentContext(obj->_cglContext);
     CGLLockContext(obj->_cglContext);
-    glViewport(0, 0, width, height);
-    CGLUnlockContext(obj->_cglContext);
+    NSRect glRect = NSIntegralRect([obj convertRectToBacking:obj.bounds]);
+    glViewport(0, 0, NSWidth(glRect), NSHeight(glRect));
     glFlush();
+    CGLUnlockContext(obj->_cglContext);
 }
 
 static inline void reshape_context_sync(__unsafe_unretained MPVPlayerView *obj) {

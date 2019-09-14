@@ -270,7 +270,6 @@ static void *get_proc_address(void *ctx, const char *symbol) {
             return;
         }
         mpv_render_context_set_update_callback(_mpv_render_context, render_context_callback, (__bridge void *)self);
-        update_context_sync(self);
     }
 }
 
@@ -283,12 +282,7 @@ static void *get_proc_address(void *ctx, const char *symbol) {
 #pragma mark - Notifications
 
 - (void)globalFrameDidChange:(NSNotification *)n {
-    dispatch_async(_mpv_render_queue, ^{
-       if (CGLGetCurrentContext() != _cglContext) {
-           CGLSetCurrentContext(_cglContext);
-        }
-        CGLUpdateContext(_cglContext);
-    });
+    update_context_sync(self);
 }
 
 - (void)playerWillShutdown:(NSNotification *)n {
@@ -305,9 +299,9 @@ static void *get_proc_address(void *ctx, const char *symbol) {
 
 static void update_context(__unsafe_unretained MPVPlayerView *obj) {
     obj->_glContext.view = obj;
-    if (CGLGetCurrentContext() != obj->_cglContext) {
-        CGLSetCurrentContext(obj->_cglContext);
-    }
+    CGLSetCurrentContext(obj->_cglContext);
+    CGLLockContext(obj->_cglContext);
+    
     glDisable (GL_ALPHA_TEST);
     glDisable (GL_DEPTH_TEST);
     //glDisable (GL_SCISSOR_TEST);
@@ -336,6 +330,7 @@ static void update_context(__unsafe_unretained MPVPlayerView *obj) {
     glHint (GL_MULTISAMPLE_FILTER_HINT_NV, GL_FASTEST);
     glHint (GL_GENERATE_MIPMAP_HINT_SGIS, GL_FASTEST);
     CGLUpdateContext(obj->_cglContext);
+    CGLUnlockContext(obj->_cglContext);
 }
 
 static inline void update_context_sync(__unsafe_unretained MPVPlayerView *obj) {

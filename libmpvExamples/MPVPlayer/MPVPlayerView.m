@@ -245,13 +245,15 @@ static void *get_proc_address(void *ctx, const char *symbol) {
 }
 
 - (void)drawRect:(NSRect)dirtyRect {
-    
     if (_mpv_render_context) {
-        if (mpv_render_context_update(_mpv_render_context) &  MPV_RENDER_UPDATE_FRAME) {
-            dispatch_async_f(_mpv_render_queue, (__bridge void *)self, (dispatch_function_t)render_resize);
-        } else {
-            reshape_context_sync(self);
-        }
+       if (mpv_render_context_update(_mpv_render_context) &  MPV_RENDER_UPDATE_FRAME) {
+            render_resize_async(self);
+       }
+    } else {
+        CGLSetCurrentContext(_cglContext);
+        glClearColor(0, 0, 0, 1);
+        glClear(GL_COLOR_BUFFER_BIT);
+        glFlush();
     }
 }
 

@@ -260,7 +260,6 @@ static void *get_proc_address(void *ctx, const char *symbol) {
 
 
 - (void)viewDidMoveToWindow {
-    [super viewDidMoveToWindow];
     if (!_mpv_render_context && self.window) {
         __block int error;
         dispatch_sync(_mpv_render_queue, ^{

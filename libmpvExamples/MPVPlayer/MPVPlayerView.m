@@ -366,16 +366,27 @@ static void render_context_callback(void *ctx) {
 
 static void render_resize(__unsafe_unretained MPVPlayerView *obj) {
     CGLSetCurrentContext(obj->_cglContext);
+    CGLLockContext(obj->_cglContext);
+
     static GLint dims[] = { 0, 0, 0, 0 };
     glGetIntegerv(GL_VIEWPORT, dims);
-    NSSize surfaceSize = NSMakeSize(dims[2], dims[3]);
-    if (NSEqualSizes(surfaceSize, NSZeroSize)) {
-        surfaceSize = [obj convertRectToBacking:obj.bounds].size;
+    GLint width = dims[2];
+    GLint height = dims[3];
+    if (width == 0 || height == 0) {
+        NSSize surfaceSize = [obj convertRectToBacking:obj.bounds].size;
+        width = surfaceSize.width;
+        height = surfaceSize.height;
     }
-    obj->_mpv_opengl_fbo.w = surfaceSize.width;
-    obj->_mpv_opengl_fbo.h = surfaceSize.height;
+    obj->_mpv_opengl_fbo.w = width;
+    obj->_mpv_opengl_fbo.h = height;
     mpv_render_context_render(obj->_mpv_render_context, obj->_mpv_render_params);
+    
     glFlush();
+    CGLUnlockContext(obj->_cglContext);
+}
+
+__unused static inline void render_resize_async(__unsafe_unretained MPVPlayerView *obj) {
+   dispatch_async_f(obj->_mpv_render_queue, (__bridge void *)obj, (dispatch_function_t)render_resize);
 }
 
 static void render_resize_callback(void *ctx) {

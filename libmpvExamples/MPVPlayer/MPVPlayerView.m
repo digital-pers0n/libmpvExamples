@@ -289,9 +289,6 @@ static void *get_proc_address(void *ctx, const char *symbol) {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     if (_mpv_render_context) {
         [self destroyMPVRenderContext];
-        NSWindow *w = self.window;
-        [self removeFromSuperview];
-        [w close];
     }
 }
 
@@ -353,9 +350,7 @@ static inline void reshape_context_sync(__unsafe_unretained MPVPlayerView *obj) 
 #pragma mark - mpv_render_context callbacks
 
 static void render_frame(__unsafe_unretained MPVPlayerView *obj) {
-    if (CGLGetCurrentContext() != obj->_cglContext) {
-        CGLSetCurrentContext(obj->_cglContext);
-    }
+    CGLSetCurrentContext(obj->_cglContext);
     mpv_render_context_render(obj->_mpv_render_context, obj->_mpv_render_params);
     glFlush();
 }

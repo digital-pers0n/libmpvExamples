@@ -98,9 +98,7 @@ static inline void check_error(int status) {
     
     check_error( mpv_set_option_string(mpv, "vo", "libmpv"));
     _mpv_handle = mpv;
-   dispatch_group_async(_dispatch_group, _queue, ^{
-        mpv_set_wakeup_callback(_mpv_handle, wakeup, (__bridge void *)self);
-   });
+    dispatch_group_async_f(_dispatch_group, _event_queue, (__bridge void *)self, &read_events);
     
     return 0;
 }
@@ -115,6 +113,7 @@ static inline void check_error(int status) {
 - (void)shutdown {
     [NSNotificationCenter.defaultCenter postNotificationName:MPVPlayerWillShutdownNotification object:self userInfo:nil];
     _status = MPVPlayerStatusUnknown;
+    [self performCommand:@"quit"];
     dispatch_group_wait(_dispatch_group, DISPATCH_TIME_FOREVER);
     mpv_terminate_destroy(_mpv_handle);
     _mpv_handle = NULL;
@@ -288,40 +287,33 @@ static inline void _print_mpv_message(struct mpv_event_log_message *msg) {
     printf("[%s]  %s : %s", msg->prefix, msg->level, msg->text);
 }
 
-static inline void _handle_event(MPVPlayer *obj, mpv_event *event) {
-    switch (event->event_id) {
-            
-        case MPV_EVENT_SHUTDOWN:
-        {
-            dispatch_async(obj->_queue, ^{
-                [obj shutdown];
-            });
-        }
-            break;
-            
-        case MPV_EVENT_LOG_MESSAGE:
-            _print_mpv_message(event->data);
-            
-        default:
-            printf("event: %s\n", mpv_event_name(event->event_id));
-            break;
-    }
-}
-
 static void read_events(void *ctx) {
     MPVPlayer *obj = (__bridge id)ctx;
     while (obj->_mpv_handle) {
-        mpv_event *event = mpv_wait_event(obj->_mpv_handle, 0);
-        if (event->event_id == MPV_EVENT_NONE) {
-            break;
+        mpv_event *event = mpv_wait_event(obj->_mpv_handle, -1);
+        switch (event->event_id) {
+                
+            case MPV_EVENT_NONE:
+                return;
+                
+            case MPV_EVENT_SHUTDOWN:
+            {
+                if (obj->_status == MPVPlayerStatusReadyToPlay) {
+                    dispatch_async(obj->_queue, ^{
+                        [obj shutdown];
+                    });
+                }
+            }
+                return;
+                
+            case MPV_EVENT_LOG_MESSAGE:
+                _print_mpv_message(event->data);
+                
+            default:
+                printf("event: %s\n", mpv_event_name(event->event_id));
+                break;
         }
-        _handle_event(obj, event);
     }
-}
-
-static void wakeup(void *ctx) {
-    MPVPlayer *obj = (__bridge id)ctx;
-    dispatch_group_async_f(obj->_dispatch_group, obj->_event_queue, ctx, &read_events);
 }
 
 #pragma mark - mpv functions

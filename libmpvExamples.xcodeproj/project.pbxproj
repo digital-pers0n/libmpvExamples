@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CE04A15F232D43CE00E49164 /* MPVHybridView.m in Sources */ = {isa = PBXBuildFile; fileRef = CE04A15E232D43CE00E49164 /* MPVHybridView.m */; };
 		CE0E31B72310170100EE8E40 /* MPVPlayerCommands.m in Sources */ = {isa = PBXBuildFile; fileRef = CE0E31B62310170100EE8E40 /* MPVPlayerCommands.m */; };
 		CE0E31B9231195E600EE8E40 /* MPVPlayerNotifications.m in Sources */ = {isa = PBXBuildFile; fileRef = CE0E31B8231195E600EE8E40 /* MPVPlayerNotifications.m */; };
 		CE2152F722FB227B00079A6F /* MPVPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = CE2152F622FB227B00079A6F /* MPVPlayer.m */; };
@@ -32,6 +33,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		CE04A15D232D43CE00E49164 /* MPVHybridView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MPVHybridView.h; path = MPVPlayer/MPVHybridView.h; sourceTree = "<group>"; };
+		CE04A15E232D43CE00E49164 /* MPVHybridView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MPVHybridView.m; path = MPVPlayer/MPVHybridView.m; sourceTree = "<group>"; };
 		CE0E31B52310170100EE8E40 /* MPVPlayerCommands.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MPVPlayerCommands.h; path = MPVPlayer/MPVPlayerCommands.h; sourceTree = "<group>"; };
 		CE0E31B62310170100EE8E40 /* MPVPlayerCommands.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MPVPlayerCommands.m; path = MPVPlayer/MPVPlayerCommands.m; sourceTree = "<group>"; };
 		CE0E31B8231195E600EE8E40 /* MPVPlayerNotifications.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MPVPlayerNotifications.m; path = MPVPlayer/MPVPlayerNotifications.m; sourceTree = "<group>"; };
@@ -103,6 +106,8 @@
 				CEA2BC7B2315844C00353057 /* MPVPlayerLayer.m */,
 				CE7136DF230304E7000B154A /* MPVPlayerView.h */,
 				CE7136E0230304E7000B154A /* MPVPlayerView.m */,
+				CE04A15D232D43CE00E49164 /* MPVHybridView.h */,
+				CE04A15E232D43CE00E49164 /* MPVHybridView.m */,
 				CE2152F522FB227B00079A6F /* MPVPlayer.h */,
 				CE2152F622FB227B00079A6F /* MPVPlayer.m */,
 				CE8A6B7E23183F52008B122D /* MPVPlayerExample.h */,
@@ -259,6 +264,7 @@
 				CE8A6B8323183F91008B122D /* MPVPlayerWindow.m in Sources */,
 				CEA2BC7C2315844C00353057 /* MPVPlayerLayer.m in Sources */,
 				CE5EA94322F48CE400E15610 /* LEClipView.m in Sources */,
+				CE04A15F232D43CE00E49164 /* MPVHybridView.m in Sources */,
 				CE2152F722FB227B00079A6F /* MPVPlayer.m in Sources */,
 				CE3F2B1F230AF13A004F76B9 /* MPVPlayerProperties.m in Sources */,
 				CE91A74F22F33A6000A6F57F /* MPVHelper.m in Sources */,

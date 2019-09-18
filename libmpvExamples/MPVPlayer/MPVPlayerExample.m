@@ -11,6 +11,7 @@
 #import "MPVOpenGLView.h"
 #import "MPVPlayerLayer.h"
 #import "MPVPlayerView.h"
+#import "MPVHybridView.h"
 #import "MPVPlayerWindow.h"
 
 @interface MPVPlayerExample () {
@@ -20,6 +21,7 @@
 @property MPVOpenGLView *openGLView;
 @property MPVPlayerLayer *openGLLayer;
 @property MPVPlayerView *playerView;
+@property MPVHybridView *hybridView;
 
 @end
 
@@ -53,10 +55,16 @@
                     return nil;
                 }
                 break;
+            case MPVPlayerExampleHybridView:
+                if ([self createHybridView] != 0) {
+                    NSLog(@"Failed to initialize MPVHybridView");
+                    return nil;
+                }
+                break;
                 
             case MPVPlayerExampleCAOpenGLLayer:
                 if ([self createOpenGLLayer] != 0) {
-                    NSLog(@"Failed to initialize CAOpenGLLayer");
+                    NSLog(@"Failed to initialize MPVPlayerLayer");
                     return nil;
                 }
                 break;
@@ -92,6 +100,19 @@
     _playerView.translatesAutoresizingMaskIntoConstraints = NO;
     _player = _playerView.player;
     [_window.contentView addSubview:_playerView];
+    
+    return 0;
+}
+
+- (int)createHybridView {
+    _hybridView = [[MPVHybridView alloc] initWithFrame:NSMakeRect(0, 0, 1280, 720)];
+    if (!_hybridView) {
+        return -1;
+    }
+    _hybridView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
+    _hybridView.translatesAutoresizingMaskIntoConstraints = NO;
+    _player = _hybridView.player;
+    [_window.contentView addSubview:_hybridView];
     
     return 0;
 }

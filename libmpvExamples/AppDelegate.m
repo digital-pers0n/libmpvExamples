@@ -94,6 +94,10 @@
     [self runMPVPlayerExample:MPVPlayerExampleNSView];
 }
 
+- (IBAction)runMPVPlayerHybridViewExample:(id)sender {
+    [self runMPVPlayerExample:MPVPlayerExampleHybridView];
+}
+
 - (IBAction)runMPVPlayerCAOpenGLLayerExample:(id)sender {
     [self runMPVPlayerExample:MPVPlayerExampleCAOpenGLLayer];
 }

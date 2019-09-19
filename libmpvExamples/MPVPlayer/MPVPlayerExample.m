@@ -150,6 +150,7 @@
     }
     [_openGLView removeFromSuperview];
     [_playerView removeFromSuperview];
+    [_hybridView removeFromSuperview];
     _window.contentView.wantsLayer = NO;
 }
 

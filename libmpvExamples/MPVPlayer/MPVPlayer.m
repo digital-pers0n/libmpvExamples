@@ -34,9 +34,7 @@ static inline void check_error(int status) {
 
 @interface MPVPlayer ()
 
-@property (nonatomic) dispatch_queue_t queue;
-@property (nonatomic) dispatch_queue_t event_queue;
-@property (nonatomic) dispatch_group_t dispatch_group;
+@property NSThread *eventThread;
 
 @end
 
@@ -56,12 +54,7 @@ static inline void check_error(int status) {
 }
 
 - (int)setUp {
-    _queue = dispatch_get_global_queue(QOS_CLASS_BACKGROUND, 0);
-    dispatch_queue_attr_t attr = dispatch_queue_attr_make_with_qos_class(
-                                                                         DISPATCH_QUEUE_SERIAL,
-                                                                         QOS_CLASS_BACKGROUND, 0);
-    _event_queue = dispatch_queue_create("com.home.mpvPlayer.event-queue", attr);
-    _dispatch_group = dispatch_group_create(); 
+
     mpv_handle *mpv = mpv_create();
     if (!mpv) {
         
@@ -98,7 +91,11 @@ static inline void check_error(int status) {
     
     check_error( mpv_set_option_string(mpv, "vo", "libmpv"));
     _mpv_handle = mpv;
-    dispatch_group_async_f(_dispatch_group, _event_queue, (__bridge void *)self, &read_events);
+    
+    _eventThread = [[NSThread alloc] initWithTarget:self selector:@selector(readEvents) object:nil];
+    _eventThread.qualityOfService = QOS_CLASS_BACKGROUND;
+    _eventThread.name = @"com.home.mpvPlayer.EventThread";
+    [_eventThread start];
     
     return 0;
 }
@@ -110,11 +107,42 @@ static inline void check_error(int status) {
     }
 }
 
+- (void)readEvents {
+    while (!_eventThread.cancelled) {
+        mpv_event *event = mpv_wait_event(self->_mpv_handle, -1);
+        switch (event->event_id) {
+                
+            case MPV_EVENT_NONE:
+                goto exit;
+                
+            case MPV_EVENT_SHUTDOWN:
+            {
+                if (self->_status == MPVPlayerStatusReadyToPlay) {
+                    [self performSelectorOnMainThread:@selector(shutdown) withObject:nil waitUntilDone:NO];
+                }
+            }
+                goto exit;
+                
+            case MPV_EVENT_LOG_MESSAGE:
+                mpv_print_message(event->data);
+                
+            default:
+                printf("event: %s\n", mpv_event_name(event->event_id));
+                break;
+        }
+    }
+    
+exit:
+    [NSThread exit];
+}
+
 - (void)shutdown {
-    [NSNotificationCenter.defaultCenter postNotificationName:MPVPlayerWillShutdownNotification object:self userInfo:nil];
+    [_eventThread cancel];
     _status = MPVPlayerStatusUnknown;
+    
+    [NSNotificationCenter.defaultCenter postNotificationName:MPVPlayerWillShutdownNotification object:self userInfo:nil];
+
     [self performCommand:@"quit"];
-    dispatch_group_wait(_dispatch_group, DISPATCH_TIME_FOREVER);
     mpv_terminate_destroy(_mpv_handle);
     _mpv_handle = NULL;
 }
@@ -281,42 +309,12 @@ static inline void check_error(int status) {
     }
 }
 
-#pragma mark - mpv update callback
+#pragma mark - mpv functions
 
-static inline void _print_mpv_message(struct mpv_event_log_message *msg) {
+static inline void mpv_print_message(struct mpv_event_log_message *msg) {
     printf("[%s]  %s : %s", msg->prefix, msg->level, msg->text);
 }
 
-static void read_events(void *ctx) {
-    MPVPlayer *obj = (__bridge id)ctx;
-    while (obj->_mpv_handle) {
-        mpv_event *event = mpv_wait_event(obj->_mpv_handle, -1);
-        switch (event->event_id) {
-                
-            case MPV_EVENT_NONE:
-                return;
-                
-            case MPV_EVENT_SHUTDOWN:
-            {
-                if (obj->_status == MPVPlayerStatusReadyToPlay) {
-                    dispatch_async(obj->_queue, ^{
-                        [obj shutdown];
-                    });
-                }
-            }
-                return;
-                
-            case MPV_EVENT_LOG_MESSAGE:
-                _print_mpv_message(event->data);
-                
-            default:
-                printf("event: %s\n", mpv_event_name(event->event_id));
-                break;
-        }
-    }
-}
-
-#pragma mark - mpv functions
 #pragma mark set/get mpv properties
 
 /**

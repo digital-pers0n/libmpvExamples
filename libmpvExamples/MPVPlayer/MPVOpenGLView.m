@@ -28,6 +28,7 @@ extern void *g_opengl_framework_handle;
     struct _CGLContextObject *_cglContext;
     
     dispatch_queue_t _main_queue;
+    dispatch_queue_t _render_queue;
     dispatch_source_t _dispatch_source;
 }
 
@@ -63,8 +64,13 @@ extern void *g_opengl_framework_handle;
         _main_queue = dispatch_get_main_queue();
         _glContext = self.openGLContext;
         _cglContext = _glContext.CGLContextObj;
+        
+        dispatch_queue_attr_t attr = dispatch_queue_attr_make_with_qos_class(
+                                                                             DISPATCH_QUEUE_SERIAL,
+                                                                             QOS_CLASS_USER_INTERACTIVE, 0);
+        _render_queue = dispatch_queue_create("com.home.openGLView.render-queue", attr);
 
-        _dispatch_source = dispatch_source_create(DISPATCH_SOURCE_TYPE_DATA_OR, 0, 0, _main_queue);
+        _dispatch_source = dispatch_source_create(DISPATCH_SOURCE_TYPE_DATA_OR, 0, 0, _render_queue);
         dispatch_source_set_event_handler_f(_dispatch_source, (void *)_render);
         dispatch_set_context(_dispatch_source, (__bridge void *)self);
         dispatch_resume(_dispatch_source);
@@ -215,7 +221,9 @@ extern void *g_opengl_framework_handle;
 
 #pragma mark - mpv_render_context callbacks
 
-static void _render(MPVOpenGLView *obj) {
+static void _render(void *ctx) {
+    __unsafe_unretained MPVOpenGLView *obj = (__bridge id)ctx;
+    CGLSetCurrentContext(obj->_cglContext);
     mpv_render_context_render(obj->_mpv_render_context, obj->_mpv_render_params);
     CGLFlushDrawable(obj->_cglContext);
 }

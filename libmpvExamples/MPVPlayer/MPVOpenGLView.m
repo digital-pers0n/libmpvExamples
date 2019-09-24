@@ -227,6 +227,35 @@ static void _render(void *ctx) {
     CGLFlushDrawable(obj->_cglContext);
 }
 
+static inline void resize_async(__unsafe_unretained MPVOpenGLView *obj) {
+    dispatch_async_f(obj->_render_queue, (__bridge void *)obj, &resize);
+}
+
+static inline void resize_sync(__unsafe_unretained MPVOpenGLView *obj) {
+    dispatch_sync_f(obj->_render_queue, (__bridge void *)obj, &resize);
+}
+
+
+static void resize(void *ctx) {
+    __unsafe_unretained MPVOpenGLView *obj = (__bridge id)ctx;
+    
+    NSSize surfaceSize = [obj convertRectToBacking:obj.bounds].size;
+    
+    obj->_mpv_opengl_fbo.w = surfaceSize.width;
+    obj->_mpv_opengl_fbo.h = surfaceSize.height;
+    
+    
+    CGLLockContext(obj->_cglContext);
+    {
+        CGLSetCurrentContext(obj->_cglContext);
+        mpv_render_context_render(obj->_mpv_render_context, obj->_mpv_render_params);
+        CGLFlushDrawable(obj->_cglContext);
+        [obj->_glContext update];
+        
+    }
+    CGLUnlockContext(obj->_cglContext);
+}
+
 static void render_context_callback(void *ctx) {
     MPVOpenGLView *obj = (__bridge id)ctx;
     dispatch_source_merge_data(obj->_dispatch_source, 1);

@@ -142,6 +142,7 @@ extern void *g_opengl_framework_handle;
 #pragma mark - Overrides
 
 - (void)reshape {
+    if (self.inLiveResize) { return; }
     CGLLockContext(_cglContext);
     {
         GLint dims[] = { 0, 0, 0, 0 };
@@ -157,9 +158,7 @@ extern void *g_opengl_framework_handle;
 }
 
 - (void)update {
-    if (CGLGetCurrentContext() != _cglContext) {
-        [_glContext makeCurrentContext];
-    }
+   if (self.inLiveResize) { return; }
     [_glContext update];
 }
 

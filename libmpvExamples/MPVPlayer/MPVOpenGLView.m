@@ -102,6 +102,30 @@ extern void *g_opengl_framework_handle;
 - (int)createMPVRenderContext {
 
     [_glContext makeCurrentContext];
+    
+    glDisable (GL_ALPHA_TEST);
+    glDisable (GL_DEPTH_TEST);
+    glDisable (GL_DITHER);
+    glDisable (GL_CULL_FACE);
+    glDisable (GL_MULTISAMPLE);
+    glDisable (GL_FOG);
+    glDisable (GL_TEXTURE_1D);
+    glDisable (GL_TEXTURE_3D);
+    glDisable (GL_TEXTURE_2D);
+    glDisable (GL_LIGHTING);
+    glDisable (GL_POINT_SMOOTH);
+    
+    glColorMask (GL_TRUE, GL_TRUE, GL_TRUE, GL_FALSE);
+    glDepthMask (GL_FALSE);
+    glStencilMask (0);
+    glHint (GL_TRANSFORM_HINT_APPLE, GL_FASTEST);
+    glHint (GL_VERTEX_ARRAY_STORAGE_HINT_APPLE, GL_FASTEST);
+    glHint (GL_TEXTURE_STORAGE_HINT_APPLE, GL_FASTEST);
+    glHint (GL_FRAGMENT_SHADER_DERIVATIVE_HINT_ARB, GL_FASTEST);
+    glHint (GL_TEXTURE_COMPRESSION_HINT_ARB , GL_FASTEST);
+    glHint (GL_MULTISAMPLE_FILTER_HINT_NV, GL_FASTEST);
+    glHint (GL_GENERATE_MIPMAP_HINT_SGIS, GL_FASTEST);
+    
     [_glContext update];
     
     static int mpv_flip_y = 1;

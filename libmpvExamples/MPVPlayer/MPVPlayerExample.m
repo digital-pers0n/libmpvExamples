@@ -41,12 +41,15 @@
                                                        defer:NO ];
         _window.releasedWhenClosed = NO;
         
+        id example = nil;
+        
         switch (type) {
             case MPVPlayerExampleNSOpenGLView:
                 if ([self createOpenGLView] != 0) {
                     NSLog(@"Failed to initialize MPVOpenGLView");
                     return nil;
                 }
+                example = _openGLView;
                 break;
                 
             case MPVPlayerExampleNSView:
@@ -54,12 +57,14 @@
                     NSLog(@"Failed to initialize MPVPlayerView");
                     return nil;
                 }
+                example = _playerView;
                 break;
             case MPVPlayerExampleHybridView:
                 if ([self createHybridView] != 0) {
                     NSLog(@"Failed to initialize MPVHybridView");
                     return nil;
                 }
+                example = _hybridView;
                 break;
                 
             case MPVPlayerExampleCAOpenGLLayer:
@@ -67,11 +72,17 @@
                     NSLog(@"Failed to initialize MPVPlayerLayer");
                     return nil;
                 }
+                example = _openGLLayer;
                 break;
                 
             default:
                 break;
         }
+        
+        if (example) {
+            _window.title = [example className];
+        }
+        
         [_window center];
         [_window makeKeyAndOrderFront:nil];
     

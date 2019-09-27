@@ -166,23 +166,12 @@ extern void *g_opengl_framework_handle;
 #pragma mark - Overrides
 
 - (void)reshape {
-    if (self.inLiveResize) { return; }
-    CGLLockContext(_cglContext);
-    {
-        GLint dims[] = { 0, 0, 0, 0 };
-        glGetIntegerv(GL_VIEWPORT, dims);
-        NSSize surfaceSize = NSMakeSize(dims[2], dims[3]);
-        if (NSEqualSizes(surfaceSize, NSZeroSize)) {
-            surfaceSize = [self convertRectToBacking:self.bounds].size;
-        }
-        _mpv_opengl_fbo.w = surfaceSize.width;
-        _mpv_opengl_fbo.h = surfaceSize.height;
-    }
-    CGLUnlockContext(_cglContext);
+    NSSize  surfaceSize = [self convertRectToBacking:self.bounds].size;
+    _mpv_opengl_fbo.w = surfaceSize.width;
+    _mpv_opengl_fbo.h = surfaceSize.height;
 }
 
 - (void)update {
-   if (self.inLiveResize) { return; }
     [_glContext update];
 }
 
@@ -193,6 +182,7 @@ extern void *g_opengl_framework_handle;
         self.layer.drawsAsynchronously = YES;
         self.canDrawConcurrently = YES;
         mpv_render_context_set_update_callback(_mpv_render_context, render_live_resize_callback, (__bridge void *)self );
+        [_glContext update];
     }
 }
 
@@ -278,20 +268,11 @@ static inline void resize_sync(__unsafe_unretained MPVOpenGLView *obj) {
 
 static void resize(void *ctx) {
     __unsafe_unretained MPVOpenGLView *obj = (__bridge id)ctx;
-    
-    NSSize surfaceSize = [obj convertRectToBacking:obj.bounds].size;
-    
-    obj->_mpv_opengl_fbo.w = surfaceSize.width;
-    obj->_mpv_opengl_fbo.h = surfaceSize.height;
-    
-    
     CGLLockContext(obj->_cglContext);
     {
         CGLSetCurrentContext(obj->_cglContext);
         mpv_render_context_render(obj->_mpv_render_context, obj->_mpv_render_params);
         CGLFlushDrawable(obj->_cglContext);
-        [obj->_glContext update];
-        
     }
     CGLUnlockContext(obj->_cglContext);
 }

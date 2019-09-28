@@ -70,10 +70,6 @@ extern void *g_opengl_framework_handle;
                                                                              QOS_CLASS_USER_INTERACTIVE, 0);
         _render_queue = dispatch_queue_create("com.home.openGLView.render-queue", attr);
 
-        _dispatch_source = dispatch_source_create(DISPATCH_SOURCE_TYPE_DATA_OR, 0, 0, _render_queue);
-        dispatch_source_set_event_handler_f(_dispatch_source, (void *)_render);
-        dispatch_set_context(_dispatch_source, (__bridge void *)self);
-        dispatch_resume(_dispatch_source);
     }
     return self;
 }
@@ -151,10 +147,8 @@ extern void *g_opengl_framework_handle;
 - (void)destroyMPVRenderContext {
     [_glContext clearDrawable];
     mpv_render_context_set_update_callback(_mpv_render_context, NULL, NULL);
-    dispatch_source_cancel(_dispatch_source);
     mpv_render_context_free(_mpv_render_context);
     _mpv_render_context = NULL;
-    
 }
 
 - (void)dealloc {
@@ -279,7 +273,7 @@ static void resize(void *ctx) {
 
 static void render_context_callback(void *ctx) {
     MPVOpenGLView *obj = (__bridge id)ctx;
-    dispatch_source_merge_data(obj->_dispatch_source, 1);
+    dispatch_async_f(obj->_render_queue, ctx, &_render);
 }
 
 static void _live_resize(MPVOpenGLView *obj) {

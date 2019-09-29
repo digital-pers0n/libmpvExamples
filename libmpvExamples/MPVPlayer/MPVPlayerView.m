@@ -10,6 +10,8 @@
 #import "MPVPlayer.h"
 #import <mpv/render_gl.h>
 #import <stdatomic.h>
+#import <pthread/pthread.h>
+#import <pthread/pthread_spis.h>
 
 #import <dlfcn.h>
 
@@ -64,6 +66,8 @@ static void *get_proc_address(void *ctx, const char *symbol) {
     return dlsym(g_opengl_framework_handle, symbol);
 }
 
+#define threads_num 3
+
 @interface MPVPlayerView () {
     mpv_opengl_fbo _mpv_opengl_fbo;
     mpv_render_param _mpv_render_params[3];
@@ -74,6 +78,11 @@ static void *get_proc_address(void *ctx, const char *symbol) {
     dispatch_queue_t _mpv_render_queue;
     dispatch_queue_t _main_queue;
     dispatch_queue_t _mpv_queue;
+    
+    pthread_t _render_thread[threads_num];
+    pthread_cond_t _render_cond;
+    pthread_mutex_t _render_mutex;
+    bool _done;
 }
 
 @property (nonatomic) NSLock *lock;
@@ -194,8 +203,19 @@ static void *get_proc_address(void *ctx, const char *symbol) {
 }
 
 - (void)destroyMPVRenderContext {
-    [_glContext clearDrawable];
     mpv_render_context_set_update_callback(_mpv_render_context, NULL, NULL);
+    [_glContext clearDrawable];
+    
+    _done = true;
+    pthread_cond_broadcast(&_render_cond);
+
+    for (int i = 0; i < threads_num; i++) {
+        pthread_join(_render_thread[i], NULL);
+    }
+
+    pthread_mutex_destroy(&_render_mutex);
+    pthread_cond_destroy(&_render_cond);
+    
     mpv_render_context_free(_mpv_render_context);
     _mpv_render_context = NULL;
 }
@@ -261,14 +281,30 @@ static void *get_proc_address(void *ctx, const char *symbol) {
 
 - (void)viewDidMoveToWindow {
     if (!_mpv_render_context && self.window) {
-        __block int error;
-        dispatch_sync(_mpv_render_queue, ^{
-            error = [self createMPVRenderContext];
-        });
+        int error = [self createMPVRenderContext];
         if (error != MPV_ERROR_SUCCESS) {
             NSLog(@"Failed to create mpv_render_context. -> %s", mpv_error_string(error));
             return;
         }
+        pthread_condattr_t condattr;
+        pthread_condattr_init(&condattr);
+        pthread_cond_init(&_render_cond, &condattr);
+        
+        pthread_mutexattr_t mattr;
+        pthread_mutexattr_init(&mattr);
+        pthread_mutexattr_setpolicy_np(&mattr, _PTHREAD_MUTEX_POLICY_FIRSTFIT); // https://blog.mozilla.org/nfroyd/2017/03/29/on-mutex-performance-part-1/
+        pthread_mutex_init(&_render_mutex, &mattr) ;
+        
+        pthread_attr_t attrs;
+        pthread_attr_init(&attrs);
+        pthread_attr_set_qos_class_np(&attrs, QOS_CLASS_USER_INTERACTIVE, 0);
+        for (int i = 0; i < threads_num; i++) {
+            pthread_create(_render_thread + i, &attrs, &_render_frame, (__bridge void *)self);
+        }
+        
+        pthread_condattr_destroy(&condattr);
+        pthread_attr_destroy(&attrs);
+        pthread_mutexattr_destroy(&mattr);
         mpv_render_context_set_update_callback(_mpv_render_context, render_context_callback, (__bridge void *)self);
     }
 }
@@ -347,6 +383,24 @@ static inline void reshape_context_sync(__unsafe_unretained MPVPlayerView *obj) 
     dispatch_sync_f(obj->_mpv_render_queue, (__bridge void *)obj, (dispatch_function_t)reshape_context);
 }
 
+static void *_render_frame(void *ctx) {
+    pthread_setname_np("render thread");
+    __unsafe_unretained MPVPlayerView *obj = (__bridge id)ctx;
+    
+    while (obj->_done == false) {
+        pthread_mutex_lock(&obj->_render_mutex);
+        
+        pthread_cond_wait(&obj->_render_cond, &(obj->_render_mutex));
+        
+        render_frame(obj);
+        
+        pthread_mutex_unlock(&obj->_render_mutex);
+    }
+    
+    pthread_exit(NULL);
+    return NULL;
+}
+
 #pragma mark - mpv_render_context callbacks
 
 static void render_frame(__unsafe_unretained MPVPlayerView *obj) {
@@ -361,7 +415,7 @@ static inline void render_frame_async(__unsafe_unretained MPVPlayerView *obj) {
 
 static void render_context_callback(void *ctx) {
     MPVPlayerView *obj = (__bridge id)ctx;
-    render_frame_async(obj);
+    pthread_cond_signal(&obj->_render_cond);
 }
 
 static void render_resize(__unsafe_unretained MPVPlayerView *obj) {

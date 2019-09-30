@@ -338,6 +338,12 @@ static void *get_proc_address(void *ctx, const char *symbol) {
     }
 }
 
+- (void)dealloc {
+    if (_mpv_render_context) {
+        [self destroyMPVRenderContext];
+    }
+}
+
 #pragma mark - Properties
 
 - (BOOL)isReadyForDisplay {

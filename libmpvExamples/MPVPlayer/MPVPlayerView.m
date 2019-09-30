@@ -404,10 +404,6 @@ static void render_frame(__unsafe_unretained MPVPlayerView *obj) {
     glFlush();
 }
 
-static inline void render_frame_async(__unsafe_unretained MPVPlayerView *obj) {
-    dispatch_async_f(obj->_mpv_render_queue, (__bridge void *)obj, (dispatch_function_t)render_frame);
-}
-
 static void render_context_callback(void *ctx) {
     MPVPlayerView *obj = (__bridge id)ctx;
     pthread_cond_signal(&obj->_render_cond);

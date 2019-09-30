@@ -183,6 +183,35 @@ static void *get_proc_address(void *ctx, const char *symbol) {
     
     _glContext.view = self;
     [_glContext makeCurrentContext];
+    
+    glDisable (GL_ALPHA_TEST);
+    glDisable (GL_DEPTH_TEST);
+    //glDisable (GL_SCISSOR_TEST);
+    //glDisable (GL_BLEND);
+    glEnable (GL_SCISSOR_TEST);
+    glEnable (GL_BLEND);
+    glDisable (GL_DITHER);
+    glDisable (GL_CULL_FACE);
+    glDisable (GL_MULTISAMPLE);
+    glDisable (GL_FOG);
+    glDisable (GL_TEXTURE_1D);
+    glDisable (GL_TEXTURE_3D);
+    glDisable (GL_TEXTURE_2D);
+    glDisable (GL_LIGHTING);
+    //glDisable (GL_VIEWPORT);
+    glDisable (GL_POINT_SMOOTH);
+    
+    glColorMask (GL_TRUE, GL_TRUE, GL_TRUE, GL_FALSE);
+    glDepthMask (GL_FALSE);
+    glStencilMask (0);
+    glHint (GL_TRANSFORM_HINT_APPLE, GL_FASTEST);
+    glHint (GL_VERTEX_ARRAY_STORAGE_HINT_APPLE, GL_FASTEST);
+    glHint (GL_TEXTURE_STORAGE_HINT_APPLE, GL_FASTEST);
+    glHint (GL_FRAGMENT_SHADER_DERIVATIVE_HINT_ARB, GL_FASTEST);
+    glHint (GL_TEXTURE_COMPRESSION_HINT_ARB , GL_FASTEST);
+    glHint (GL_MULTISAMPLE_FILTER_HINT_NV, GL_FASTEST);
+    glHint (GL_GENERATE_MIPMAP_HINT_SGIS, GL_FASTEST);
+    
     [_glContext update];
     
     static int mpv_flip_y = 1;
@@ -328,47 +357,7 @@ static void *get_proc_address(void *ctx, const char *symbol) {
     }
 }
 
-#pragma mark - functions 
-
-static void update_context(__unsafe_unretained MPVPlayerView *obj) {
-    obj->_glContext.view = obj;
-    CGLSetCurrentContext(obj->_cglContext);
-    CGLLockContext(obj->_cglContext);
-    
-    glDisable (GL_ALPHA_TEST);
-    glDisable (GL_DEPTH_TEST);
-    //glDisable (GL_SCISSOR_TEST);
-    //glDisable (GL_BLEND);
-    glEnable (GL_SCISSOR_TEST);
-    glEnable (GL_BLEND);
-    glDisable (GL_DITHER);
-    glDisable (GL_CULL_FACE);
-    glDisable (GL_MULTISAMPLE);
-    glDisable (GL_FOG);
-    glDisable (GL_TEXTURE_1D);
-    glDisable (GL_TEXTURE_3D);
-    glDisable (GL_TEXTURE_2D);
-    glDisable (GL_LIGHTING);
-    //glDisable (GL_VIEWPORT);
-    glDisable (GL_POINT_SMOOTH);
-    
-    glColorMask (GL_TRUE, GL_TRUE, GL_TRUE, GL_FALSE);
-    glDepthMask (GL_FALSE);
-    glStencilMask (0);
-    glHint (GL_TRANSFORM_HINT_APPLE, GL_FASTEST);
-    glHint (GL_VERTEX_ARRAY_STORAGE_HINT_APPLE, GL_FASTEST);
-    glHint (GL_TEXTURE_STORAGE_HINT_APPLE, GL_FASTEST);
-    glHint (GL_FRAGMENT_SHADER_DERIVATIVE_HINT_ARB, GL_FASTEST);
-    glHint (GL_TEXTURE_COMPRESSION_HINT_ARB , GL_FASTEST);
-    glHint (GL_MULTISAMPLE_FILTER_HINT_NV, GL_FASTEST);
-    glHint (GL_GENERATE_MIPMAP_HINT_SGIS, GL_FASTEST);
-    CGLUpdateContext(obj->_cglContext);
-    CGLUnlockContext(obj->_cglContext);
-}
-
-static inline void update_context_sync(__unsafe_unretained MPVPlayerView *obj) {
-    dispatch_sync_f(obj->_mpv_render_queue, (__bridge void *)obj, (dispatch_function_t)update_context);
-}
+#pragma mark - functions
 
 static void reshape_context(__unsafe_unretained MPVPlayerView *obj) {
     CGLSetCurrentContext(obj->_cglContext);

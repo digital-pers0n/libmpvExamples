@@ -11,6 +11,7 @@
 typedef NS_ENUM(NSInteger, MPVPlayerExampleType) {
     MPVPlayerExampleNSOpenGLView,
     MPVPlayerExampleNSView,
+    MPVPlayerExampleHybridView,
     MPVPlayerExampleCAOpenGLLayer
 };
 

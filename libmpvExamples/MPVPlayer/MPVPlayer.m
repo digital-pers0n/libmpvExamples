@@ -35,6 +35,7 @@ static inline void check_error(int status) {
 @interface MPVPlayer ()
 
 @property NSThread *eventThread;
+@property NSNotificationCenter *notificationCenter;
 
 @end
 
@@ -92,6 +93,8 @@ static inline void check_error(int status) {
     check_error( mpv_set_option_string(mpv, "vo", "libmpv"));
     _mpv_handle = mpv;
     
+    _notificationCenter = [NSNotificationCenter defaultCenter];
+    
     _eventThread = [[NSThread alloc] initWithTarget:self selector:@selector(readEvents) object:nil];
     _eventThread.qualityOfService = QOS_CLASS_BACKGROUND;
     _eventThread.name = @"com.home.mpvPlayer.EventThread";
@@ -108,6 +111,10 @@ static inline void check_error(int status) {
 }
 
 - (void)readEvents {
+
+    NSString *notification = nil;
+    SEL postNotification = @selector(postNotification:);
+    
     while (!_eventThread.cancelled) {
         mpv_event *event = mpv_wait_event(self->_mpv_handle, -1);
         switch (event->event_id) {
@@ -125,11 +132,50 @@ static inline void check_error(int status) {
                 
             case MPV_EVENT_LOG_MESSAGE:
                 mpv_print_message(event->data);
+                break;
+                
+            case MPV_EVENT_START_FILE:
+                notification = MPVPlayerWillStartPlaybackNotification;
+                break;
+                
+            case MPV_EVENT_END_FILE:
+                notification = MPVPlayerDidEndPlaybackNotification;
+                break;
+                
+            case MPV_EVENT_FILE_LOADED:
+                notification = MPVPlayerDidLoadFileNotification;
+                break;
+                
+            case MPV_EVENT_IDLE:
+                notification = MPVPlayerDidEnterIdleModeNotification;
+                break;
+                
+            case MPV_EVENT_VIDEO_RECONFIG:
+                notification = MPVPlayerVideoDidChangeNotification;
+                break;
+                
+            case MPV_EVENT_SEEK:
+                notification = MPVPlayerDidStartSeekNotification;
+                break;
+                
+            case MPV_EVENT_PLAYBACK_RESTART:
+                notification = MPVPlayerDidRestartPlaybackNotification;
+                break;
                 
             default:
                 printf("event: %s\n", mpv_event_name(event->event_id));
                 break;
         }
+        
+        if (notification) {
+#ifdef DEBUG
+            NSLog(@"Post '%@' notification.", notification);
+#endif
+            [self performSelectorOnMainThread:postNotification withObject:notification waitUntilDone:NO];
+            
+            notification = nil;
+        }
+        
     }
     
 exit:
@@ -145,6 +191,10 @@ exit:
     [self performCommand:@"quit"];
     mpv_terminate_destroy(_mpv_handle);
     _mpv_handle = NULL;
+}
+
+- (void)postNotification:(NSString *)notification {
+    [_notificationCenter postNotificationName:notification object:self userInfo:nil];
 }
 
 #pragma mark - Properties

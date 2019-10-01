@@ -62,6 +62,28 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Notifications
 
+/** MPV_EVENT_SHUTDOWN */
 extern NSString * const MPVPlayerWillShutdownNotification;
+
+/** MPV_EVENT_START_FILE */
+extern NSString * const MPVPlayerWillStartPlaybackNotification;
+
+/** MPV_EVENT_END_FILE */
+extern NSString * const MPVPlayerDidEndPlaybackNotification;
+
+/** MPV_EVENT_FILE_LOADED  */
+extern NSString * const MPVPlayerDidLoadFileNotification;
+
+/** MPV_EVENT_IDLE */
+extern NSString * const MPVPlayerDidEnterIdleModeNotification;
+
+/** MPV_EVENT_VIDEO_RECONFIG */
+extern NSString * const MPVPlayerVideoDidChangeNotification;
+
+/** MPV_EVENT_SEEK */
+extern NSString * const MPVPlayerDidStartSeekNotification;
+
+/** MPV_EVENT_PLAYBACK_RESTART */
+extern NSString * const MPVPlayerDidRestartPlaybackNotification;
 
 NS_ASSUME_NONNULL_END

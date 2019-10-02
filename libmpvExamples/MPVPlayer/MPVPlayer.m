@@ -96,7 +96,7 @@ static inline void check_error(int status) {
     _notificationCenter = [NSNotificationCenter defaultCenter];
     
     _eventThread = [[NSThread alloc] initWithTarget:self selector:@selector(readEvents) object:nil];
-    _eventThread.qualityOfService = QOS_CLASS_BACKGROUND;
+    _eventThread.qualityOfService = QOS_CLASS_UTILITY;
     _eventThread.name = @"com.home.mpvPlayer.EventThread";
     [_eventThread start];
     

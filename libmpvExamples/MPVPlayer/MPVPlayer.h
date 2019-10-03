@@ -17,6 +17,8 @@ typedef NS_ENUM(NSInteger, MPVPlayerStatus) {
 
 NS_ASSUME_NONNULL_BEGIN
 
+@protocol MPVPropertyObserving;
+
 @interface MPVPlayer : NSObject
 
 @property (nonatomic, readonly, nullable) mpv_handle *mpv_handle;
@@ -57,6 +59,19 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)performCommand:(NSString *)command withArgument:(nullable NSString *)arg1 withArgument:(nullable NSString *)arg2;
 - (void)performCommand:(NSString *)command withArgument:(nullable NSString *)arg1;
 - (void)performCommand:(NSString *)command;
+
+#pragma mark - Add/Remove Property Observers
+
+- (void)addObserver:(id <MPVPropertyObserving>)observer forProperty:(NSString *)property format:(mpv_format)format;
+- (void)removeObserver:(id <MPVPropertyObserving>)observer forProperty:(nullable NSString *)property;
+
+@end
+
+#pragma mark - Property Observing
+
+@protocol MPVPropertyObserving <NSObject>
+
+- (void)player:(MPVPlayer *)player didChangeValue:(id)value forProperty:(NSString *)property format:(mpv_format)format;
 
 @end
 

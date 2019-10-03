@@ -36,6 +36,7 @@ static inline void check_error(int status) {
 
 @property NSThread *eventThread;
 @property NSNotificationCenter *notificationCenter;
+@property NSMutableDictionary *observed;
 
 @end
 
@@ -92,6 +93,8 @@ static inline void check_error(int status) {
     
     check_error( mpv_set_option_string(mpv, "vo", "libmpv"));
     _mpv_handle = mpv;
+    
+    _observed = [NSMutableDictionary new];
     
     _notificationCenter = [NSNotificationCenter defaultCenter];
     
@@ -162,6 +165,10 @@ static inline void check_error(int status) {
                 notification = MPVPlayerDidRestartPlaybackNotification;
                 break;
                 
+            case MPV_EVENT_PROPERTY_CHANGE:
+                [self notifyObservers:event->data];
+                break;
+                
             default:
                 printf("event: %s\n", mpv_event_name(event->event_id));
                 break;
@@ -195,6 +202,52 @@ exit:
 
 - (void)postNotification:(NSString *)notification {
     [_notificationCenter postNotificationName:notification object:self userInfo:nil];
+}
+
+- (void)notifyObservers:(mpv_event_property *) event_property {
+    
+#ifdef DEBUG
+    NSLog(@"Property did change: %s format: %i", event_property->name, event_property->format);
+#endif
+    
+    id value = nil;
+    switch (event_property->format) {
+        case MPV_FORMAT_STRING:
+        case MPV_FORMAT_OSD_STRING:
+        {
+            char *string = *(char **)(event_property->data);
+            value = @(string);
+        }
+            break;
+            
+        case MPV_FORMAT_FLAG:
+        case MPV_FORMAT_INT64:
+        {
+            int64_t val = *(int64_t *)(event_property->data);
+            value = @(val);
+        }
+            break;
+        case MPV_FORMAT_DOUBLE:
+        {
+            double val = *(double *)(event_property->data);
+            value = @(val);
+        }
+            break;
+            
+        default:
+            NSLog(@"%s Unsupported format: %i", __PRETTY_FUNCTION__, event_property->format);
+            return;
+            break;
+    }
+    
+    NSString *property = @(event_property->name);
+    NSArray *observers = _observed[property];
+    if (observers) {
+        for (id <MPVPropertyObserving> observer in observers) {
+            [observer player:self didChangeValue:value forProperty:property format:event_property->format];
+        }
+    }
+    
 }
 
 #pragma mark - Properties
@@ -356,6 +409,62 @@ exit:
     int error = mpv_perform_command_with_arguments(_mpv_handle, command.UTF8String, NULL, NULL);
     if (error != MPV_ERROR_SUCCESS) {
         mpv_print_error_generic(error, "Failed to perform command '%@'", command);
+    }
+}
+
+- (void)addObserver:(id<MPVPropertyObserving>)observer
+        forProperty:(NSString *)property
+             format:(mpv_format)format {
+
+    NSMutableArray *observers = _observed[property];
+    if (observers) {
+        if (![observers containsObject:observer]) {
+            [observers addObject:observer];
+        }
+    } else {
+        observers = [NSMutableArray arrayWithObject:observer];
+        _observed[property] = observers;
+        mpv_observe_property(_mpv_handle, (uint64_t)observers, property.UTF8String, format);
+    }
+#ifdef DEBUG
+    NSLog(@"%llx: add observer: %@ property: %@ total: %lu", (uint64_t)observers, observer, property, observers.count);
+#endif
+}
+
+- (void)removeObserver:(id<MPVPropertyObserving>)observer forProperty:(NSString *)property {
+    
+    if (property) { // remove observer for the specific property
+        NSMutableArray *observers = _observed[property];
+        [observers removeObject:observer];
+#ifdef DEBUG
+        NSLog(@"%llx: remove observer: %@ property: %@ total: %lu", (uint64_t)observers, observer, property, observers.count);
+#endif
+        if (observers.count == 0) {
+            [_observed removeObjectForKey:property];
+           int error =  mpv_unobserve_property(_mpv_handle, (uint64_t)observers);
+            if (error < 0) {
+                mpv_print_error_generic(error, @"Failed to remove observer %@ for property: %@", observer, property);
+            } else {
+               NSLog(@"%llx: stop observing property: %@", (uint64_t)observers, property);
+            }
+        }
+    } else { // remove observer for all properties
+        [_observed.copy enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
+            NSMutableArray *observers = obj;
+            [observers removeObject:observer];
+#ifdef DEBUG
+            NSLog(@"%llx: remove observer: %@ property: %@ total: %lu", (uint64_t)observers, observer, key, observers.count);
+#endif
+            if (observers.count == 0) {
+                [_observed removeObjectForKey:key];
+                int error =  mpv_unobserve_property(_mpv_handle, (uint64_t)observers);
+                if (error < 0) {
+                    mpv_print_error_generic(error, @"Failed to remove observer %@ for property: %@", observer, key);
+                } else {
+                    NSLog(@"%llx: stop observing property: %@", (uint64_t)observers, key);
+                }
+            }
+        }];
     }
 }
 

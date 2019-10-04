@@ -13,6 +13,7 @@
 #import "MPVPlayerView.h"
 #import "MPVHybridView.h"
 #import "MPVPlayerWindow.h"
+#import "MPVEventView.h"
 
 @interface MPVPlayerExample () {
     MPVPlayerWindow *_window;
@@ -81,6 +82,9 @@
         
         if (example) {
             _window.title = [example className];
+             MPVEventView *eventView = [[MPVEventView alloc] initWithPlayer:[example player]];
+            eventView.frame = _window.contentView.bounds;
+            [_window.contentView addSubview:eventView];
         }
         
         [_window center];
@@ -159,9 +163,11 @@
     if (_player.status == MPVPlayerStatusReadyToPlay) {
         [_player shutdown];
     }
-    [_openGLView removeFromSuperview];
-    [_playerView removeFromSuperview];
-    [_hybridView removeFromSuperview];
+    NSArray *subviews = _window.contentView.subviews.copy;
+    for (NSView *view in subviews) {
+        [view removeFromSuperview];
+    }
+
     _window.contentView.wantsLayer = NO;
 }
 

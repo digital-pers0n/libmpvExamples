@@ -231,6 +231,15 @@ extern void *g_opengl_framework_handle;
             
         }
     }
+
+}
+
+- (BOOL)isOpaque {
+    return YES;
+}
+
+- (BOOL)mouseDownCanMoveWindow {
+    return YES;
 }
 
 #pragma mark - Notifications

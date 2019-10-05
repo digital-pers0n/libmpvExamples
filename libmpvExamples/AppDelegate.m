@@ -41,9 +41,15 @@
 - (NSURL *)selectFile {
     NSOpenPanel *openPanel = NSOpenPanel.openPanel;
     openPanel.allowedFileTypes = @[@"mkv", @"mp4", @"avi", @"m4v", @"mov", @"3gp", @"ts", @"mts", @"m2ts", @"wmv", @"flv", @"f4v", @"asf", @"webm", @"rm", @"rmvb", @"qt", @"dv", @"mpg", @"mpeg", @"mxf", @"vob", @"gif"];
-    if (openPanel.runModal == NSModalResponseOK) {
-        return openPanel.URL;
-    }
+    
+    dispatch_queue_t q = dispatch_queue_create("com.libmpvExamples.open-file", 0);
+    __block NSURL *URL = nil;
+    dispatch_sync(q, ^{
+        if (openPanel.runModal == NSModalResponseOK) {
+            URL = openPanel.URL;
+        }
+    });
+
     return nil;
 }
 

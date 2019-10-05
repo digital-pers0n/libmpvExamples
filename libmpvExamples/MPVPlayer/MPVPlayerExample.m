@@ -82,9 +82,8 @@
         
         if (example) {
             _window.title = [example className];
-             MPVEventView *eventView = [[MPVEventView alloc] initWithPlayer:[example player]];
-            eventView.frame = _window.contentView.bounds;
-            [_window.contentView addSubview:eventView];
+            [self createEventViewWithPlayer:[example player]];
+
         }
         
         [_window center];
@@ -147,6 +146,14 @@
     contentView.layerContentsPlacement = NSViewLayerContentsPlacementScaleProportionallyToFit;
     
     return 0;
+}
+
+- (void)createEventViewWithPlayer:(MPVPlayer *)player {
+    MPVEventView *eventView = [[MPVEventView alloc] initWithPlayer:player];
+    eventView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
+    eventView.translatesAutoresizingMaskIntoConstraints = NO;
+    eventView.frame = _window.contentView.bounds;
+    [_window.contentView addSubview:eventView];
 }
 
 - (void)dealloc {

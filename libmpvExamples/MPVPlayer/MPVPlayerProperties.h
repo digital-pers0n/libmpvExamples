@@ -29,4 +29,7 @@ extern NSString * const MPVPlayerPropertyVolume;
 /** pause */
 extern NSString * const MPVPlayerPropertyPause;
 
+/** filename */
+extern NSString * const MPVPlayerPropertyFilename;
+
 #endif /* MPVPlayerProperties_h */

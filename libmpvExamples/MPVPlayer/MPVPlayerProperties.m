@@ -14,3 +14,4 @@ NSString * const MPVPlayerPropertyTimePosition          = @"time-pos";
 NSString * const MPVPlayerPropertyPercentPosition       = @"percent-pos";
 NSString * const MPVPlayerPropertyVolume                = @"volume";
 NSString * const MPVPlayerPropertyPause                 = @"pause";
+NSString * const MPVPlayerPropertyFilename              = @"filename";

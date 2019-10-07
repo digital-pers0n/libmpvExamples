@@ -70,6 +70,8 @@
         [_player addObserver:self
                  forProperty:MPVPlayerPropertyFilename
                       format:MPV_FORMAT_STRING];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playerWillShutdown:) name:MPVPlayerWillShutdownNotification object:_player];
 
     }
     return self;
@@ -103,6 +105,15 @@ typedef void (*methodIMP)(id, SEL, id);
         methodIMP fn = (methodIMP)msg->_methodImplementation;
         fn(self, msg->_action, value);
     }
+}
+
+#pragma mark - Notifications
+
+- (void)playerWillShutdown:(NSNotification *)n {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [_player removeObserver:self forProperty:nil];
+    _player = nil;
+    _observed = nil;
 }
 
 #pragma mark - Overrides

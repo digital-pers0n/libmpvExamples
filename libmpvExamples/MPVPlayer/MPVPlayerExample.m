@@ -36,11 +36,15 @@
 {
     self = [super init];
     if (self) {
+        NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
+        
         _window = [MPVPlayerWindow.alloc initWithContentRect:NSMakeRect(0, 0, 1280, 720)
                                                    styleMask: NSTitledWindowMask | NSClosableWindowMask | NSMiniaturizableWindowMask | NSResizableWindowMask
                                                      backing:NSBackingStoreBuffered
                                                        defer:NO ];
         _window.releasedWhenClosed = NO;
+        _window.movableByWindowBackground = YES;
+        [nc addObserver:self selector:@selector(windowWillClose:) name:NSWindowWillCloseNotification object:_window];
         
         id example = nil;
         
@@ -82,7 +86,10 @@
         
         if (example) {
             _window.title = [example className];
-            [self createEventViewWithPlayer:[example player]];
+            MPVPlayer *player = [example player];
+            [self createEventViewWithPlayer:player];
+            
+            [nc addObserver:self selector:@selector(windowWillClose:) name:MPVPlayerWillShutdownNotification object:player];
 
         }
         
@@ -176,6 +183,13 @@
     }
 
     _window.contentView.wantsLayer = NO;
+}
+
+#pragma mark - Notifications
+
+- (void)windowWillClose:(NSNotification *)n {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [self shutdown];
 }
 
 @end

@@ -72,6 +72,8 @@
                       format:MPV_FORMAT_STRING];
         
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playerWillShutdown:) name:MPVPlayerWillShutdownNotification object:_player];
+        
+        [self registerForDraggedTypes:@[NSFilenamesPboardType, NSURLPboardType]];
 
     }
     return self;
@@ -150,6 +152,48 @@ typedef void (*methodIMP)(id, SEL, id);
 - (void)keyUp:(NSEvent *)theEvent {
     NSString *chars = theEvent.characters;
     [_player performCommand:@"keyup" withArgument:chars];
+}
+
+#pragma mark - Drag n Drop
+
+- (NSDragOperation)draggingEntered:(id<NSDraggingInfo>)sender {
+    NSArray *types = sender.draggingPasteboard.types;
+    if ([types containsObject:NSFilenamesPboardType] || [types containsObject:NSURLPboardType]) {
+        return NSDragOperationCopy;
+    }
+    return NSDragOperationNone;
+}
+
+- (BOOL)performDragOperation:(id<NSDraggingInfo>)sender {
+    
+    NSPasteboard *pb = sender.draggingPasteboard;
+    NSArray *array = [pb readObjectsForClasses:@[NSURL.class] options:nil];
+    if (array) {
+        NSURL *url = array.firstObject;
+        if ([url isFileReferenceURL]) {
+            url = [url filePathURL];
+        }
+        [_player openURL:url];
+        return YES;
+    }
+    
+    array = [pb readObjectsForClasses:@[NSString.class] options:nil];
+    if (array) {
+        NSURL *url = [NSURL fileURLWithPath:array.firstObject];
+        if (url) {
+            [_player openURL:url];
+            return YES;
+        }
+        
+        url = [NSURL URLWithString:array.firstObject];
+        if (url) {
+            [_player openURL:url];
+            return YES;
+        }
+        
+    }
+    
+    return NO;
 }
 
 @end

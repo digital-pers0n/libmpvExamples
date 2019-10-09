@@ -73,7 +73,7 @@
         
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playerWillShutdown:) name:MPVPlayerWillShutdownNotification object:_player];
         
-        [self registerForDraggedTypes:@[NSFilenamesPboardType, NSURLPboardType]];
+        [self registerForDraggedTypes:@[NSFilenamesPboardType, NSURLPboardType, NSStringPboardType]];
 
     }
     return self;
@@ -158,7 +158,7 @@ typedef void (*methodIMP)(id, SEL, id);
 
 - (NSDragOperation)draggingEntered:(id<NSDraggingInfo>)sender {
     NSArray *types = sender.draggingPasteboard.types;
-    if ([types containsObject:NSFilenamesPboardType] || [types containsObject:NSURLPboardType]) {
+    if ([types containsObject:NSFilenamesPboardType] || [types containsObject:NSURLPboardType] || [types containsObject:NSStringPboardType]) {
         return NSDragOperationCopy;
     }
     return NSDragOperationNone;

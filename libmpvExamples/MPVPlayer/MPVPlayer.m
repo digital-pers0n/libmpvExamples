@@ -9,9 +9,10 @@
 #import "MPVPlayer.h"
 #import "MPVPlayerProperties.h"
 #import "MPVPlayerCommands.h"
+#import "mpv_functions.h"
 
 NSString * const MPVPlayerErrorDomain = @"com.home.mpvPlayer.ErrorDomain";
-#define func_attributes __attribute__((overloadable, always_inline))
+
 
 #define mpv_print_error_set_property(error_code, property_name, value_format, value) \
         NSLog(@"%s Failed to set value '" value_format "' for property '%@' -> %d %s", \
@@ -134,7 +135,7 @@ static inline void check_error(int status) {
                 goto exit;
                 
             case MPV_EVENT_LOG_MESSAGE:
-                mpv_print_message(event->data);
+                mpv_print_log_message(event->data);
                 break;
                 
             case MPV_EVENT_START_FILE:
@@ -399,14 +400,14 @@ exit:
 }
 
 - (void)performCommand:(NSString *)command withArgument:(NSString *)arg1 {
-    int error = mpv_perform_command_with_arguments(_mpv_handle, command.UTF8String, arg1.UTF8String, NULL);
+    int error = mpv_perform_command_with_argument(_mpv_handle, command.UTF8String, arg1.UTF8String);
     if (error != MPV_ERROR_SUCCESS) {
         mpv_print_error_generic(error, "Failed to perform command '%@' with argument '%@'", command, arg1);
     }
 }
 
 - (void)performCommand:(NSString *)command {
-    int error = mpv_perform_command_with_arguments(_mpv_handle, command.UTF8String, NULL, NULL);
+    int error = mpv_perform_command(_mpv_handle, command.UTF8String);
     if (error != MPV_ERROR_SUCCESS) {
         mpv_print_error_generic(error, "Failed to perform command '%@'", command);
     }
@@ -466,93 +467,6 @@ exit:
             }
         }];
     }
-}
-
-#pragma mark - mpv functions
-
-static inline void mpv_print_message(struct mpv_event_log_message *msg) {
-    printf("[%s]  %s : %s", msg->prefix, msg->level, msg->text);
-}
-
-#pragma mark set/get mpv properties
-
-/**
- Set @c char string.
- */
-static int func_attributes mpv_set_value_for_key(mpv_handle *mpv, const char *value, const char *key) {
-    mpv_node node = {
-        .u.string = (char *)value,
-        .format = MPV_FORMAT_STRING
-    };
-    return mpv_set_property(mpv, key, MPV_FORMAT_NODE, &node);
-}
-
-/**
- Set @c int flag.
- */
-static int func_attributes mpv_set_value_for_key(mpv_handle *mpv, int value, const char *key) {
-    mpv_node node = {
-        .u.flag = value,
-        .format = MPV_FORMAT_FLAG
-    };
-    return mpv_set_property(mpv, key, MPV_FORMAT_NODE, &node);
-}
-
-/**
- Set @c int64_t value.
- */
-static int func_attributes mpv_set_value_for_key(mpv_handle *mpv, int64_t value, const char *key) {
-    mpv_node node = {
-        .u.int64 = value,
-        .format = MPV_FORMAT_INT64
-    };
-    return mpv_set_property(mpv, key, MPV_FORMAT_NODE, &node);
-}
-
-/**
- Set @c double value.
- */
-static int func_attributes mpv_set_value_for_key(mpv_handle *mpv, double value, const char *key) {
-    mpv_node node = {
-        .u.double_ = value,
-        .format = MPV_FORMAT_DOUBLE
-    };
-    return mpv_set_property(mpv, key, MPV_FORMAT_NODE, &node);
-}
-
-/**
- Get @c char string. Free @c value with @c mpv_free() to avoid memory leaks.
- */
-static int func_attributes mpv_get_value_for_key(mpv_handle *mpv, char **value, const char *key) {
-    return mpv_get_property(mpv, key, MPV_FORMAT_STRING, value);
-}
-
-/**
- Get @c int flag.
- */
-static int func_attributes mpv_get_value_for_key(mpv_handle *mpv, int *value, const char *key) {
-    return mpv_get_property(mpv, key, MPV_FORMAT_FLAG, value);
-}
-
-/**
- Get @c int64_t value.
- */
-static int func_attributes mpv_get_value_for_key(mpv_handle *mpv, int64_t *value, const char *key) {
-    return mpv_get_property(mpv, key, MPV_FORMAT_INT64, value);
-}
-
-/**
- Get @c double value.
- */
-static int func_attributes mpv_get_value_for_key(mpv_handle *mpv, double *value, const char *key) {
-    return mpv_get_property(mpv, key, MPV_FORMAT_DOUBLE, value);
-}
-
-#pragma mark mpv commands
-
-static inline int mpv_perform_command_with_arguments(mpv_handle *mpv, const char *command, const char *arg1, const char *arg2) {
-    const char *cmd[] = { command, arg1, arg2, NULL };
-    return mpv_command(mpv, cmd);
 }
 
 @end

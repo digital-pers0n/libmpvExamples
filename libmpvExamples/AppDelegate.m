@@ -50,7 +50,7 @@
         }
     });
 
-    return nil;
+    return URL;
 }
 
 - (void)destroyCurrentExample {

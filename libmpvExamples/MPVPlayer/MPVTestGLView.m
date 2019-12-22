@@ -248,17 +248,28 @@ typedef struct mpv_data_ {
 }
 
 - (void)drawRect:(NSRect)dirtyRect {
-    
+
     if (_mpv.render_context) {
-    
+        
         pthread_mutex_lock(&_mpv.gl_lock);
         
-        CGLSetCurrentContext(_mpv.cgl_ctx);
         NSSize  surfaceSize = [self convertRectToBacking:dirtyRect].size;
         _mpv.opengl_fbo.w = surfaceSize.width;
         _mpv.opengl_fbo.h = surfaceSize.height;
+        
+        BOOL shouldRestartCVDL = NO;
+        if (CVDisplayLinkIsRunning(_cvdl)) {
+            CVDisplayLinkStop(_cvdl);
+            shouldRestartCVDL = YES;
+        }
+        
+        CGLSetCurrentContext(_mpv.cgl_ctx);
         mpv_render_context_render(_mpv.render_context, _mpv.render_params);
         glFlush();
+        
+        if (shouldRestartCVDL) {
+            CVDisplayLinkStart(_cvdl);
+        }
         
         pthread_mutex_unlock(&_mpv.gl_lock);
     }

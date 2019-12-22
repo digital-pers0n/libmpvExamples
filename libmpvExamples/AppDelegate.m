@@ -108,6 +108,10 @@
     [self runMPVPlayerExample:MPVPlayerExampleCAOpenGLLayer];
 }
 
+- (IBAction)runMPVPlayerTestGLViewExample:(id)sender {
+    [self runMPVPlayerExample:MPVPlayerExampleTestGLView];
+}
+
 - (void)runMPVPlayerExample:(MPVPlayerExampleType)type {
     
     if (_currentExample) {

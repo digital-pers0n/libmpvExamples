@@ -14,6 +14,7 @@
 #import "MPVHybridView.h"
 #import "MPVPlayerWindow.h"
 #import "MPVEventView.h"
+#import "MPVTestGLView.h"
 
 @interface MPVPlayerExample () {
     MPVPlayerWindow *_window;
@@ -23,6 +24,7 @@
 @property MPVPlayerLayer *openGLLayer;
 @property MPVPlayerView *playerView;
 @property MPVHybridView *hybridView;
+@property MPVTestGLView *testGLView;
 
 @end
 
@@ -80,6 +82,13 @@
                 example = _openGLLayer;
                 break;
                 
+            case MPVPlayerExampleTestGLView:
+                if ([self createTestGLView] != 0) {
+                    NSLog(@"Failed to initialize MPVTestGLView");
+                    return nil;
+                }
+                example = _testGLView;
+                
             default:
                 break;
         }
@@ -109,6 +118,18 @@
     _openGLView.translatesAutoresizingMaskIntoConstraints = NO;
     _player = _openGLView.player;
     [_window.contentView addSubview:_openGLView];
+    return 0;
+}
+
+- (int)createTestGLView {
+    _testGLView = [MPVTestGLView.alloc initWithFrame:NSMakeRect(0, 0, 1280, 720)];
+    if (!_testGLView) {
+        return -1;
+    }
+    _testGLView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
+    _testGLView.translatesAutoresizingMaskIntoConstraints = NO;
+    _player = _testGLView.player;
+    [_window.contentView addSubview:_testGLView];
     return 0;
 }
 

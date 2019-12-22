@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="11762" systemVersion="15F34" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <development version="7000" identifier="xcode"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="10117"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11762"/>
         <capability name="box content view" minToolsVersion="7.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="NSApplication">
@@ -672,10 +672,10 @@
         <window title="libmpvExamples" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" animationBehavior="default" id="QvC-M9-y7g">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="335" y="390" width="381" height="420"/>
+            <rect key="contentRect" x="335" y="390" width="381" height="582"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1366" height="768"/>
-            <view key="contentView" id="EiT-Mj-1SZ">
-                <rect key="frame" x="0.0" y="0.0" width="381" height="420"/>
+            <view key="contentView" misplaced="YES" id="EiT-Mj-1SZ">
+                <rect key="frame" x="0.0" y="0.0" width="381" height="582"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <button verticalHuggingPriority="750" id="75l-B0-342">
@@ -695,14 +695,14 @@
                         </connections>
                     </button>
                     <scrollView horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" usesPredominantAxisScrolling="NO" id="red-pQ-aCF">
-                        <rect key="frame" x="-1" y="37" width="383" height="384"/>
+                        <rect key="frame" x="-1" y="37" width="383" height="546"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <clipView key="contentView" id="B3z-hJ-2I1" customClass="LEClipView">
-                            <rect key="frame" x="1" y="1" width="381" height="382"/>
+                        <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="B3z-hJ-2I1" customClass="LEClipView">
+                            <rect key="frame" x="1" y="1" width="381" height="544"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <view id="KBU-fn-mXu">
-                                    <rect key="frame" x="0.0" y="0.0" width="381" height="382"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="381" height="544"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 </view>
                             </subviews>
@@ -711,53 +711,51 @@
                             </connections>
                         </clipView>
                         <scroller key="horizontalScroller" verticalHuggingPriority="750" horizontal="YES" id="4bz-98-Gd0">
-                            <rect key="frame" x="1" y="367" width="381" height="16"/>
+                            <rect key="frame" x="1" y="529" width="381" height="16"/>
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
                         <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="Khp-nM-IAI">
-                            <rect key="frame" x="366" y="1" width="16" height="382"/>
+                            <rect key="frame" x="366" y="1" width="16" height="544"/>
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
                     </scrollView>
                 </subviews>
             </view>
-            <point key="canvasLocation" x="230.5" y="259"/>
+            <point key="canvasLocation" x="230.5" y="297"/>
         </window>
-        <customView translatesAutoresizingMaskIntoConstraints="NO" id="SEI-iY-qx4">
-            <rect key="frame" x="0.0" y="0.0" width="381" height="538"/>
+        <customView misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SEI-iY-qx4">
+            <rect key="frame" x="0.0" y="0.0" width="381" height="592"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
             <subviews>
-                <box autoresizesSubviews="NO" title="CocoaCB" borderType="line" id="Xka-VP-kCI">
-                    <rect key="frame" x="17" y="427" width="346" height="101"/>
+                <box autoresizesSubviews="NO" misplaced="YES" borderType="line" title="CocoaCB" id="Xka-VP-kCI">
+                    <rect key="frame" x="17" y="490" width="346" height="94"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <view key="contentView" id="xRr-Do-gDg">
-                        <rect key="frame" x="1" y="1" width="344" height="85"/>
+                        <rect key="frame" x="1" y="1" width="344" height="78"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" id="5wJ-Ez-5tW">
-                                <rect key="frame" x="18" y="14" width="245" height="61"/>
+                            <scrollView misplaced="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" id="5wJ-Ez-5tW">
+                                <rect key="frame" x="20" y="14" width="245" height="50"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="2Th-tc-MVt">
-                                    <rect key="frame" x="1" y="1" width="243" height="59"/>
+                                    <rect key="frame" x="1" y="1" width="243" height="48"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <textView editable="NO" importsGraphics="NO" verticallyResizable="NO" findStyle="bar" id="za7-Ug-t8q">
-                                            <rect key="frame" x="0.0" y="0.0" width="243" height="59"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="243" height="48"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            <size key="minSize" width="243" height="59"/>
+                                            <size key="minSize" width="243" height="48"/>
                                             <size key="maxSize" width="463" height="10000000"/>
                                             <attributedString key="textStorage">
                                                 <fragment content="CAOpenGLLayer example. Based on CocoaCB from mpv 0.29.1">
                                                     <attributes>
-                                                        <font key="NSFont" metaFont="controlContent" size="11"/>
+                                                        <font key="NSFont" metaFont="smallSystem"/>
                                                         <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                     </attributes>
                                                 </fragment>
                                             </attributedString>
                                             <color key="insertionPointColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                            <size key="minSize" width="243" height="59"/>
-                                            <size key="maxSize" width="463" height="10000000"/>
                                         </textView>
                                     </subviews>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -767,12 +765,12 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                                 <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="ykd-fG-ZOO">
-                                    <rect key="frame" x="228" y="1" width="16" height="59"/>
+                                    <rect key="frame" x="228" y="1" width="16" height="48"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                             </scrollView>
-                            <button verticalHuggingPriority="750" id="lMh-Aw-alj">
-                                <rect key="frame" x="268" y="27" width="64" height="32"/>
+                            <button verticalHuggingPriority="750" misplaced="YES" id="lMh-Aw-alj">
+                                <rect key="frame" x="267" y="22" width="64" height="32"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <buttonCell key="cell" type="push" title="Run" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="cBB-7w-3qo">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -785,95 +783,35 @@
                         </subviews>
                     </view>
                 </box>
-                <box autoresizesSubviews="NO" title="MPVPlayer" borderType="line" id="85B-Cc-d6D">
-                    <rect key="frame" x="17" y="322" width="346" height="101"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <view key="contentView" id="lUU-oH-kTg">
-                        <rect key="frame" x="1" y="1" width="344" height="85"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <scrollView horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" id="qU6-eM-b6a">
-                                <rect key="frame" x="18" y="14" width="245" height="61"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="rSd-0H-M6W">
-                                    <rect key="frame" x="1" y="1" width="243" height="59"/>
-                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                    <subviews>
-                                        <textView editable="NO" importsGraphics="NO" verticallyResizable="NO" findStyle="bar" spellingCorrection="YES" id="xQ7-Zt-EQ7">
-                                            <rect key="frame" x="0.0" y="0.0" width="243" height="59"/>
-                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            <size key="minSize" width="243" height="59"/>
-                                            <size key="maxSize" width="463" height="10000000"/>
-                                            <attributedString key="textStorage">
-                                                <fragment content="NSOpenGLView example.">
-                                                    <attributes>
-                                                        <font key="NSFont" metaFont="controlContent" size="11"/>
-                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
-                                                    </attributes>
-                                                </fragment>
-                                            </attributedString>
-                                            <color key="insertionPointColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                            <size key="minSize" width="243" height="59"/>
-                                            <size key="maxSize" width="463" height="10000000"/>
-                                        </textView>
-                                    </subviews>
-                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </clipView>
-                                <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="YES" id="U9C-IL-A0n">
-                                    <rect key="frame" x="-100" y="-100" width="87" height="18"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                </scroller>
-                                <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="TL8-WD-MBX">
-                                    <rect key="frame" x="228" y="1" width="16" height="59"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                </scroller>
-                            </scrollView>
-                            <button verticalHuggingPriority="750" id="HXl-yc-5lf">
-                                <rect key="frame" x="268" y="27" width="64" height="32"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <buttonCell key="cell" type="push" title="Run" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="NOr-dh-3KC">
-                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="system"/>
-                                </buttonCell>
-                                <connections>
-                                    <action selector="runMPVPlayerNSOpenGLViewExample:" target="Voe-Tx-rLC" id="M3e-eb-fvp"/>
-                                </connections>
-                            </button>
-                        </subviews>
-                    </view>
-                </box>
-                <box autoresizesSubviews="NO" title="MPVPlayer" borderType="line" titlePosition="noTitle" id="zje-Rm-FGU">
-                    <rect key="frame" x="18" y="229" width="346" height="91"/>
+                <box autoresizesSubviews="NO" misplaced="YES" borderType="line" title="MPVPlayer" titlePosition="noTitle" id="zje-Rm-FGU">
+                    <rect key="frame" x="17" y="290" width="346" height="80"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <view key="contentView" id="eGD-ZT-QJk">
-                        <rect key="frame" x="1" y="1" width="344" height="89"/>
+                        <rect key="frame" x="1" y="1" width="344" height="78"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" id="JSu-hL-lh5">
-                                <rect key="frame" x="18" y="14" width="245" height="61"/>
+                            <scrollView misplaced="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" id="JSu-hL-lh5">
+                                <rect key="frame" x="18" y="14" width="245" height="50"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="bac-Sm-lhf">
-                                    <rect key="frame" x="1" y="1" width="243" height="59"/>
+                                    <rect key="frame" x="1" y="1" width="243" height="48"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <textView editable="NO" importsGraphics="NO" verticallyResizable="NO" findStyle="bar" spellingCorrection="YES" id="daZ-ER-h1c">
-                                            <rect key="frame" x="0.0" y="0.0" width="243" height="59"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="243" height="48"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            <size key="minSize" width="243" height="59"/>
+                                            <size key="minSize" width="243" height="48"/>
                                             <size key="maxSize" width="463" height="10000000"/>
                                             <attributedString key="textStorage">
                                                 <fragment content="NSView example.">
                                                     <attributes>
-                                                        <font key="NSFont" metaFont="controlContent" size="11"/>
+                                                        <font key="NSFont" metaFont="smallSystem"/>
                                                         <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                     </attributes>
                                                 </fragment>
                                             </attributedString>
                                             <color key="insertionPointColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                            <size key="minSize" width="243" height="59"/>
-                                            <size key="maxSize" width="463" height="10000000"/>
                                         </textView>
                                     </subviews>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -883,12 +821,12 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                                 <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="yeN-o6-Xh2">
-                                    <rect key="frame" x="228" y="1" width="16" height="59"/>
+                                    <rect key="frame" x="228" y="1" width="16" height="48"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                             </scrollView>
-                            <button verticalHuggingPriority="750" id="lKH-Uv-Yvb">
-                                <rect key="frame" x="266" y="27" width="64" height="32"/>
+                            <button verticalHuggingPriority="750" misplaced="YES" id="lKH-Uv-Yvb">
+                                <rect key="frame" x="266" y="22" width="64" height="32"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <buttonCell key="cell" type="push" title="Run" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="50p-bq-IaI">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -901,37 +839,35 @@
                         </subviews>
                     </view>
                 </box>
-                <box autoresizesSubviews="NO" title="MPVPlayer" borderType="line" titlePosition="noTitle" id="Ve6-7C-yR5">
-                    <rect key="frame" x="17" y="136" width="346" height="91"/>
+                <box autoresizesSubviews="NO" misplaced="YES" borderType="line" title="MPVPlayer" titlePosition="noTitle" id="Ve6-7C-yR5">
+                    <rect key="frame" x="17" y="203" width="346" height="80"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <view key="contentView" id="x4a-vi-iSv">
-                        <rect key="frame" x="1" y="1" width="344" height="89"/>
+                        <rect key="frame" x="1" y="1" width="344" height="78"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" id="8Iz-Wd-XK4">
-                                <rect key="frame" x="18" y="14" width="245" height="61"/>
+                            <scrollView misplaced="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" id="8Iz-Wd-XK4">
+                                <rect key="frame" x="18" y="14" width="245" height="50"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="7Ha-vu-gA4">
-                                    <rect key="frame" x="1" y="1" width="243" height="59"/>
+                                    <rect key="frame" x="1" y="1" width="243" height="48"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <textView editable="NO" importsGraphics="NO" verticallyResizable="NO" findStyle="bar" spellingCorrection="YES" id="Fq8-OR-2SH">
-                                            <rect key="frame" x="0.0" y="0.0" width="243" height="59"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="243" height="48"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            <size key="minSize" width="243" height="59"/>
+                                            <size key="minSize" width="243" height="48"/>
                                             <size key="maxSize" width="463" height="10000000"/>
                                             <attributedString key="textStorage">
                                                 <fragment content="HybridView example. NSOpenGLView + CAOpenGLLayer.">
                                                     <attributes>
-                                                        <font key="NSFont" metaFont="controlContent" size="11"/>
+                                                        <font key="NSFont" metaFont="smallSystem"/>
                                                         <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                     </attributes>
                                                 </fragment>
                                             </attributedString>
                                             <color key="insertionPointColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                            <size key="minSize" width="243" height="59"/>
-                                            <size key="maxSize" width="463" height="10000000"/>
                                         </textView>
                                     </subviews>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -941,14 +877,14 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                                 <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="BUl-QV-PrL">
-                                    <rect key="frame" x="228" y="1" width="16" height="59"/>
+                                    <rect key="frame" x="228" y="1" width="16" height="48"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                             </scrollView>
-                            <button verticalHuggingPriority="750" id="ZNg-2K-Y1d">
-                                <rect key="frame" x="266" y="27" width="64" height="32"/>
+                            <button wantsLayer="YES" verticalHuggingPriority="750" misplaced="YES" id="ZNg-2K-Y1d">
+                                <rect key="frame" x="266" y="22" width="64" height="32"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <buttonCell key="cell" type="push" title="Run" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="1aY-qn-bWd">
+                                <buttonCell key="cell" type="push" title="Run" bezelStyle="rounded" alignment="center" borderStyle="border" inset="2" id="1aY-qn-bWd">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
@@ -959,37 +895,35 @@
                         </subviews>
                     </view>
                 </box>
-                <box autoresizesSubviews="NO" misplaced="YES" title="MPVPlayer" borderType="line" titlePosition="noTitle" id="j3t-If-XMR">
-                    <rect key="frame" x="17" y="43" width="346" height="91"/>
+                <box autoresizesSubviews="NO" misplaced="YES" borderType="line" title="MPVPlayer" titlePosition="noTitle" id="j3t-If-XMR">
+                    <rect key="frame" x="17" y="116" width="346" height="80"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <view key="contentView" id="2d6-nK-egi">
-                        <rect key="frame" x="1" y="1" width="344" height="89"/>
+                        <rect key="frame" x="1" y="1" width="344" height="78"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" id="xOI-kD-hz9">
-                                <rect key="frame" x="18" y="14" width="245" height="61"/>
+                            <scrollView misplaced="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" id="xOI-kD-hz9">
+                                <rect key="frame" x="18" y="14" width="245" height="50"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="uBp-ck-ZMl">
-                                    <rect key="frame" x="1" y="1" width="243" height="59"/>
+                                    <rect key="frame" x="1" y="1" width="243" height="48"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <textView editable="NO" importsGraphics="NO" verticallyResizable="NO" findStyle="bar" spellingCorrection="YES" id="BS7-xV-Gy3">
-                                            <rect key="frame" x="0.0" y="0.0" width="243" height="59"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="243" height="48"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            <size key="minSize" width="243" height="59"/>
+                                            <size key="minSize" width="243" height="48"/>
                                             <size key="maxSize" width="463" height="10000000"/>
                                             <attributedString key="textStorage">
                                                 <fragment content="CAOpenGLLayer example.">
                                                     <attributes>
-                                                        <font key="NSFont" metaFont="controlContent" size="11"/>
+                                                        <font key="NSFont" metaFont="smallSystem"/>
                                                         <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                     </attributes>
                                                 </fragment>
                                             </attributedString>
                                             <color key="insertionPointColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                            <size key="minSize" width="243" height="59"/>
-                                            <size key="maxSize" width="463" height="10000000"/>
                                         </textView>
                                     </subviews>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -999,12 +933,12 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                                 <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="zmc-i3-QMc">
-                                    <rect key="frame" x="228" y="1" width="16" height="59"/>
+                                    <rect key="frame" x="228" y="1" width="16" height="48"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                             </scrollView>
                             <button verticalHuggingPriority="750" misplaced="YES" id="1zX-a9-ufK">
-                                <rect key="frame" x="266" y="27" width="64" height="32"/>
+                                <rect key="frame" x="266" y="22" width="64" height="32"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <buttonCell key="cell" type="push" title="Run" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="p8t-46-50F">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -1017,8 +951,120 @@
                         </subviews>
                     </view>
                 </box>
+                <box autoresizesSubviews="NO" misplaced="YES" borderType="line" title="MPVPlayer" titlePosition="noTitle" id="AyO-8g-T5p">
+                    <rect key="frame" x="17" y="29" width="346" height="80"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <view key="contentView" id="f2m-1M-kOU">
+                        <rect key="frame" x="1" y="1" width="344" height="78"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView misplaced="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" id="kuX-yd-59Q">
+                                <rect key="frame" x="18" y="14" width="245" height="50"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="H5v-GF-c9s">
+                                    <rect key="frame" x="1" y="1" width="243" height="48"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <textView editable="NO" importsGraphics="NO" verticallyResizable="NO" findStyle="bar" spellingCorrection="YES" id="l9T-WT-EhN">
+                                            <rect key="frame" x="0.0" y="0.0" width="243" height="48"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <size key="minSize" width="243" height="48"/>
+                                            <size key="maxSize" width="463" height="10000000"/>
+                                            <attributedString key="textStorage">
+                                                <fragment content="Same as NSOpenGLView example, but uses CVDisplayLinkCallback instead of the mpv render callback.">
+                                                    <attributes>
+                                                        <font key="NSFont" metaFont="smallSystem"/>
+                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                    </attributes>
+                                                </fragment>
+                                            </attributedString>
+                                            <color key="insertionPointColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                        </textView>
+                                    </subviews>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </clipView>
+                                <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="YES" id="YOT-4d-ftr">
+                                    <rect key="frame" x="-100" y="-100" width="87" height="18"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </scroller>
+                                <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="ek5-lO-UGV">
+                                    <rect key="frame" x="228" y="1" width="16" height="48"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </scroller>
+                            </scrollView>
+                            <button verticalHuggingPriority="750" misplaced="YES" id="iKI-yr-CTg">
+                                <rect key="frame" x="266" y="22" width="64" height="32"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="push" title="Run" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="lq0-mn-Fpw">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="runMPVPlayerTestGLViewExample:" target="Voe-Tx-rLC" id="9Eu-E0-lK1"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                    </view>
+                </box>
+                <box autoresizesSubviews="NO" misplaced="YES" borderType="line" title="MPVPlayer" id="85B-Cc-d6D">
+                    <rect key="frame" x="17" y="377" width="346" height="94"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <view key="contentView" id="lUU-oH-kTg">
+                        <rect key="frame" x="1" y="1" width="344" height="78"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView misplaced="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" id="qU6-eM-b6a">
+                                <rect key="frame" x="18" y="14" width="245" height="50"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="rSd-0H-M6W">
+                                    <rect key="frame" x="1" y="1" width="243" height="48"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <textView editable="NO" importsGraphics="NO" verticallyResizable="NO" findStyle="bar" spellingCorrection="YES" id="xQ7-Zt-EQ7">
+                                            <rect key="frame" x="0.0" y="0.0" width="243" height="48"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <size key="minSize" width="243" height="48"/>
+                                            <size key="maxSize" width="463" height="10000000"/>
+                                            <attributedString key="textStorage">
+                                                <fragment content="NSOpenGLView example.">
+                                                    <attributes>
+                                                        <font key="NSFont" metaFont="smallSystem"/>
+                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                    </attributes>
+                                                </fragment>
+                                            </attributedString>
+                                            <color key="insertionPointColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                        </textView>
+                                    </subviews>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </clipView>
+                                <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="YES" id="U9C-IL-A0n">
+                                    <rect key="frame" x="-100" y="-100" width="87" height="18"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </scroller>
+                                <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="TL8-WD-MBX">
+                                    <rect key="frame" x="228" y="1" width="16" height="48"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </scroller>
+                            </scrollView>
+                            <button verticalHuggingPriority="750" misplaced="YES" id="HXl-yc-5lf">
+                                <rect key="frame" x="268" y="22" width="64" height="32"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="push" title="Run" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="NOr-dh-3KC">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="runMPVPlayerNSOpenGLViewExample:" target="Voe-Tx-rLC" id="M3e-eb-fvp"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                    </view>
+                </box>
             </subviews>
-            <point key="canvasLocation" x="641.5" y="272"/>
+            <point key="canvasLocation" x="641.5" y="302"/>
         </customView>
     </objects>
 </document>

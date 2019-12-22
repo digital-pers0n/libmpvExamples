@@ -219,9 +219,7 @@ typedef struct mpv_data_ {
 }
 
 - (void)update {
-    pthread_mutex_lock(&_mpv.gl_lock);
-    [_glContext update];
-    pthread_mutex_unlock(&_mpv.gl_lock);
+    CGLUpdateContext(_mpv.cgl_ctx);
 }
 
 - (void)viewWillStartLiveResize {

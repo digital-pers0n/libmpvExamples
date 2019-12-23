@@ -50,6 +50,8 @@ typedef struct mpv_data_ {
     CVDisplayLinkRef _cvdl;
     CVDisplayLinkRef _cvdl_resize;
     mpv_data _mpv;
+    
+    BOOL _isIdle;
 }
 
 
@@ -87,6 +89,12 @@ typedef struct mpv_data_ {
                selector:@selector(didStartPlayback:)
                    name:MPVPlayerDidLoadFileNotification
                  object:_player];
+        
+        [nc addObserver:self
+               selector:@selector(playerDidEnterIdleMode:)
+                   name:MPVPlayerDidEnterIdleModeNotification
+                 object:_player];
+
         
         _main_queue = dispatch_get_main_queue();
         _glContext = self.openGLContext;
@@ -223,10 +231,14 @@ typedef struct mpv_data_ {
 }
 
 - (void)viewWillStartLiveResize {
-    
+    if (_isIdle) {
+        return;
+    }
     if (_mpv.render_context) {
+        
         CVDisplayLinkStop(_cvdl);
         CVDisplayLinkStart(_cvdl_resize);
+
         self.canDrawConcurrently = YES;
         [self reshape];
         [self update];
@@ -234,14 +246,17 @@ typedef struct mpv_data_ {
 }
 
 - (void)viewDidEndLiveResize {
-    
+    if (_isIdle) {
+        return;
+    }
     if (_mpv.render_context) {
-        [_player play];
+    
         CVDisplayLinkStop(_cvdl_resize);
         CVDisplayLinkStart(_cvdl);
         
         self.canDrawConcurrently = NO;
         [self reshape];
+        [self update];
     }
 }
 
@@ -320,13 +335,23 @@ typedef struct mpv_data_ {
 }
 
 - (void)didStartPlayback:(NSNotification *)n {
-    
+    _isIdle = NO;
     if (self.inLiveResize) {
         return;
     }
-    
+
     if (!CVDisplayLinkIsRunning(_cvdl)) {
         CVDisplayLinkStart(_cvdl);
+    }
+}
+
+- (void)playerDidEnterIdleMode:(NSNotification *)n {
+    _isIdle = YES;
+    if (CVDisplayLinkIsRunning(_cvdl)) {
+        CVDisplayLinkStop(_cvdl);
+    }
+    if (CVDisplayLinkIsRunning(_cvdl_resize)) {
+        CVDisplayLinkStop(_cvdl_resize);
     }
 }
 

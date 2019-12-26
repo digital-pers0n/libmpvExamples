@@ -250,9 +250,11 @@ typedef struct mpv_data_ {
         return;
     }
     if (_mpv.render_context) {
-    
-        CVDisplayLinkStop(_cvdl_resize);
-        CVDisplayLinkStart(_cvdl);
+
+        CFRunLoopPerformBlock(CFRunLoopGetMain(), kCFRunLoopCommonModes, ^{
+            CVDisplayLinkStop(_cvdl_resize); // this can cause a deadlock
+            CVDisplayLinkStart(_cvdl);
+        });
         
         self.canDrawConcurrently = NO;
         [self reshape];
@@ -307,7 +309,7 @@ typedef struct mpv_data_ {
             CVDisplayLinkSetOutputCallback(_cvdl, &cvdl_playback_cb, &_mpv);
             
             CVDisplayLinkCreateWithActiveCGDisplays(&_cvdl_resize);
-            CVDisplayLinkSetOutputCallback(_cvdl_resize, &cvdl_resize_cb, &_mpv);
+            CVDisplayLinkSetOutputCallback(_cvdl_resize, &cvdl_resize_cb, (__bridge void *)self);
             
             NSSize  surfaceSize = [self convertRectToBacking:self.bounds].size;
             _mpv.opengl_fbo.w = surfaceSize.width;
@@ -377,26 +379,36 @@ CVReturn cvdl_playback_cb(
 }
 
 __attribute__((hot))
-CVReturn cvdl_resize_cb(
-                        CVDisplayLinkRef CV_NONNULL displayLink,
-                        const CVTimeStamp * CV_NONNULL inNow,
-                        const CVTimeStamp * CV_NONNULL inOutputTime,
-                        CVOptionFlags flagsIn,
-                        CVOptionFlags * CV_NONNULL flagsOut,
-                        void * CV_NULLABLE displayLinkContext ) {
+static CVReturn cvdl_resize_cb(
+                               CVDisplayLinkRef CV_NONNULL displayLink,
+                               const CVTimeStamp * CV_NONNULL inNow,
+                               const CVTimeStamp * CV_NONNULL inOutputTime,
+                               CVOptionFlags flagsIn,
+                               CVOptionFlags * CV_NONNULL flagsOut,
+                               void * CV_NULLABLE displayLinkContext ) {
     
+    __unsafe_unretained MPVTestGLView *v = (__bridge typeof(v))displayLinkContext;
     
-    mpv_data *mpv = displayLinkContext;
+    /* 
+       Redraw window's view hierachy.
+       At least on macOS 10.11 this produces smoothest live resize possible, 
+       without any glitches or choppiness at all, it's even better than CAOpenGLLayer. Needs more tests.
+     */
+    [v.window display];
     
-    pthread_mutex_lock(&mpv->gl_lock);
-    if (mpv_render_context_update(mpv->render_context) & MPV_RENDER_UPDATE_FRAME) {
-        
-        CGLSetCurrentContext(mpv->cgl_ctx);
-        mpv_render_context_render(mpv->render_context, mpv->render_params);
-        glFlush();
-        
-    }
-    pthread_mutex_unlock(&mpv->gl_lock);
+    /*
+     mpv_data *mpv = displayLinkContext;
+     
+     pthread_mutex_lock(&mpv->gl_lock);
+     if (mpv_render_context_update(mpv->render_context) & MPV_RENDER_UPDATE_FRAME) {
+     
+     CGLSetCurrentContext(mpv->cgl_ctx);
+     mpv_render_context_render(mpv->render_context, mpv->render_params);
+     glFlush();
+     
+     }
+     pthread_mutex_unlock(&mpv->gl_lock);
+     */
     
     return kCVReturnSuccess ;
 }

@@ -31,21 +31,9 @@ typedef struct mpv_data_ {
 
 @interface MPVTestGLView () <MPVPropertyObserving> {
     
-    mpv_render_context *_mpv_render_context;
-    mpv_opengl_fbo _mpv_opengl_fbo;
-    mpv_render_param _mpv_render_params[3];
-    
     NSOpenGLContext *_glContext;
     struct _CGLContextObject *_cglContext;
-    
     dispatch_queue_t _main_queue;
-    dispatch_queue_t _render_queue;
-    dispatch_queue_t _resize_queue;
-    
-    NSBitmapImageRep *_cachedView;
-    NSImage *_cachedImage;
-    NSImageCell *_imageCell;
-    NSImageView *_imageView;
     
     CVDisplayLinkRef _cvdl;
     CVDisplayLinkRef _cvdl_resize;

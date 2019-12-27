@@ -297,7 +297,7 @@ typedef struct mpv_data_ {
             CVDisplayLinkSetOutputCallback(_cvdl, &cvdl_playback_cb, &_mpv);
             
             CVDisplayLinkCreateWithActiveCGDisplays(&_cvdl_resize);
-            CVDisplayLinkSetOutputCallback(_cvdl_resize, &cvdl_resize_cb, (__bridge void *)self);
+            CVDisplayLinkSetOutputCallback(_cvdl_resize, &cvdl_resize_cb, &_mpv);
             
             NSSize  surfaceSize = [self convertRectToBacking:self.bounds].size;
             _mpv.opengl_fbo.w = surfaceSize.width;
@@ -375,16 +375,7 @@ static CVReturn cvdl_resize_cb(
                                CVOptionFlags * CV_NONNULL flagsOut,
                                void * CV_NULLABLE displayLinkContext ) {
     
-    __unsafe_unretained MPVTestGLView *v = (__bridge typeof(v))displayLinkContext;
-    
-    /* 
-       Redraw window's view hierachy.
-       At least on macOS 10.11 this produces smoothest live resize possible, 
-       without any glitches or choppiness at all, it's even better than CAOpenGLLayer. Needs more tests.
-     */
-    [v.window display];
-    
-    /*
+
      mpv_data *mpv = displayLinkContext;
      
      pthread_mutex_lock(&mpv->gl_lock);
@@ -396,7 +387,7 @@ static CVReturn cvdl_resize_cb(
      
      }
      pthread_mutex_unlock(&mpv->gl_lock);
-     */
+
     
     return kCVReturnSuccess ;
 }

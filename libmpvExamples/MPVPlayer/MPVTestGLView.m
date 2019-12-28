@@ -302,6 +302,10 @@ typedef struct mpv_data_ {
     }
 }
 
+- (BOOL)canDraw {
+    return (_mpv.render_context != nil) && [super canDraw];
+}
+
 - (void)drawRect:(NSRect)dirtyRect {
 
     pthread_mutex_lock(&_mpv.gl_lock);

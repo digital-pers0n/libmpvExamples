@@ -306,30 +306,39 @@ typedef struct mpv_data_ {
 
 - (void)drawRect:(NSRect)dirtyRect {
 
-    if (_mpv.render_context) {
-        
-        pthread_mutex_lock(&_mpv.gl_lock);
-        
-        NSSize  surfaceSize = [self convertRectToBacking:dirtyRect].size;
-        _mpv.opengl_fbo.w = surfaceSize.width;
-        _mpv.opengl_fbo.h = surfaceSize.height;
-        
-        BOOL shouldRestartCVDL = NO;
-        if (CVDisplayLinkIsRunning(_cvdl)) {
-            CVDisplayLinkStop(_cvdl);
-            shouldRestartCVDL = YES;
-        }
-        
-        CGLSetCurrentContext(_mpv.cgl_ctx);
-        mpv_render_context_render(_mpv.render_context, _mpv.render_params);
-        glFlush();
-        
-        if (shouldRestartCVDL) {
-            CVDisplayLinkStart(_cvdl);
-        }
-        
-        pthread_mutex_unlock(&_mpv.gl_lock);
+    pthread_mutex_lock(&_mpv.gl_lock);
+    
+    NSSize  surfaceSize = [self convertRectToBacking:self.frame].size;
+    _mpv.opengl_fbo.w = surfaceSize.width;
+    _mpv.opengl_fbo.h = surfaceSize.height;
+    
+    BOOL shouldRestartCVDL = NO;
+    if (CVDisplayLinkIsRunning(_cvdl)) {
+        CVDisplayLinkStop(_cvdl);
+        shouldRestartCVDL = YES;
     }
+    
+    int flip_y = 1;
+    int block_for_target = 0;
+    mpv_render_param render_params[] = {
+        { .type = MPV_RENDER_PARAM_OPENGL_FBO, .data = &_mpv.opengl_fbo },
+        { .type = MPV_RENDER_PARAM_FLIP_Y,     .data = &flip_y },
+        { .type = MPV_RENDER_PARAM_BLOCK_FOR_TARGET_TIME, .data = &block_for_target },
+        { 0 }
+    };
+    
+    CGLUpdateContext(_mpv.cgl_ctx);
+    
+    CGLSetCurrentContext(_mpv.cgl_ctx);
+    mpv_render_context_render(_mpv.render_context, render_params);
+    glFlush();
+    
+    if (shouldRestartCVDL) {
+        CVDisplayLinkStart(_cvdl);
+    }
+    
+    pthread_mutex_unlock(&_mpv.gl_lock);
+    
 }
 
 - (void)viewDidMoveToWindow {
@@ -429,19 +438,26 @@ static CVReturn cvdl_resize_cb(
                                CVOptionFlags * CV_NONNULL flagsOut,
                                void * CV_NULLABLE displayLinkContext ) {
     
-
      mpv_data *mpv = displayLinkContext;
      
-     pthread_mutex_lock(&mpv->gl_lock);
-     if (mpv_render_context_update(mpv->render_context) & MPV_RENDER_UPDATE_FRAME) {
-     
-     CGLSetCurrentContext(mpv->cgl_ctx);
-     mpv_render_context_render(mpv->render_context, mpv->render_params);
-     glFlush();
-     
-     }
-     pthread_mutex_unlock(&mpv->gl_lock);
-
+    pthread_mutex_lock(&mpv->gl_lock);
+    if (mpv_render_context_update(mpv->render_context) & MPV_RENDER_UPDATE_FRAME) {
+        int flip_y = 1;
+        int block_for_target = 0;
+        mpv_render_param render_params[] = {
+            { .type = MPV_RENDER_PARAM_OPENGL_FBO, .data = &mpv->opengl_fbo },
+            { .type = MPV_RENDER_PARAM_FLIP_Y,     .data = &flip_y },
+            { .type = MPV_RENDER_PARAM_BLOCK_FOR_TARGET_TIME, .data = &block_for_target },
+            { 0 }
+        };
+        
+        CGLUpdateContext(mpv->cgl_ctx);
+        CGLSetCurrentContext(mpv->cgl_ctx);
+        mpv_render_context_render(mpv->render_context, render_params);
+        glFlush();
+        
+    }
+    pthread_mutex_unlock(&mpv->gl_lock);
     
     return kCVReturnSuccess ;
 }

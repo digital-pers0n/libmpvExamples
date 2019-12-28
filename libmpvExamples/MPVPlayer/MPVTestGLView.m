@@ -206,16 +206,70 @@ typedef struct mpv_data_ {
 }
 
 - (void)reshape {
-     if (self.inLiveResize) { return; }
-    NSSize  surfaceSize = [self convertRectToBacking:self.bounds].size;
-    pthread_mutex_lock(&_mpv.gl_lock);
-    _mpv.opengl_fbo.w = surfaceSize.width;
-    _mpv.opengl_fbo.h = surfaceSize.height;
-    pthread_mutex_unlock(&_mpv.gl_lock);
+    
+    /*
+     Even though the documentation says that the default implementation of this method does nothing,
+     we need to call [super reshape] on macOS 10.14 and higher. It will eliminate some jumpy movements of
+     the openGL view during view's live resize.
+     */
+    
+    if (!self.inLiveResize) {
+        
+        NSSize  surfaceSize = [self convertRectToBacking:self.bounds].size;
+        pthread_mutex_lock(&_mpv.gl_lock);
+        
+#ifdef MAC_OS_X_VERSION_10_14
+        
+        [super reshape];
+        
+#endif
+        _mpv.opengl_fbo.w = surfaceSize.width;
+        _mpv.opengl_fbo.h = surfaceSize.height;
+        
+         pthread_mutex_unlock(&_mpv.gl_lock);
+    } else {
+        
+#ifdef MAC_OS_X_VERSION_10_14
+        pthread_mutex_lock(&_mpv.gl_lock);
+        [super reshape];
+        pthread_mutex_unlock(&_mpv.gl_lock);
+#endif
+        
+    }
+    
+   
 }
 
 - (void)update {
+
+    /*
+     Fix graphic glitches on macOS 10.14. This is slower than just calling the CGLUpdateContext() function,
+     but on 10.14 not calling [super update] during view's live resize will turn the openGL view into a mess of randomly colored pixels.
+     
+     The call to super also must be locked or there will be glitches. This will cause a deadlock if the view.layer property is set to nil,
+     becuase view.layer calls [view update], inside it we call pthread_mutex_lock() and [super update], but [super update] also calls view.layer
+     and view.layer again calls [view update] where we're already locked and in this case [super update] will never return,
+     thus deadlocking our application.
+     
+     An interesting fact, if this code is compilied with the Xcode 9.x Dev Tools, then the openGL view will work normally and considerably faster
+     under macOS 10.14 without calling the [super update] method.
+     */
+    
+#ifdef MAC_OS_X_VERSION_10_14
+    
+    pthread_mutex_lock(&_mpv.gl_lock);
+    
+    [super update];
+    
+    pthread_mutex_unlock(&_mpv.gl_lock);
+    
+#else
+    
     CGLUpdateContext(_mpv.cgl_ctx);
+    
+#endif
+    
+    
 }
 
 - (void)viewWillStartLiveResize {

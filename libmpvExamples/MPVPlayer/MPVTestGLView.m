@@ -293,10 +293,8 @@ typedef struct mpv_data_ {
     }
     if (_mpv.render_context) {
 
-        CFRunLoopPerformBlock(CFRunLoopGetMain(), kCFRunLoopCommonModes, ^{
-            CVDisplayLinkStop(_cvdl_resize); // this can cause a deadlock
-            CVDisplayLinkStart(_cvdl);
-        });
+        CVDisplayLinkStop(_cvdl_resize);
+        CVDisplayLinkStart(_cvdl);
         
         self.canDrawConcurrently = NO;
         [self reshape];

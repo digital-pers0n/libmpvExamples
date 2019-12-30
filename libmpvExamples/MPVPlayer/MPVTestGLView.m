@@ -7,8 +7,6 @@
 //
 
 #import "MPVTestGLView.h"
-#import <QuartzCore/QuartzCore.h>
-#include <IOKit/graphics/IOGraphicsLib.h>
 #import "MPVPlayer.h"
 #import <mpv/render_gl.h>
 #import <pthread/pthread.h>

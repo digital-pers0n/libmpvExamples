@@ -411,13 +411,13 @@ typedef struct mpv_data_ {
 #pragma mark - CVDisplayLink Callbacks
 
 __attribute__((hot))
-CVReturn cvdl_playback_cb(
-                          CVDisplayLinkRef CV_NONNULL displayLink,
-                          const CVTimeStamp * CV_NONNULL inNow,
-                          const CVTimeStamp * CV_NONNULL inOutputTime,
-                          CVOptionFlags flagsIn,
-                          CVOptionFlags * CV_NONNULL flagsOut,
-                          void * CV_NULLABLE displayLinkContext ) {
+static CVReturn cvdl_playback_cb(
+                                 CVDisplayLinkRef CV_NONNULL displayLink,
+                                 const CVTimeStamp * CV_NONNULL inNow,
+                                 const CVTimeStamp * CV_NONNULL inOutputTime,
+                                 CVOptionFlags flagsIn,
+                                 CVOptionFlags * CV_NONNULL flagsOut,
+                                 void * CV_NULLABLE displayLinkContext ) {
     
     mpv_data *mpv = displayLinkContext;
     if (mpv_render_context_update(mpv->render_context) & MPV_RENDER_UPDATE_FRAME) {

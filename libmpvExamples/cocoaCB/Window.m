@@ -171,7 +171,7 @@
     return YES;
 }
 
-- (void)setStyleMask:(NSUInteger)styleMask {
+- (void)setStyleMask:(NSWindowStyleMask)styleMask {
     id responder = self.firstResponder;
     id windowTitle = self.title;
     super.styleMask = styleMask;

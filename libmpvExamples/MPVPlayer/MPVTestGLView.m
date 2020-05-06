@@ -168,7 +168,7 @@ typedef struct mpv_data_ {
 - (void)destroyMPVRenderContext {
     if (_cvdl) {
     
-        if (!CVDisplayLinkIsRunning(_cvdl)) {
+        if (CVDisplayLinkIsRunning(_cvdl)) {
             CVDisplayLinkStop(_cvdl);
         }
         CVDisplayLinkRelease(_cvdl);
@@ -176,7 +176,7 @@ typedef struct mpv_data_ {
     }
     
     if (_cvdl_resize) {
-        if (!CVDisplayLinkIsRunning(_cvdl_resize)) {
+        if (CVDisplayLinkIsRunning(_cvdl_resize)) {
             CVDisplayLinkStop(_cvdl_resize);
         }
         CVDisplayLinkRelease(_cvdl_resize);

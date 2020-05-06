@@ -10,11 +10,11 @@
 #define libmpvExamples_h
 
 /* CocoaCB */
-#import "CocoaCB/CocoaCB.h"
-#import "CocoaCB/EventsView.h"
-#import "CocoaCB/Window.h"
-#import "CocoaCB/MPVHelper.h"
-#import "CocoaCB/VideoLayer.h"
+#import "cocoaCB/CocoaCB.h"
+#import "cocoaCB/EventsView.h"
+#import "cocoaCB/Window.h"
+#import "cocoaCB/MPVHelper.h"
+#import "cocoaCB/VideoLayer.h"
 
 /* MPVPlayer */
 #import "MPVPlayer/MPVPlayer.h"

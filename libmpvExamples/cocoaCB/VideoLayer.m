@@ -101,7 +101,10 @@
     [super display];
     [CATransaction flush];
     if (isUpdate) {
-        if (!_cocoaCB.window.occlusionState & NSWindowOcclusionStateVisible && _needsFlip && _canDrawOffScreen) {
+        if (!(_cocoaCB.window.occlusionState & NSWindowOcclusionStateVisible) &&
+            _needsFlip &&
+            _canDrawOffScreen)
+        {
             CGLSetCurrentContext(_cglContext);
             [self draw:_cglContext];
         } else if (_needsFlip) {

@@ -168,7 +168,7 @@ typedef void (*methodIMP)(id, SEL, id);
     
     NSPasteboard *pb = sender.draggingPasteboard;
     NSArray *array = [pb readObjectsForClasses:@[NSURL.class] options:nil];
-    if (array) {
+    if (array.count) {
         NSURL *url = array.firstObject;
         if ([url isFileReferenceURL]) {
             url = [url filePathURL];
@@ -178,19 +178,18 @@ typedef void (*methodIMP)(id, SEL, id);
     }
     
     array = [pb readObjectsForClasses:@[NSString.class] options:nil];
-    if (array) {
-        NSURL *url = [NSURL fileURLWithPath:array.firstObject];
+    if (array.count) {
+        NSURL *url = [NSURL URLWithString:array.firstObject];
         if (url) {
             [_player openURL:url];
             return YES;
         }
         
-        url = [NSURL URLWithString:array.firstObject];
+        url = [NSURL fileURLWithPath:array.firstObject];
         if (url) {
             [_player openURL:url];
             return YES;
         }
-        
     }
     
     return NO;

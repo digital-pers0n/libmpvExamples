@@ -328,11 +328,25 @@ CreateFBOForTexture(GLuint texture)
                                                       _mpv.opengl_fbo.h);
     _mpv.surface_texure = CreateTextureForIOSurface(_mpv.cgl_ctx, surface);
     _mpv.opengl_fbo.fbo = CreateFBOForTexture(_mpv.surface_texure);
+    
+    int block_for_target = 0;
+    mpv_opengl_fbo fbo = _mpv.opengl_fbo;
+    mpv_render_param render_params[] = {
+        {
+            .type = MPV_RENDER_PARAM_OPENGL_FBO,
+            .data = &fbo
+        },
+        {
+            .type = MPV_RENDER_PARAM_BLOCK_FOR_TARGET_TIME,
+            .data = &block_for_target
+        },
+        { 0 }
+    };
 
     [CATransaction begin];
     [CATransaction setValue:@YES forKey:kCATransactionDisableActions];
 
-    mpv_render_context_render(_mpv.render_context, _mpv.render_params);
+    mpv_render_context_render(_mpv.render_context, render_params);
     CGLFlushDrawable(_mpv.cgl_ctx);
 
     _layer.bounds = CGRectMake(0, 0, size.width, size.height);

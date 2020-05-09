@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>examples</key>
+	<array>
+		<dict>
+			<key>name</key>
+			<string>MPVOpenGLView</string>
+			<key>info</key>
+			<string>NSOpenGLView example.</string>
+		</dict>
+		<dict>
+			<key>name</key>
+			<string>MPVPlayerLayer</string>
+			<key>info</key>
+			<string>CAOpenGLLayer example.</string>
+		</dict>
+		<dict>
+			<key>name</key>
+			<string>MPVPlayerView</string>
+			<key>info</key>
+			<string>NSView + NSOpenGLContext.</string>
+		</dict>
+		<dict>
+			<key>name</key>
+			<string>MPVHybridView</string>
+			<key>info</key>
+			<string>NSOpenGLView + CAOpenGLLayer.</string>
+		</dict>
+		<dict>
+			<key>name</key>
+			<string>MPVTestGLView</string>
+			<key>info</key>
+			<string>Same as MPVOpenGLView, but uses CVDisplayLinkCallback instead of mpv_render_callback.</string>
+		</dict>
+		<dict>
+			<key>name</key>
+			<string>MPVIOSurfaceView</string>
+			<key>info</key>
+			<string>IOSurfaceRef + CALayer + NSView.</string>
+		</dict>
+	</array>
+</dict>
+</plist>

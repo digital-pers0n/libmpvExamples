@@ -12,6 +12,8 @@
 		CE0E31B9231195E600EE8E40 /* MPVPlayerNotifications.m in Sources */ = {isa = PBXBuildFile; fileRef = CE0E31B8231195E600EE8E40 /* MPVPlayerNotifications.m */; };
 		CE14AC7323AE2BEC00BF9DC3 /* MPVTestGLView.m in Sources */ = {isa = PBXBuildFile; fileRef = CE14AC7223AE2BEC00BF9DC3 /* MPVTestGLView.m */; };
 		CE2152F722FB227B00079A6F /* MPVPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = CE2152F622FB227B00079A6F /* MPVPlayer.m */; };
+		CE27F3982466D4AD006362F6 /* MPVExample.m in Sources */ = {isa = PBXBuildFile; fileRef = CE27F3972466D4AD006362F6 /* MPVExample.m */; };
+		CE2A56B1243656EA005CF48A /* MPVIOSurfaceView.m in Sources */ = {isa = PBXBuildFile; fileRef = CE2A56B0243656EA005CF48A /* MPVIOSurfaceView.m */; };
 		CE3F2B1F230AF13A004F76B9 /* MPVPlayerProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3F2B1E230AF13A004F76B9 /* MPVPlayerProperties.m */; };
 		CE56FB1D2348E96700F928C5 /* MPVMediaItem.m in Sources */ = {isa = PBXBuildFile; fileRef = CE56FB1C2348E96700F928C5 /* MPVMediaItem.m */; };
 		CE5EA94322F48CE400E15610 /* LEClipView.m in Sources */ = {isa = PBXBuildFile; fileRef = CE5EA94222F48CE400E15610 /* LEClipView.m */; };
@@ -24,7 +26,6 @@
 		CE91A73722F3382500A6F57F /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE91A73522F3382500A6F57F /* MainMenu.xib */; };
 		CE91A73F22F338E500A6F57F /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE91A73E22F338E500A6F57F /* Quartz.framework */; };
 		CE91A74122F338ED00A6F57F /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE91A74022F338EC00A6F57F /* OpenGL.framework */; };
-		CE91A74322F3390200A6F57F /* libmpv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = CE91A74222F3390200A6F57F /* libmpv.dylib */; };
 		CE91A74B22F33A2100A6F57F /* VideoLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = CE91A74A22F33A2100A6F57F /* VideoLayer.m */; };
 		CE91A74F22F33A6000A6F57F /* MPVHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = CE91A74E22F33A6000A6F57F /* MPVHelper.m */; };
 		CE91A75222F33A8500A6F57F /* EventsView.m in Sources */ = {isa = PBXBuildFile; fileRef = CE91A75122F33A8500A6F57F /* EventsView.m */; };
@@ -33,6 +34,8 @@
 		CEA2BC792315840F00353057 /* MPVOpenGLView.m in Sources */ = {isa = PBXBuildFile; fileRef = CEA2BC782315840F00353057 /* MPVOpenGLView.m */; };
 		CEA2BC7C2315844C00353057 /* MPVPlayerLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = CEA2BC7B2315844C00353057 /* MPVPlayerLayer.m */; };
 		CEA4C773234500B9005F533D /* MPVEventView.m in Sources */ = {isa = PBXBuildFile; fileRef = CEA4C772234500B9005F533D /* MPVEventView.m */; };
+		CEA6EA232465AC5B00E22F12 /* libmpv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = CEA6EA222465AC5B00E22F12 /* libmpv.dylib */; };
+		CEA6EA252466BE6900E22F12 /* MPVExampleInfo.plist in Resources */ = {isa = PBXBuildFile; fileRef = CEA6EA242466BE6900E22F12 /* MPVExampleInfo.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,6 +49,11 @@
 		CE166C5A234FA374001AF0CB /* mpv_functions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = mpv_functions.h; path = MPVPlayer/mpv_functions.h; sourceTree = "<group>"; };
 		CE2152F522FB227B00079A6F /* MPVPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MPVPlayer.h; path = MPVPlayer/MPVPlayer.h; sourceTree = "<group>"; };
 		CE2152F622FB227B00079A6F /* MPVPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MPVPlayer.m; path = MPVPlayer/MPVPlayer.m; sourceTree = "<group>"; };
+		CE27F3962466D4AD006362F6 /* MPVExample.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPVExample.h; sourceTree = "<group>"; };
+		CE27F3972466D4AD006362F6 /* MPVExample.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPVExample.m; sourceTree = "<group>"; };
+		CE27F3992466D841006362F6 /* MPVExampleProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPVExampleProtocol.h; sourceTree = "<group>"; };
+		CE2A56AF243656EA005CF48A /* MPVIOSurfaceView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MPVIOSurfaceView.h; path = MPVPlayer/MPVIOSurfaceView.h; sourceTree = "<group>"; };
+		CE2A56B0243656EA005CF48A /* MPVIOSurfaceView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MPVIOSurfaceView.m; path = MPVPlayer/MPVIOSurfaceView.m; sourceTree = "<group>"; };
 		CE3F2B1E230AF13A004F76B9 /* MPVPlayerProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MPVPlayerProperties.m; path = MPVPlayer/MPVPlayerProperties.m; sourceTree = "<group>"; };
 		CE3F2B20230AF15D004F76B9 /* MPVPlayerProperties.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = MPVPlayerProperties.h; path = MPVPlayer/MPVPlayerProperties.h; sourceTree = "<group>"; };
 		CE56FB1B2348E96700F928C5 /* MPVMediaItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MPVMediaItem.h; path = MPVPlayer/MPVMediaItem.h; sourceTree = "<group>"; };
@@ -69,7 +77,6 @@
 		CE91A73822F3382500A6F57F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CE91A73E22F338E500A6F57F /* Quartz.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quartz.framework; path = System/Library/Frameworks/Quartz.framework; sourceTree = SDKROOT; };
 		CE91A74022F338EC00A6F57F /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
-		CE91A74222F3390200A6F57F /* libmpv.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libmpv.dylib; path = ../../../opt/lib/libmpv.dylib; sourceTree = "<group>"; };
 		CE91A74922F33A2100A6F57F /* VideoLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VideoLayer.h; path = cocoaCB/VideoLayer.h; sourceTree = "<group>"; };
 		CE91A74A22F33A2100A6F57F /* VideoLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VideoLayer.m; path = cocoaCB/VideoLayer.m; sourceTree = "<group>"; };
 		CE91A74D22F33A6000A6F57F /* MPVHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MPVHelper.h; path = cocoaCB/MPVHelper.h; sourceTree = "<group>"; };
@@ -86,6 +93,8 @@
 		CEA2BC7B2315844C00353057 /* MPVPlayerLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MPVPlayerLayer.m; path = MPVPlayer/MPVPlayerLayer.m; sourceTree = "<group>"; };
 		CEA4C771234500B9005F533D /* MPVEventView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MPVEventView.h; path = MPVPlayer/MPVEventView.h; sourceTree = "<group>"; };
 		CEA4C772234500B9005F533D /* MPVEventView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MPVEventView.m; path = MPVPlayer/MPVEventView.m; sourceTree = "<group>"; };
+		CEA6EA222465AC5B00E22F12 /* libmpv.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libmpv.dylib; path = ../../../../../../Developer/opt/lib/libmpv.dylib; sourceTree = "<group>"; };
+		CEA6EA242466BE6900E22F12 /* MPVExampleInfo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = MPVExampleInfo.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -93,7 +102,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CE91A74322F3390200A6F57F /* libmpv.dylib in Frameworks */,
+				CEA6EA232465AC5B00E22F12 /* libmpv.dylib in Frameworks */,
 				CE91A73F22F338E500A6F57F /* Quartz.framework in Frameworks */,
 				CE91A74122F338ED00A6F57F /* OpenGL.framework in Frameworks */,
 			);
@@ -131,6 +140,8 @@
 				CE166C5A234FA374001AF0CB /* mpv_functions.h */,
 				CE14AC7123AE2BEC00BF9DC3 /* MPVTestGLView.h */,
 				CE14AC7223AE2BEC00BF9DC3 /* MPVTestGLView.m */,
+				CE2A56AF243656EA005CF48A /* MPVIOSurfaceView.h */,
+				CE2A56B0243656EA005CF48A /* MPVIOSurfaceView.m */,
 			);
 			name = MPVPlayer;
 			sourceTree = "<group>";
@@ -162,9 +173,13 @@
 				CE91A72E22F3382500A6F57F /* AppDelegate.m */,
 				CE5EA94122F48CE400E15610 /* LEClipView.h */,
 				CE5EA94222F48CE400E15610 /* LEClipView.m */,
+				CE27F3992466D841006362F6 /* MPVExampleProtocol.h */,
+				CE27F3962466D4AD006362F6 /* MPVExample.h */,
+				CE27F3972466D4AD006362F6 /* MPVExample.m */,
 				CE91A73322F3382500A6F57F /* Assets.xcassets */,
 				CE91A73522F3382500A6F57F /* MainMenu.xib */,
 				CE91A73822F3382500A6F57F /* Info.plist */,
+				CEA6EA242466BE6900E22F12 /* MPVExampleInfo.plist */,
 				CE91A73022F3382500A6F57F /* Supporting Files */,
 			);
 			path = libmpvExamples;
@@ -184,7 +199,7 @@
 			children = (
 				CE91A74022F338EC00A6F57F /* OpenGL.framework */,
 				CE91A73E22F338E500A6F57F /* Quartz.framework */,
-				CE91A74222F3390200A6F57F /* libmpv.dylib */,
+				CEA6EA222465AC5B00E22F12 /* libmpv.dylib */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -263,6 +278,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CEA6EA252466BE6900E22F12 /* MPVExampleInfo.plist in Resources */,
 				CE91A73422F3382500A6F57F /* Assets.xcassets in Resources */,
 				CE91A73722F3382500A6F57F /* MainMenu.xib in Resources */,
 			);
@@ -283,6 +299,7 @@
 				CEA2BC7C2315844C00353057 /* MPVPlayerLayer.m in Sources */,
 				CE5EA94322F48CE400E15610 /* LEClipView.m in Sources */,
 				CE04A15F232D43CE00E49164 /* MPVHybridView.m in Sources */,
+				CE27F3982466D4AD006362F6 /* MPVExample.m in Sources */,
 				CE2152F722FB227B00079A6F /* MPVPlayer.m in Sources */,
 				CE3F2B1F230AF13A004F76B9 /* MPVPlayerProperties.m in Sources */,
 				CE91A74F22F33A6000A6F57F /* MPVHelper.m in Sources */,
@@ -291,6 +308,7 @@
 				CE91A75522F33AAF00A6F57F /* Window.m in Sources */,
 				CE0E31B72310170100EE8E40 /* MPVPlayerCommands.m in Sources */,
 				CE91A72F22F3382500A6F57F /* AppDelegate.m in Sources */,
+				CE2A56B1243656EA005CF48A /* MPVIOSurfaceView.m in Sources */,
 				CEA2BC792315840F00353057 /* MPVOpenGLView.m in Sources */,
 				CEA4C773234500B9005F533D /* MPVEventView.m in Sources */,
 				CE91A74B22F33A2100A6F57F /* VideoLayer.m in Sources */,
@@ -398,14 +416,22 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "c++14";
+				CLANG_ENABLE_MODULE_DEBUGGING = NO;
 				COMBINE_HIDPI_IMAGES = YES;
-				HEADER_SEARCH_PATHS = /Volumes/MacHD/Developer/opt/include;
+				HEADER_SEARCH_PATHS = /Developer/opt/include;
 				INFOPLIST_FILE = libmpvExamples/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				LIBRARY_SEARCH_PATHS = /Volumes/MacHD/Developer/opt/lib;
+				LIBRARY_SEARCH_PATHS = /Developer/opt/lib;
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				OTHER_CPLUSPLUSFLAGS = (
+					"$(OTHER_CFLAGS)",
+					"-fcxx-modules",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = void.home.libmpvExamples;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
 			};
 			name = Debug;
 		};
@@ -413,15 +439,23 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "c++14";
+				CLANG_ENABLE_MODULE_DEBUGGING = NO;
 				COMBINE_HIDPI_IMAGES = YES;
-				HEADER_SEARCH_PATHS = /Volumes/MacHD/Developer/opt/include;
+				HEADER_SEARCH_PATHS = /Developer/opt/include;
 				INFOPLIST_FILE = libmpvExamples/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				LIBRARY_SEARCH_PATHS = /Volumes/MacHD/Developer/opt/lib;
+				LIBRARY_SEARCH_PATHS = /Developer/opt/lib;
 				LLVM_LTO = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				OTHER_CPLUSPLUSFLAGS = (
+					"$(OTHER_CFLAGS)",
+					"-fcxx-modules",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = void.home.libmpvExamples;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
 			};
 			name = Release;
 		};

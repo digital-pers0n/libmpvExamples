@@ -9,9 +9,51 @@
 #import "AppDelegate.h"
 #import "libmpvExamples.h"
 
+#import "MPVExample.h"
+
+@interface MPVExampleInfo : NSObject
+
++ (instancetype)exampleWithName:(NSString *)name
+                           info:(NSString *)info
+                            tag:(NSInteger)tag;
+
+- (instancetype)initWith:(NSString *)name
+                    info:(NSString *)info
+                     tag:(NSInteger)tag;
+
+@property (nonatomic) NSString * name;
+@property (nonatomic) NSString * info;
+@property (nonatomic) NSInteger tag;
+
+@end
+
+@implementation MPVExampleInfo
+
++ (instancetype)exampleWithName:(NSString *)name
+                           info:(NSString *)info
+                            tag:(NSInteger)tag
+{
+    return [[MPVExampleInfo alloc] initWith:name info:info tag:tag];
+}
+
+- (instancetype)initWith:(NSString *)name
+                    info:(NSString *)info
+                     tag:(NSInteger)tag
+{
+    self = [super init];
+    if (self) {
+        _name = name;
+        _info = info;
+        _tag = tag;
+    }
+    return self;
+}
+@end
+
 @interface AppDelegate ()
 
 @property (weak) IBOutlet NSWindow *window;
+@property (weak) IBOutlet NSArrayController *examplesController;
 @property NSURL *fileURL;
 @property id currentExample;
 
@@ -22,7 +64,27 @@
 #pragma mark - NSApplicationDelegate
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
-
+    
+    NSURL * url = [[NSBundle mainBundle] URLForResource:@"MPVExampleInfo" withExtension:@"plist"];
+    NSAssert(url, @"Cannot find resources.");
+    
+    NSDictionary * dict = [NSDictionary dictionaryWithContentsOfURL:url];
+    NSAssert(dict, @"Cannot load resources.");
+    
+    NSMutableArray * examples = [NSMutableArray new];
+    NSArray * objects = dict[@"examples"];
+    
+    for (NSDictionary * d in objects) {
+        [examples addObject:[MPVExampleInfo exampleWithName:d[@"name"]
+                                                       info:d[@"info"]
+                                                        tag:0]];
+    }
+    
+    [examples addObject:[MPVExampleInfo exampleWithName:@"CocoaCB"
+                                                   info:@"CAOpenGLLayer example."
+                                                        "Based on CocoaCB from mpv 0.29"
+                                                    tag:1]];
+    [_examplesController addObjects:examples];
 }
 
 - (void)applicationWillTerminate:(NSNotification *)aNotification {
@@ -71,8 +133,7 @@
 
 #pragma mark - IBAction methods
 
-- (IBAction)runCocoaCBExample:(id)sender {
-    
+- (IBAction)runExample:(id)sender {
     if (_currentExample) {
         [self destroyCurrentExample];
     }
@@ -80,52 +141,17 @@
     if (![self hasFileURL]) {
         return;
     }
-    
-    CocoaCB *ccb = CocoaCB.new;
-    const char *args[] = { "loadfile", _fileURL.fileSystemRepresentation, NULL };
-    mpv_command(ccb.mpv.mpv_handle, args);
-    
-    self.currentExample = ccb;
-    
-}
-
-- (IBAction)runMPVPlayerNSOpenGLViewExample:(id)sender {
-    [self runMPVPlayerExample:MPVPlayerExampleNSOpenGLView];
-}
-
-- (IBAction)runMPVPlayerNSViewExample:(id)sender {
-    [self runMPVPlayerExample:MPVPlayerExampleNSView];
-}
-
-- (IBAction)runMPVPlayerHybridViewExample:(id)sender {
-    [self runMPVPlayerExample:MPVPlayerExampleHybridView];
-}
-
-- (IBAction)runMPVPlayerCAOpenGLLayerExample:(id)sender {
-    [self runMPVPlayerExample:MPVPlayerExampleCAOpenGLLayer];
-}
-
-- (IBAction)runMPVPlayerTestGLViewExample:(id)sender {
-    [self runMPVPlayerExample:MPVPlayerExampleTestGLView];
-}
-
-- (void)runMPVPlayerExample:(MPVPlayerExampleType)type {
-    
-    if (_currentExample) {
-        [self destroyCurrentExample];
-    }
-    
-    if (![self hasFileURL]) {
-        return;
-    }
-    
-    MPVPlayerExample *example = [[MPVPlayerExample alloc] initWithExample:type];
-
-    if (example) {
-        self.currentExample = example;
+    MPVExampleInfo * info = _examplesController.selectedObjects.firstObject;
+    if (info.tag == 0) {
+        MPVExample * example = [[MPVExample alloc] initWithExampleName:info.name];
         [example.player openURL:_fileURL];
         [example.player play];
-
+        self.currentExample = example;
+    } else {
+        CocoaCB *ccb = [CocoaCB new];
+        const char *args[] = { "loadfile", _fileURL.fileSystemRepresentation, NULL };
+        mpv_command(ccb.mpv.mpv_handle, args);
+        self.currentExample = ccb;
     }
 }
 

@@ -18,9 +18,5 @@
 
 /* MPVPlayer */
 #import "MPVPlayer/MPVPlayer.h"
-#import "MPVPlayer/MPVPlayerExample.h"
-#import "MPVPlayer/MPVPlayerView.h"
-#import "MPVPlayer/MPVOpenGLView.h"
-#import "MPVPlayer/MPVPlayerWindow.h"
 
 #endif /* libmpvExamples_h */

@@ -741,7 +741,7 @@
                                                         <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" misplaced="YES" allowsExpansionToolTips="YES" id="vtQ-dg-8RQ">
                                                             <rect key="frame" x="1" y="3" width="271" height="30"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                                                            <textFieldCell key="cell" selectable="YES" sendsActionOnEndEditing="YES" title="Multiline Label" id="8SB-RM-6PZ">
+                                                            <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Multiline Label" id="8SB-RM-6PZ">
                                                                 <font key="font" metaFont="smallSystem"/>
                                                                 <color key="textColor" name="disabledControlTextColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -759,6 +759,7 @@
                                         </tableColumn>
                                     </tableColumns>
                                     <connections>
+                                        <action trigger="doubleAction" selector="tableViewDoubleClick:" target="Voe-Tx-rLC" id="fKl-5L-HBW"/>
                                         <binding destination="ikK-Rh-ejA" name="content" keyPath="arrangedObjects" id="hr3-0y-wJc"/>
                                         <binding destination="ikK-Rh-ejA" name="selectionIndexes" keyPath="selectionIndexes" previousBinding="hr3-0y-wJc" id="l7O-sm-FDA"/>
                                         <binding destination="ikK-Rh-ejA" name="sortDescriptors" keyPath="sortDescriptors" previousBinding="l7O-sm-FDA" id="VF4-kc-N7h"/>

@@ -133,6 +133,10 @@
 
 #pragma mark - IBAction methods
 
+- (IBAction)tableViewDoubleClick:(id)sender {
+    [self runExample:nil];
+}
+
 - (IBAction)runExample:(id)sender {
     if (_currentExample) {
         [self destroyCurrentExample];

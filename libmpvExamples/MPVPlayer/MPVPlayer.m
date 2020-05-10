@@ -193,10 +193,10 @@ exit:
 - (void)shutdown {
     [_eventThread cancel];
     _status = MPVPlayerStatusUnknown;
-    
-    [NSNotificationCenter.defaultCenter postNotificationName:MPVPlayerWillShutdownNotification object:self userInfo:nil];
-
     [self performCommand:@"quit"];
+    [NSNotificationCenter.defaultCenter postNotificationName:MPVPlayerWillShutdownNotification object:self userInfo:nil];
+    [_observed removeAllObjects];
+    
     mpv_terminate_destroy(_mpv_handle);
     _mpv_handle = NULL;
 }

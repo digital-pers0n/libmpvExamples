@@ -421,7 +421,7 @@ CreateFBOForTexture(GLuint texture)
             
             pthread_mutexattr_t mattr;
             pthread_mutexattr_init(&mattr);
-#if MAC_OS_X_VERSION_10_14 && \
+#if !MAC_OS_X_VERSION_10_14 || \
     MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_14
             pthread_mutexattr_setpolicy_np(&mattr, 2);
 #else

@@ -695,14 +695,14 @@
                             </binding>
                         </connections>
                     </button>
-                    <scrollView misplaced="YES" autohidesScrollers="YES" horizontalLineScroll="56" horizontalPageScroll="10" verticalLineScroll="56" verticalPageScroll="10" usesPredominantAxisScrolling="NO" id="EA2-LS-rLa">
+                    <scrollView misplaced="YES" autohidesScrollers="YES" horizontalLineScroll="52" horizontalPageScroll="10" verticalLineScroll="52" verticalPageScroll="10" usesPredominantAxisScrolling="NO" id="EA2-LS-rLa">
                         <rect key="frame" x="9" y="38" width="278" height="415"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <clipView key="contentView" drawsBackground="NO" id="ECX-Ad-43N">
                             <rect key="frame" x="1" y="1" width="276" height="413"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
-                                <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnReordering="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="54" rowSizeStyle="automatic" viewBased="YES" floatsGroupRows="NO" id="tLO-f0-NXk">
+                                <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="50" rowSizeStyle="automatic" viewBased="YES" floatsGroupRows="NO" id="tLO-f0-NXk">
                                     <rect key="frame" x="0.0" y="0.0" width="276" height="413"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <size key="intercellSpacing" width="3" height="2"/>
@@ -723,11 +723,11 @@
                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                             <prototypeCellViews>
                                                 <tableCellView misplaced="YES" id="bfT-t7-uRX">
-                                                    <rect key="frame" x="1" y="1" width="273" height="54"/>
+                                                    <rect key="frame" x="1" y="1" width="273" height="50"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <subviews>
                                                         <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" misplaced="YES" id="Y6U-CR-raX">
-                                                            <rect key="frame" x="0.0" y="35" width="273" height="17"/>
+                                                            <rect key="frame" x="39" y="27" width="233" height="14"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                                             <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="cbw-ZZ-bfH">
                                                                 <font key="font" metaFont="systemBold"/>
@@ -739,9 +739,9 @@
                                                             </connections>
                                                         </textField>
                                                         <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" misplaced="YES" allowsExpansionToolTips="YES" id="vtQ-dg-8RQ">
-                                                            <rect key="frame" x="1" y="3" width="271" height="30"/>
+                                                            <rect key="frame" x="39" y="10" width="233" height="14"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                                                            <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Multiline Label" id="8SB-RM-6PZ">
+                                                            <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Multiline Label" id="8SB-RM-6PZ">
                                                                 <font key="font" metaFont="smallSystem"/>
                                                                 <color key="textColor" name="disabledControlTextColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -750,6 +750,17 @@
                                                                 <binding destination="bfT-t7-uRX" name="value" keyPath="objectValue.info" id="1nU-TM-BwY"/>
                                                             </connections>
                                                         </textField>
+                                                        <button toolTip="Run Example" misplaced="YES" id="bC6-3Z-fge">
+                                                            <rect key="frame" x="5" y="10" width="30" height="30"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                            <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="LERunExampleTemplate" imagePosition="only" alignment="center" imageScaling="proportionallyDown" inset="2" id="rEq-g5-atK">
+                                                                <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                                                                <font key="font" metaFont="system"/>
+                                                            </buttonCell>
+                                                            <connections>
+                                                                <action selector="tableCellViewButtonAction:" target="Voe-Tx-rLC" id="y8b-Kd-6o7"/>
+                                                            </connections>
+                                                        </button>
                                                     </subviews>
                                                     <connections>
                                                         <outlet property="textField" destination="Y6U-CR-raX" id="gNb-uO-XZ7"/>
@@ -763,6 +774,7 @@
                                         <binding destination="ikK-Rh-ejA" name="content" keyPath="arrangedObjects" id="hr3-0y-wJc"/>
                                         <binding destination="ikK-Rh-ejA" name="selectionIndexes" keyPath="selectionIndexes" previousBinding="hr3-0y-wJc" id="l7O-sm-FDA"/>
                                         <binding destination="ikK-Rh-ejA" name="sortDescriptors" keyPath="sortDescriptors" previousBinding="l7O-sm-FDA" id="VF4-kc-N7h"/>
+                                        <outlet property="delegate" destination="Voe-Tx-rLC" id="LSd-A1-7ZQ"/>
                                     </connections>
                                 </tableView>
                             </subviews>
@@ -777,22 +789,13 @@
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
                     </scrollView>
-                    <button verticalHuggingPriority="750" misplaced="YES" id="v5D-6Y-g0O">
-                        <rect key="frame" x="9" y="6" width="69" height="25"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <buttonCell key="cell" type="roundTextured" title="Run" bezelStyle="texturedRounded" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="eqW-D2-KiF">
-                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                            <font key="font" metaFont="system"/>
-                        </buttonCell>
-                        <connections>
-                            <action selector="runExample:" target="Voe-Tx-rLC" id="eQN-Fd-e3D"/>
-                            <binding destination="ikK-Rh-ejA" name="enabled" keyPath="canRemove" id="hwh-3L-PEF"/>
-                        </connections>
-                    </button>
                 </subviews>
             </view>
             <point key="canvasLocation" x="-71.5" y="329.5"/>
         </window>
         <arrayController objectClassName="MPVExampleInfo" selectsInsertedObjects="NO" id="ikK-Rh-ejA"/>
     </objects>
+    <resources>
+        <image name="LERunExampleTemplate" width="19" height="19"/>
+    </resources>
 </document>

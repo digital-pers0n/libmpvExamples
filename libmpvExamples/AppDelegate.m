@@ -131,13 +131,7 @@
     return YES;
 }
 
-#pragma mark - IBAction methods
-
-- (IBAction)tableViewDoubleClick:(id)sender {
-    [self runExample:nil];
-}
-
-- (IBAction)runExample:(id)sender {
+- (void)runExample:(MPVExampleInfo *)info {
     if (_currentExample) {
         [self destroyCurrentExample];
     }
@@ -145,7 +139,7 @@
     if (![self hasFileURL]) {
         return;
     }
-    MPVExampleInfo * info = _examplesController.selectedObjects.firstObject;
+    
     if (info.tag == 0) {
         MPVExample * example = [[MPVExample alloc] initWithExampleName:info.name];
         [example.player openURL:_fileURL];
@@ -157,6 +151,21 @@
         mpv_command(ccb.mpv.mpv_handle, args);
         self.currentExample = ccb;
     }
+}
+
+#pragma mark - IBAction methods
+
+- (IBAction)tableViewDoubleClick:(id)sender {
+    MPVExampleInfo * info = _examplesController.selectedObjects.firstObject;
+    [self runExample:info];
+}
+
+- (IBAction)tableCellViewButtonAction:(NSButton *)sender {
+    NSTableCellView * tcv = (NSTableCellView *)[sender superview];
+    NSAssert([tcv isKindOfClass:[NSTableCellView class]],
+             @"Invalid class %@", [tcv class]);
+    MPVExampleInfo * info = tcv.objectValue;
+    [self runExample:info];
 }
 
 - (void)openDocument:(id)sender {

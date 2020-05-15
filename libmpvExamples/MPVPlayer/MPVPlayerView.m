@@ -371,12 +371,12 @@ static void *get_proc_address(void *ctx, const char *symbol) {
 #pragma mark - functions
 
 static void reshape_context(__unsafe_unretained MPVPlayerView *obj) {
+    pthread_mutex_lock(&obj->_render_mutex);
     CGLSetCurrentContext(obj->_cglContext);
-    CGLLockContext(obj->_cglContext);
     NSRect glRect = NSIntegralRect([obj convertRectToBacking:obj.bounds]);
     glViewport(0, 0, NSWidth(glRect), NSHeight(glRect));
     glFlush();
-    CGLUnlockContext(obj->_cglContext);
+    pthread_mutex_unlock(&obj->_render_mutex);
 }
 
 static inline void reshape_context_sync(__unsafe_unretained MPVPlayerView *obj) {
@@ -415,8 +415,8 @@ static void render_context_callback(void *ctx) {
 }
 
 static void render_resize(__unsafe_unretained MPVPlayerView *obj) {
+    pthread_mutex_lock(&obj->_render_mutex);
     CGLSetCurrentContext(obj->_cglContext);
-    CGLLockContext(obj->_cglContext);
 
     static GLint dims[] = { 0, 0, 0, 0 };
     glGetIntegerv(GL_VIEWPORT, dims);
@@ -432,7 +432,7 @@ static void render_resize(__unsafe_unretained MPVPlayerView *obj) {
     mpv_render_context_render(obj->_mpv_render_context, obj->_mpv_render_params);
     
     glFlush();
-    CGLUnlockContext(obj->_cglContext);
+    pthread_mutex_unlock(&obj->_render_mutex);
 }
 
 __unused static inline void render_resize_async(__unsafe_unretained MPVPlayerView *obj) {

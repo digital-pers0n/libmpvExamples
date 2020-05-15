@@ -334,6 +334,11 @@ static void *get_proc_address(void *ctx, const char *symbol) {
         pthread_condattr_destroy(&condattr);
         pthread_attr_destroy(&attrs);
         pthread_mutexattr_destroy(&mattr);
+        
+        NSSize surfaceSize = [self convertRectToBacking:self.frame].size;
+        _mpv_opengl_fbo.w = surfaceSize.width;
+        _mpv_opengl_fbo.h = surfaceSize.height;
+        
         mpv_render_context_set_update_callback(_mpv_render_context, render_context_callback, (__bridge void *)self);
     }
 }

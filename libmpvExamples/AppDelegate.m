@@ -98,6 +98,16 @@
     return YES;
 }
 
+#pragma mark - NSWindow Notifications
+
+- (void)windowWillClose:(NSNotification *)n {
+    NSNotificationCenter * nc = [NSNotificationCenter defaultCenter];
+    [nc removeObserver:self
+                  name:NSWindowWillCloseNotification
+                object:[_currentExample window]];
+    self.currentExample = nil;
+}
+
 #pragma mark - Methods
 
 - (NSURL *)selectFile {
@@ -140,17 +150,28 @@
         return;
     }
     
+    NSWindow * window;
     if (info.tag == 0) {
         MPVExample * example = [[MPVExample alloc] initWithExampleName:info.name];
+        [self setUpPlayer:example.player];
         [example.player openURL:_fileURL];
         [example.player play];
         self.currentExample = example;
+        window = example.window;
     } else {
         CocoaCB *ccb = [CocoaCB new];
         const char *args[] = { "loadfile", _fileURL.fileSystemRepresentation, NULL };
         mpv_command(ccb.mpv.mpv_handle, args);
         self.currentExample = ccb;
+        window = ccb.window;
     }
+    
+    NSNotificationCenter * nc = [NSNotificationCenter defaultCenter];
+    [nc addObserver:self
+           selector:@selector(windowWillClose:)
+               name:NSWindowWillCloseNotification
+             object:window];
+    
 }
 
 #pragma mark - IBAction methods

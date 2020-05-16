@@ -321,7 +321,14 @@ static void *get_proc_address(void *ctx, const char *symbol) {
         
         pthread_mutexattr_t mattr;
         pthread_mutexattr_init(&mattr);
-        pthread_mutexattr_setpolicy_np(&mattr, _PTHREAD_MUTEX_POLICY_FIRSTFIT); // https://blog.mozilla.org/nfroyd/2017/03/29/on-mutex-performance-part-1/
+
+#if !MAC_OS_X_VERSION_10_14 || \ 
+    MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_14
+        // _PTHREAD_MUTEX_POLICY_FIRSTFIT 2
+        pthread_mutexattr_setpolicy_np(&mattr, 2); // https://blog.mozilla.org/nfroyd/2017/03/29/on-mutex-performance-part-1/
+#else
+        pthread_mutexattr_setpolicy_np(&mattr, _PTHREAD_MUTEX_POLICY_FIRSTFIT);
+#endif
         pthread_mutex_init(&_render_mutex, &mattr) ;
         
         pthread_attr_t attrs;

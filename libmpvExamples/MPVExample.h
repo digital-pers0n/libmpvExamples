@@ -17,6 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)initWithExampleName:(NSString *)name;
 
 @property (nonatomic, weak, nullable, readonly) MPVPlayer * player;
+@property (nonatomic, nullable, readonly) NSWindow * window;
 - (void)shutdown;
 
 @end

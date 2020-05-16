@@ -70,7 +70,7 @@ static inline void check_error(int status) {
 - (void)shutdown {
     if (_backendState == MPVStateInitialized) {
         [_layer setVideo:NO];
-        [_window orderOut:nil];
+        [_window performClose:nil];
         [_mpv deinitRender];
         [_mpv deinitMPV:YES];
     }

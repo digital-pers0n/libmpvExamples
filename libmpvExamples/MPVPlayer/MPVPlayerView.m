@@ -354,7 +354,9 @@ static void *get_proc_address(void *ctx, const char *symbol) {
 #pragma mark - Notifications
 
 - (void)globalFrameDidChange:(NSNotification *)n {
-    update_context_sync(self);
+    pthread_mutex_lock(&_render_mutex);
+    [_glContext update];
+    pthread_mutex_unlock(&_render_mutex);
 }
 
 - (void)playerWillShutdown:(NSNotification *)n {

@@ -36,7 +36,10 @@ static const NSRect kMPVExampleDefaultFrame =
         _window = [self createWindow];
         _example = [self createExample:cls];
         if ([_example isKindOfClass:[NSView class]]) {
-             _window.contentView = (NSView *)_example;
+            NSView * view = (NSView *)_example;
+            view.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
+            view.frame = kMPVExampleDefaultFrame;
+            [_window.contentView addSubview:view];
         } else {
             _window.contentView.layer = (CALayer *)_example;
             _window.contentView.wantsLayer = YES;

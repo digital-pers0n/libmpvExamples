@@ -76,16 +76,12 @@ static void *get_proc_address(void *ctx, const char *symbol) {
     NSOpenGLContext *_glContext;
     struct _CGLContextObject   *_cglContext;
     dispatch_queue_t _mpv_render_queue;
-    dispatch_queue_t _main_queue;
-    dispatch_queue_t _mpv_queue;
-    
+
     pthread_t _render_thread[threads_num];
     pthread_cond_t _render_cond;
     pthread_mutex_t _render_mutex;
     bool _done;
 }
-
-@property (nonatomic) NSLock *lock;
 
 @end
 
@@ -99,10 +95,6 @@ static void *get_proc_address(void *ctx, const char *symbol) {
             NSLog(@"Failed to create OpenGL context.");
             return nil;
         }
-        dispatch_queue_attr_t attr1 = dispatch_queue_attr_make_with_qos_class(
-                                                                             DISPATCH_QUEUE_SERIAL,
-                                                                             QOS_CLASS_BACKGROUND, 0);
-        _mpv_queue = dispatch_queue_create("com.mpvplayer.queue", attr1);
         
         if ([self createMPVPlayer] != 0) {
             NSLog(@"Failed to create MPVPlayer instance. -> %@", _player.error.localizedDescription);
@@ -112,7 +104,6 @@ static void *get_proc_address(void *ctx, const char *symbol) {
             return nil;
         }
         
-
         NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
         [nc addObserver:self
                selector:@selector(globalFrameDidChange:)
@@ -128,8 +119,6 @@ static void *get_proc_address(void *ctx, const char *symbol) {
                                                                              DISPATCH_QUEUE_SERIAL,
                                                                              QOS_CLASS_USER_INTERACTIVE, 0);
         _mpv_render_queue = dispatch_queue_create("com.playerView.render-queue", attr);
-        _main_queue = dispatch_get_main_queue();
-        _lock = NSLock.new;
        self.canDrawConcurrently = YES;
         
         NSSize surfaceSize = [self convertRectToBacking:frame].size;

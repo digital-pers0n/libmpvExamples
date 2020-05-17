@@ -247,7 +247,11 @@ static void *get_proc_address(void *ctx, const char *symbol) {
 
 - (void)setFrame:(NSRect)frame {
     [super setFrame:frame];
-    reshape_context_sync(self);
+    pthread_mutex_lock(&_render_mutex);
+    NSSize size = [self convertSizeToBacking:frame.size];
+    _mpv_opengl_fbo.w = size.width;
+    _mpv_opengl_fbo.h = size.height;
+    pthread_mutex_unlock(&_render_mutex);
 }
 
 - (void)viewWillStartLiveResize {

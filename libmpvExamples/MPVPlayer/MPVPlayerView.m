@@ -406,6 +406,37 @@ static void render_context_callback(void *ctx) {
 }
 
 static void render_resize(__unsafe_unretained MPVPlayerView *obj) {
+    CGLSetCurrentContext(obj->_cglContext);
+    CGLUpdateContext(obj->_cglContext);
+    
+    mpv_opengl_fbo fbo = obj->_mpv_opengl_fbo;
+    int block_for_target = 0;
+    int flip_y = 1;
+    
+    mpv_render_param render_params[] = {
+        {
+            .type = MPV_RENDER_PARAM_OPENGL_FBO,
+            .data = &fbo
+        },
+        {
+            .type = MPV_RENDER_PARAM_FLIP_Y,
+            .data = &flip_y
+        },
+        {
+            .type = MPV_RENDER_PARAM_BLOCK_FOR_TARGET_TIME,
+            .data = &block_for_target
+        },
+        { 0 }
+    };
+    glViewport(0, 0, fbo.w, fbo.h);
+    glClearColor(0, 0, 0, 1);
+    glClear(GL_COLOR_BUFFER_BIT);
+    mpv_render_context_render(obj->_mpv_render_context, render_params);
+    
+    glFlush();
+}
+
+static void render_live_resize(__unsafe_unretained MPVPlayerView * obj) {
     pthread_mutex_lock(&obj->_render_mutex);
     CGLSetCurrentContext(obj->_cglContext);
 

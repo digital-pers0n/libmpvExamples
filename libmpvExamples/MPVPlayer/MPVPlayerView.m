@@ -438,27 +438,18 @@ static void render_resize(__unsafe_unretained MPVPlayerView *obj) {
 
 static void render_live_resize(__unsafe_unretained MPVPlayerView * obj) {
     pthread_mutex_lock(&obj->_render_mutex);
-    CGLSetCurrentContext(obj->_cglContext);
-
-    static GLint dims[] = { 0, 0, 0, 0 };
-    glGetIntegerv(GL_VIEWPORT, dims);
-    GLint width = dims[2];
-    GLint height = dims[3];
-    if (width == 0 || height == 0) {
-        NSSize surfaceSize = [obj convertRectToBacking:obj.bounds].size;
-        width = surfaceSize.width;
-        height = surfaceSize.height;
+    if (mpv_render_context_update(obj->_mpv_render_context) &
+        MPV_RENDER_UPDATE_FRAME)
+    {
+        render_resize(obj);
     }
-    obj->_mpv_opengl_fbo.w = width;
-    obj->_mpv_opengl_fbo.h = height;
-    mpv_render_context_render(obj->_mpv_render_context, obj->_mpv_render_params);
-    
-    glFlush();
     pthread_mutex_unlock(&obj->_render_mutex);
 }
 
 __unused static inline void render_resize_async(__unsafe_unretained MPVPlayerView *obj) {
-   dispatch_async_f(obj->_mpv_render_queue, (__bridge void *)obj, (dispatch_function_t)render_resize);
+   dispatch_async_f(obj->_mpv_render_queue,
+                    (__bridge void *)obj,
+                    (dispatch_function_t)render_live_resize);
 }
 
 static void render_resize_callback(void *ctx) {

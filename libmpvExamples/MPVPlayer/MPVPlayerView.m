@@ -257,19 +257,15 @@ static void *get_proc_address(void *ctx, const char *symbol) {
 - (void)viewWillStartLiveResize {
     [super viewWillStartLiveResize];
     if (_mpv_render_context) {
-        GLint swapInt = 0;
-        [_glContext setValues:&swapInt forParameter:NSOpenGLCPSwapInterval];
-        reshape_context_sync(self);
         mpv_render_context_set_update_callback(_mpv_render_context, render_resize_callback, (__bridge void *)self );
+        self.needsDisplay = YES;
     }
 }
 
 - (void)viewDidEndLiveResize {
     [super viewDidEndLiveResize];
     if (_mpv_render_context) {
-        GLint swapInt = 1;
-        [_glContext setValues:&swapInt forParameter:NSOpenGLCPSwapInterval];
-        reshape_context_sync(self);
+        self.needsDisplay = YES;
         mpv_render_context_set_update_callback(_mpv_render_context, render_context_callback, (__bridge void *)self );
     }
 }

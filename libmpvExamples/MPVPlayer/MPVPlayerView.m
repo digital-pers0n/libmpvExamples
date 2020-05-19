@@ -369,16 +369,9 @@ static void *get_proc_address(void *ctx, const char *symbol) {
 #pragma mark - functions
 
 static void reshape_context(__unsafe_unretained MPVPlayerView *obj) {
-    pthread_mutex_lock(&obj->_render_mutex);
-    CGLSetCurrentContext(obj->_cglContext);
-    NSRect glRect = NSIntegralRect([obj convertRectToBacking:obj.bounds]);
-    glViewport(0, 0, NSWidth(glRect), NSHeight(glRect));
-    glFlush();
-    pthread_mutex_unlock(&obj->_render_mutex);
-}
-
-static inline void reshape_context_sync(__unsafe_unretained MPVPlayerView *obj) {
-    dispatch_sync_f(obj->_mpv_render_queue, (__bridge void *)obj, (dispatch_function_t)reshape_context);
+    NSRect glRect = [obj convertRectToBacking:obj.bounds];
+    obj->_mpv_opengl_fbo.w = NSWidth(glRect);
+    obj->_mpv_opengl_fbo.h = NSHeight(glRect);
 }
 
 static void *_render_frame(void *ctx) {

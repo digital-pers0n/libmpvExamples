@@ -284,9 +284,11 @@ static void *get_proc_address(void *ctx, const char *symbol) {
 
 - (void)drawRect:(NSRect)dirtyRect {
     if (_mpv_render_context) {
-       if (mpv_render_context_update(_mpv_render_context) &  MPV_RENDER_UPDATE_FRAME) {
-            render_resize_async(self);
-       }
+        
+        pthread_mutex_lock(&_render_mutex);
+        render_resize(self);
+        pthread_mutex_unlock(&_render_mutex);
+
     } else {
         CGLSetCurrentContext(_cglContext);
         glClearColor(0, 0, 0, 1);
@@ -294,8 +296,6 @@ static void *get_proc_address(void *ctx, const char *symbol) {
         glFlush();
     }
 }
-
-
 
 - (void)viewDidMoveToWindow {
     if (!_mpv_render_context && self.window) {

@@ -199,7 +199,7 @@ static inline void _draw_frame(MPVPlayerLayer *obj) {
 static void _render(void *ctx) {
     
     __unsafe_unretained MPVPlayerLayer *obj = (__bridge id)ctx;
-    [obj setNeedsDisplay];
+    [obj display];
     [CATransaction flush];
 }
 

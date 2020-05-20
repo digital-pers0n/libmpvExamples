@@ -27,9 +27,7 @@ extern void *g_opengl_framework_handle;
     NSOpenGLContext *_glContext;
     struct _CGLContextObject *_cglContext;
     
-    dispatch_queue_t _main_queue;
     dispatch_queue_t _render_queue;
-    dispatch_source_t _dispatch_source;
 }
 
 @end
@@ -61,7 +59,6 @@ extern void *g_opengl_framework_handle;
                    name:MPVPlayerWillShutdownNotification
                  object:_player];
         
-        _main_queue = dispatch_get_main_queue();
         _glContext = self.openGLContext;
         _cglContext = _glContext.CGLContextObj;
         

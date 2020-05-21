@@ -169,11 +169,8 @@ extern void *g_opengl_framework_handle;
 - (void)viewWillStartLiveResize {
 
     if (_mpv_render_context) {
-        self.wantsLayer = YES;
-        self.layer.drawsAsynchronously = YES;
         self.canDrawConcurrently = YES;
         mpv_render_context_set_update_callback(_mpv_render_context, render_live_resize_callback, (__bridge void *)self );
-        [_glContext update];
     }
 }
 
@@ -181,36 +178,14 @@ extern void *g_opengl_framework_handle;
 
     if (_mpv_render_context) {
         self.canDrawConcurrently = NO;
-        self.layer.drawsAsynchronously = NO;
         mpv_render_context_set_update_callback(_mpv_render_context, render_context_callback, (__bridge void *)self );
-        self.needsDisplay = YES;
     }
 }
 
 - (void)drawRect:(NSRect)dirtyRect {
-    
+
     if (_mpv_render_context) {
-        
-        if ([NSThread isMainThread]) {  // if main thread -
-           
-            if (self.inLiveResize) {    // use async drawing to avoid blocking during live resize
-            
-                resize_async(self);
-            
-            } else {
-                
-                if (self.wantsLayer) {
-                    
-                    self.wantsLayer = NO; // disable layer and draw a frame immediatly to avoid flickering
-                    resize_sync(self);
-                }
-            }
-            
-        } else {
-            
-           resize_sync(self);
-            
-        }
+        resize_async(self);
     }
 }
 

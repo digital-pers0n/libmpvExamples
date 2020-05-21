@@ -243,13 +243,11 @@ static inline void resize_sync(__unsafe_unretained MPVOpenGLView *obj) {
 
 static void resize(void *ctx) {
     __unsafe_unretained MPVOpenGLView *obj = (__bridge id)ctx;
-    CGLLockContext(obj->_cglContext);
     {
         CGLSetCurrentContext(obj->_cglContext);
         mpv_render_context_render(obj->_mpv_render_context, obj->_mpv_render_params);
         CGLFlushDrawable(obj->_cglContext);
     }
-    CGLUnlockContext(obj->_cglContext);
 }
 
 static void render_context_callback(void *ctx) {

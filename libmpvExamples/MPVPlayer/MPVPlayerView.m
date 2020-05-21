@@ -32,9 +32,18 @@ static void *get_proc_address(void *ctx, const char *symbol) {
         return gl_dummy;
     }
     
-    //if (strcmp(symbol, "glClear") == 0) {
-    //    return gl_dummy;
-    //}
+    if (strcmp(symbol, "glScissor") == 0) {
+        return &gl_dummy;
+    }
+
+    
+    if (strcmp(symbol, "glClearColor") == 0) {
+        return &gl_dummy;
+    }
+    
+    if (strcmp(symbol, "glClear") == 0) {
+        return &gl_dummy;
+    }
     if (strcmp(symbol, "glGetQueryObjectui64v") == 0) {
         return gl_dummy;
     }

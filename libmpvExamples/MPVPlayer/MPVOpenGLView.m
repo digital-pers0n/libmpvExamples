@@ -255,13 +255,18 @@ static void render_context_callback(void *ctx) {
     dispatch_async_f(obj->_render_queue, ctx, &_render);
 }
 
-static void _live_resize(MPVOpenGLView *obj) {
-    [obj setNeedsDisplay:YES];
+static void render_live_resize(void * ctx) {
+    __unsafe_unretained MPVOpenGLView * obj = (__bridge id)ctx;
+    if (mpv_render_context_update(obj->_mpv_render_context) &
+        MPV_RENDER_UPDATE_FRAME)
+    {
+        resize(ctx);
+    }
 }
 
 static void render_live_resize_callback(void *ctx) {
     MPVOpenGLView *obj = (__bridge id)ctx;
-    dispatch_async_f(obj->_main_queue, ctx, (void *)_live_resize);
+    dispatch_async_f(obj->_render_queue, ctx, &render_live_resize);
 }
 
 @end

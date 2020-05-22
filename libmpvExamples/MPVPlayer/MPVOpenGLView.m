@@ -236,11 +236,6 @@ static inline void resize_async(__unsafe_unretained MPVOpenGLView *obj) {
     dispatch_async_f(obj->_render_queue, (__bridge void *)obj, &resize);
 }
 
-static inline void resize_sync(__unsafe_unretained MPVOpenGLView *obj) {
-    dispatch_sync_f(obj->_render_queue, (__bridge void *)obj, &resize);
-}
-
-
 static void resize(void *ctx) {
     __unsafe_unretained MPVOpenGLView *obj = (__bridge id)ctx;
     {

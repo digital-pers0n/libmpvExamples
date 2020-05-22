@@ -240,7 +240,18 @@ static void resize(void *ctx) {
     __unsafe_unretained MPVOpenGLView *obj = (__bridge id)ctx;
     {
         CGLSetCurrentContext(obj->_cglContext);
-        mpv_render_context_render(obj->_mpv_render_context, obj->_mpv_render_params);
+        CGLUpdateContext(obj->_cglContext);
+
+        mpv_opengl_fbo fbo = obj->_mpv_opengl_fbo;
+        int flag = 1;
+        int block = 0;
+        mpv_render_param params[] = {
+            { .type = MPV_RENDER_PARAM_OPENGL_FBO, .data = &fbo },
+            { .type = MPV_RENDER_PARAM_FLIP_Y,     .data = &flag },
+            { .type = MPV_RENDER_PARAM_BLOCK_FOR_TARGET_TIME, .data = &block },
+            { 0 } };
+        mpv_render_context_render(obj->_mpv_render_context, params);
+        
         CGLFlushDrawable(obj->_cglContext);
     }
 }

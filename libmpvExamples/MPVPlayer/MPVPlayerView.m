@@ -20,6 +20,8 @@
 
 extern void *g_opengl_framework_handle;
 
+static GLboolean gl_IsQuery(GLuint id) { return GL_FALSE; }
+
 static void gl_dummy() { }
 
 static void *get_proc_address(void *ctx, const char *symbol) {
@@ -65,7 +67,7 @@ static void *get_proc_address(void *ctx, const char *symbol) {
     }
     
     if (strcmp(symbol, "glIsQuery") == 0) {
-        return gl_dummy;
+        return &gl_IsQuery;
     }
     
 //    if (strcmp(symbol, "glBindFramebuffer") == 0) {

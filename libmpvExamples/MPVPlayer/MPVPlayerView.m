@@ -186,9 +186,9 @@ static void *get_proc_address(void *ctx, const char *symbol) {
     
     glDisable (GL_ALPHA_TEST);
     glDisable (GL_DEPTH_TEST);
-    //glDisable (GL_SCISSOR_TEST);
-    //glDisable (GL_BLEND);
-    glEnable (GL_SCISSOR_TEST);
+    glDisable (GL_SCISSOR_TEST);
+   // glDisable (GL_BLEND);
+   // glEnable (GL_SCISSOR_TEST);
     glEnable (GL_BLEND);
     glDisable (GL_DITHER);
     glDisable (GL_CULL_FACE);

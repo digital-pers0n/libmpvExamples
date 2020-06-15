@@ -42,7 +42,7 @@ typedef struct mpv_data_ {
     struct _CGLContextObject    *cgl_ctx;
     pthread_mutex_t             gl_lock;
     void *                      layer;
-    GLuint                      surface_texure;
+    GLuint                      surface_texture;
 } mpv_data;
 
 // Private CALayer API.
@@ -319,15 +319,15 @@ CreateFBOForTexture(GLuint texture)
         glDeleteFramebuffers(1, (const GLuint *)&_mpv.opengl_fbo.fbo);
         _mpv.opengl_fbo.fbo = 0;
     }
-    if (_mpv.surface_texure) {
-        glDeleteTextures(1, &_mpv.surface_texure);
-        _mpv.surface_texure = 1;
+    if (_mpv.surface_texture) {
+        glDeleteTextures(1, &_mpv.surface_texture);
+        _mpv.surface_texture = 1;
     }
 
     IOSurfaceRef surface = CreateTransparentIOSurface(_mpv.opengl_fbo.w,
                                                       _mpv.opengl_fbo.h);
-    _mpv.surface_texure = CreateTextureForIOSurface(_mpv.cgl_ctx, surface);
-    _mpv.opengl_fbo.fbo = CreateFBOForTexture(_mpv.surface_texure);
+    _mpv.surface_texture = CreateTextureForIOSurface(_mpv.cgl_ctx, surface);
+    _mpv.opengl_fbo.fbo = CreateFBOForTexture(_mpv.surface_texture);
     
     int block_for_target = 0;
     mpv_opengl_fbo fbo = _mpv.opengl_fbo;

@@ -39,7 +39,7 @@
 
 - (instancetype)initWithContentRect:(NSRect)rect screen:(NSScreen *)screen view:(NSView *)view cocoaCB:(CocoaCB *)ccb {
     self = [super initWithContentRect:rect
-                            styleMask: NSTitledWindowMask | NSClosableWindowMask | NSMiniaturizableWindowMask | NSResizableWindowMask
+                            styleMask: NSWindowStyleMaskTitled | NSWindowStyleMaskClosable | NSWindowStyleMaskMiniaturizable | NSWindowStyleMaskResizable
                               backing:NSBackingStoreBuffered
                                 defer:NO
                                screen:screen];

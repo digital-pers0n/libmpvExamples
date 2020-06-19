@@ -25,7 +25,7 @@
     if (self) {
         self.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
         self.wantsBestResolutionOpenGLSurface = YES;
-        [self registerForDraggedTypes:@[NSFilenamesPboardType, NSURLPboardType]];
+        [self registerForDraggedTypes:@[(id)kUTTypeFileURL, (id)kUTTypeURL]];
     }
     return self;
 }
@@ -85,7 +85,7 @@
 
 - (NSDragOperation)draggingEntered:(id<NSDraggingInfo>)sender {
     NSArray *types = sender.draggingPasteboard.types;
-    if ([types containsObject:NSFilenamesPboardType] || [types containsObject:NSURLPboardType]) {
+    if ([types containsObject:(id)kUTTypeFileURL] || [types containsObject:(id)kUTTypeURL]) {
         return NSDragOperationCopy;
     }
     return NSDragOperationNone;

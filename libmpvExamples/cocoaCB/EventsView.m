@@ -30,6 +30,11 @@
     return self;
 }
 
+- (void)loadFile:(NSURL *)url {
+    const char *cmd[] = { "loadfile", url.fileSystemRepresentation, NULL };
+    mpv_command(_cocoaCB.mpv.mpv_handle, cmd);
+}
+
 #pragma mark - Overrides
 
 - (BOOL)isFlipped {
@@ -91,8 +96,33 @@
     return NSDragOperationNone;
 }
 
-// TODO: Implement Drag n Drop
 - (BOOL)performDragOperation:(id<NSDraggingInfo>)sender {
+    
+    NSPasteboard *pb = sender.draggingPasteboard;
+    NSArray *array = [pb readObjectsForClasses:@[NSURL.class] options:nil];
+    if (array.count) {
+        NSURL *url = array.firstObject;
+        if ([url isFileReferenceURL]) {
+            url = [url filePathURL];
+        }
+        [self loadFile:url];
+        return YES;
+    }
+    
+    array = [pb readObjectsForClasses:@[NSString.class] options:nil];
+    if (array.count) {
+        NSURL *url = [NSURL URLWithString:array.firstObject];
+        if (url) {
+            [self loadFile:url];
+            return YES;
+        }
+        
+        url = [NSURL fileURLWithPath:array.firstObject];
+        if (url) {
+            [self loadFile:url];
+            return YES;
+        }
+    }
     return NO;
 }
 

@@ -86,6 +86,18 @@
     // [_cocoaCB.window showTitleBar];
 }
 
+- (void)keyDown:(NSEvent *)theEvent {
+    NSString *chars = theEvent.charactersIgnoringModifiers;
+    const char *cmd[] = { "keydown", chars.UTF8String, NULL };
+    mpv_command(_cocoaCB.mpv.mpv_handle, cmd);
+}
+
+- (void)keyUp:(NSEvent *)theEvent {
+    NSString *chars = theEvent.characters;
+    const char *cmd[] = { "keyup", chars.UTF8String, NULL };
+    mpv_command(_cocoaCB.mpv.mpv_handle, cmd);
+}
+
 #pragma mark - Drag n Drop
 
 - (NSDragOperation)draggingEntered:(id<NSDraggingInfo>)sender {

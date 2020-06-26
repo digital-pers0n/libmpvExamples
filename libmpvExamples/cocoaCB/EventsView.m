@@ -37,6 +37,10 @@
 
 #pragma mark - Overrides
 
+- (BOOL)mouseDownCanMoveWindow {
+    return YES;
+}
+
 - (BOOL)isFlipped {
     return YES;
 }

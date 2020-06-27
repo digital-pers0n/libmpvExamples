@@ -9,10 +9,6 @@
 #ifndef libmpvExamples_h
 #define libmpvExamples_h
 
-#if MAC_OS_X_VERSION_MIN_REQUIRED > MAC_OS_X_VERSION_10_13
-#define GL_SILENCE_DEPRECATION 1
-#endif
-
 /* CocoaCB */
 #import "cocoaCB/CocoaCB.h"
 #import "cocoaCB/EventsView.h"

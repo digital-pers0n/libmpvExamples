@@ -68,8 +68,14 @@
     NSURL * url = [[NSBundle mainBundle] URLForResource:@"MPVExampleInfo" withExtension:@"plist"];
     NSAssert(url, @"Cannot find resources.");
     
+#if MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_13
     NSDictionary * dict = [NSDictionary dictionaryWithContentsOfURL:url];
     NSAssert(dict, @"Cannot load resources.");
+#else
+    NSError *err = nil;
+    NSDictionary *dict = [NSDictionary dictionaryWithContentsOfURL:url error:&err];
+    NSAssert(dict, @"%@", err);
+#endif
     
     NSMutableArray * examples = [NSMutableArray new];
     NSArray * objects = dict[@"examples"];

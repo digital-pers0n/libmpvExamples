@@ -156,9 +156,9 @@ CreateFBOForTexture(GLuint texture)
         }
         
         GLint opaque = 1;
-        [_glContext setValues:&opaque forParameter:NSOpenGLCPSurfaceOpacity];
+        [_glContext setValues:&opaque forParameter:NSOpenGLContextParameterSurfaceOpacity];
         GLint swapInt = 1;
-        [_glContext setValues:&swapInt forParameter:NSOpenGLCPSwapInterval];
+        [_glContext setValues:&swapInt forParameter:NSOpenGLContextParameterSwapInterval];
         
         NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
         [nc addObserver:self

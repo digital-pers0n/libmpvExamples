@@ -163,7 +163,7 @@ static void *get_proc_address(void *ctx, const char *symbol) {
     }
     
     GLint swapInt = 1;
-    [openGLContext setValues:&swapInt forParameter:NSOpenGLCPSwapInterval];
+    [openGLContext setValues:&swapInt forParameter:NSOpenGLContextParameterSwapInterval];
     
     _glContext = openGLContext;
     _cglContext = openGLContext.CGLContextObj;

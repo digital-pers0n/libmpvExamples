@@ -65,6 +65,10 @@
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
     
+    if (NSAppKitVersionNumber > NSAppKitVersionNumber10_12) {
+        NSWindow.allowsAutomaticWindowTabbing = NO;
+    }
+    
     NSURL * url = [[NSBundle mainBundle] URLForResource:@"MPVExampleInfo" withExtension:@"plist"];
     NSAssert(url, @"Cannot find resources.");
     

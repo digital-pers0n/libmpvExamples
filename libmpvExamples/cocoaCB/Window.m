@@ -50,6 +50,7 @@
         self.minSize = NSMakeSize(160, 90);
         self.collectionBehavior = NSWindowCollectionBehaviorFullScreenPrimary;
         self.delegate = self;
+        self.releasedWhenClosed = NO;
         [self.contentView addSubview:view];
         view.frame = self.contentView.frame;
         

@@ -55,10 +55,7 @@ static inline void check_error(int status) {
         _backendState = MPVStateInitialized;
         [_layer setVideo:YES];
         
-        dispatch_async(_queue, ^{
-            mpv_set_wakeup_callback(_mpv.mpv_handle, wakeup, (__bridge void *)self);
-        });
-        
+        mpv_set_wakeup_callback(_mpv.mpv_handle, wakeup, (__bridge void *)self);
     }
     return self;
 }

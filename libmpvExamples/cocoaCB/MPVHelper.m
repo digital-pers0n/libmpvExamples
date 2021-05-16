@@ -80,13 +80,11 @@ static void *get_proc_address(void *ctx, const char *symbol) {
 }
 
 - (void)setRenderUpdateCallback:(mpv_render_update_fn)callback context:(id)object {
-    dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INTERACTIVE, 0), ^{
-        if (!_mpv_render_context) {
-            NSLog(@"Init mpv render context first.");
-        } else {
-            mpv_render_context_set_update_callback(_mpv_render_context, callback, (__bridge void *)object);
-        }
-    });
+    if (!_mpv_render_context) {
+        NSLog(@"Init mpv render context first.");
+    } else {
+        mpv_render_context_set_update_callback(_mpv_render_context, callback, (__bridge void *)object);
+    }
 }
 
 #pragma mark - Render

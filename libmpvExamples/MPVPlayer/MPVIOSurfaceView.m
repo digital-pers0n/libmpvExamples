@@ -125,7 +125,7 @@ CreateFBOForTexture(GLuint texture)
     mpv_data _mpv;
     CVDisplayLinkRef _cvdl;
     CVDisplayLinkRef _cvdl_resize;
-    __weak CALayer *_layer;
+    __unsafe_unretained CALayer *_layer;
     BOOL _isIdle;
 }
 @end

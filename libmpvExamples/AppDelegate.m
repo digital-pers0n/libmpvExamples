@@ -52,8 +52,8 @@
 
 @interface AppDelegate ()
 
-@property (weak) IBOutlet NSWindow *window;
-@property (weak) IBOutlet NSArrayController *examplesController;
+@property (assign) IBOutlet NSWindow *window;
+@property (assign) IBOutlet NSArrayController *examplesController;
 @property NSURL *fileURL;
 @property id currentExample;
 
@@ -163,9 +163,10 @@
     NSWindow * window;
     if (info.tag == 0) {
         MPVExample * example = [[MPVExample alloc] initWithExampleName:info.name];
-        [self setUpPlayer:example.player];
-        [example.player openURL:_fileURL];
-        [example.player play];
+        MPVPlayer *player = example.player;
+        [self setUpPlayer:player];
+        [player openURL:_fileURL];
+        [player play];
         self.currentExample = example;
         window = example.window;
     } else {

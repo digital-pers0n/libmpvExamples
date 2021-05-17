@@ -102,10 +102,12 @@ static const NSRect kMPVExampleDefaultFrame =
     if ([_window isVisible]) {
         [_window performClose:nil];
     }
-    if (_player && _player.status == MPVPlayerStatusReadyToPlay) {
-        [_player shutdown];
+    MPVPlayer *player = _player;
+    
+    if (player && player.status == MPVPlayerStatusReadyToPlay) {
+        [player shutdown];
         _example = nil;
-        _player = nil;
+        player = nil;
     }
 }
 

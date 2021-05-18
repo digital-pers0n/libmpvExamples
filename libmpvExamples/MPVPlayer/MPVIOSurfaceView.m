@@ -350,7 +350,8 @@ CreateFBOForTexture(GLuint texture)
     CGLFlushDrawable(_mpv.cgl_ctx);
 
     _layer.bounds = CGRectMake(0, 0, size.width, size.height);
-    _layer.contents = (id)CFAutorelease(surface);
+    _layer.contents = (__bridge id)surface;
+    CFRelease(surface);
     
     [CATransaction commit];
    // [CATransaction flush];

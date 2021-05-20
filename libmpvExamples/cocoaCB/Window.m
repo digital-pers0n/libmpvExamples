@@ -19,7 +19,7 @@
 @property (nonatomic) NSScreen *currentScreen;
 @property (nonatomic) NSScreen *unfScreen;
 
-@property (nonatomic) NSRect unfsContetnFrame;
+@property (nonatomic) NSRect unfsContentFrame;
 @property (nonatomic) BOOL isInFullscreen;
 @property (nonatomic) BOOL isAnimating;
 @property (nonatomic) BOOL isMoving;
@@ -54,7 +54,7 @@
         [self.contentView addSubview:view];
         view.frame = self.contentView.frame;
         
-        _unfsContetnFrame = [self convertRectToScreen:self.contentView.frame];
+        _unfsContentFrame = [self convertRectToScreen:self.contentView.frame];
         _targetScreen = screen;
         _currentScreen = screen;
         _unfScreen = screen;
@@ -69,7 +69,7 @@
     bounds.origin.y = NSHeight(bounds) - self.titleBarHeight;
     bounds.size.height = self.titleBarHeight;
     
-    self.styleMask |= NSFullSizeContentViewWindowMask;
+    self.styleMask |= NSWindowStyleMaskFullSizeContentView;
     self.titleBar.alphaValue = 0;
     self.titlebarAppearsTransparent =  YES;
     _titleBarEffect = [NSVisualEffectView.alloc initWithFrame:bounds];
@@ -133,10 +133,10 @@
 -(void)setKeepAspect:(BOOL)keepAspect {
     _keepAspect = keepAspect;
     if (!_isInFullscreen) {
-        _unfsContetnFrame = [self convertRectToScreen:self.contentView.frame];
+        _unfsContentFrame = [self convertRectToScreen:self.contentView.frame];
     }
     if (keepAspect) {
-        self.contentAspectRatio = _unfsContetnFrame.size;
+        self.contentAspectRatio = _unfsContentFrame.size;
     } else {
         self.resizeIncrements = NSMakeSize(1.0, 1.0);
     }
@@ -153,7 +153,7 @@
 }
 
 - (CGFloat)titleBarHeight {
-    return [NSWindow frameRectForContentRect:NSZeroRect styleMask:NSTitledWindowMask].size.height;
+    return [NSWindow frameRectForContentRect:NSZeroRect styleMask:NSWindowStyleMaskTitled].size.height;
 }
 
 - (NSArray<NSButton *> *)titleButtons {
@@ -189,7 +189,7 @@
     _isAnimating = YES;
     
     if (!_isInFullscreen) {
-        _unfsContetnFrame = [self convertRectToScreen:self.contentView.frame];
+        _unfsContentFrame = [self convertRectToScreen:self.contentView.frame];
         _unfScreen = self.screen;
     }
     

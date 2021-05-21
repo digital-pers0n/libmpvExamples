@@ -11,7 +11,7 @@
 
 #include <mpv/client.h>
 
-#define func_attributes __attribute__((overloadable, always_inline))
+#define func_attributes inline __attribute__((overloadable, always_inline))
 
 #pragma mark - mpv functions
 

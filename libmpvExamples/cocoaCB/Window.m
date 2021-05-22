@@ -228,4 +228,8 @@
     _cocoaCB.layer.inLiveResize = NO;
 }
 
+- (void)windowWillClose:(NSNotification *)notification {
+    [_cocoaCB shutdown];
+}
+
 @end

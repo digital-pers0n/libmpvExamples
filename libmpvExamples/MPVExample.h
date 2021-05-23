@@ -10,13 +10,13 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class MPVPlayer;
+@protocol MPVPlayer;
 
 @interface MPVExample : NSObject
 - (instancetype)init NS_UNAVAILABLE;
 - (instancetype)initWithExampleName:(NSString *)name;
 
-@property (nonatomic, weak, nullable, readonly) MPVPlayer * player;
+@property (nonatomic, weak, nullable, readonly) id<MPVPlayer> player;
 @property (nonatomic, nullable, readonly) NSWindow * window;
 - (void)shutdown;
 

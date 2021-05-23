@@ -165,7 +165,7 @@
         MPVExample * example = [[MPVExample alloc] initWithExampleName:info.name];
         MPVPlayer *player = example.player;
         [self setUpPlayer:player];
-        [player openURL:_fileURL];
+        [player loadURL:_fileURL];
         [player play];
         self.currentExample = example;
         window = example.window;

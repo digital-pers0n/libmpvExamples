@@ -8,11 +8,11 @@
 
 #import <Foundation/Foundation.h>
 
-@class MPVPlayer;
+@protocol MPVPlayer;
 
 @protocol MPVExampleProtocol <NSObject>
 
-@property (nonatomic, readonly) MPVPlayer * player;
+@property (nonatomic, readonly) id<MPVPlayer> player;
 - (void)destroyMPVRenderContext;
 
 @end

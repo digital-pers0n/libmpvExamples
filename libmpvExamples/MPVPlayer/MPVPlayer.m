@@ -118,7 +118,7 @@ static inline void check_error(int status) {
 
     NSString *notification = nil;
     SEL postNotification = @selector(postNotification:);
-    
+
     while (!_eventThread.cancelled) {
         mpv_event *event = mpv_wait_event(self->_mpv_handle, -1);
         switch (event->event_id) {
@@ -255,7 +255,7 @@ exit:
 
 - (void)setUrl:(NSURL *)url {
     _url = url;
-    [self openURL:url];
+    [self loadURL:url];
 }
 
 - (void)setSpeed:(double)speed {
@@ -305,8 +305,12 @@ exit:
     va_start(args, arg);
 }
 
-- (void)openURL:(NSURL *)url {
-    [self performCommand:MPVPlayerCommandLoadFile withArgument:url.absoluteString withArgument:nil];
+- (void)loadURL:(NSURL *)url {
+    [self performCommand:MPVPlayerCommandLoadFile withArgument:url.path withArgument:nil];
+}
+
+- (BOOL)isReadyToPlay {
+    return _status == MPVPlayerStatusReadyToPlay;
 }
 
 - (void)play {
@@ -433,7 +437,7 @@ exit:
 }
 
 - (void)removeObserver:(id<MPVPropertyObserving>)observer forProperty:(NSString *)property {
-    
+   
     if (property) { // remove observer for the specific property
         NSMutableArray *observers = _observed[property];
         [observers removeObject:observer];

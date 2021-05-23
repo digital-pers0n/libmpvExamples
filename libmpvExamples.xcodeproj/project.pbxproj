@@ -56,6 +56,7 @@
 		CE3F2B20230AF15D004F76B9 /* MPVPlayerProperties.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = MPVPlayerProperties.h; path = MPVPlayer/MPVPlayerProperties.h; sourceTree = "<group>"; };
 		CE56FB1B2348E96700F928C5 /* MPVMediaItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MPVMediaItem.h; path = MPVPlayer/MPVMediaItem.h; sourceTree = "<group>"; };
 		CE56FB1C2348E96700F928C5 /* MPVMediaItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MPVMediaItem.m; path = MPVPlayer/MPVMediaItem.m; sourceTree = "<group>"; };
+		CE4A83D426594F65004DB6B8 /* MPVPlayerProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPVPlayerProtocol.h; sourceTree = "<group>"; };
 		CE5EA94022F485EC00E15610 /* libmpvExamples.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = libmpvExamples.h; sourceTree = "<group>"; };
 		CE5EA94122F48CE400E15610 /* LEClipView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LEClipView.h; sourceTree = "<group>"; };
 		CE5EA94222F48CE400E15610 /* LEClipView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LEClipView.m; sourceTree = "<group>"; };
@@ -163,9 +164,10 @@
 				CE91A72E22F3382500A6F57F /* AppDelegate.m */,
 				CE5EA94122F48CE400E15610 /* LEClipView.h */,
 				CE5EA94222F48CE400E15610 /* LEClipView.m */,
-				CE27F3992466D841006362F6 /* MPVExampleProtocol.h */,
 				CE27F3962466D4AD006362F6 /* MPVExample.h */,
 				CE27F3972466D4AD006362F6 /* MPVExample.m */,
+				CE27F3992466D841006362F6 /* MPVExampleProtocol.h */,
+				CE4A83D426594F65004DB6B8 /* MPVPlayerProtocol.h */,
 				CE91A73322F3382500A6F57F /* Assets.xcassets */,
 				CE91A73522F3382500A6F57F /* MainMenu.xib */,
 				CE91A73822F3382500A6F57F /* Info.plist */,

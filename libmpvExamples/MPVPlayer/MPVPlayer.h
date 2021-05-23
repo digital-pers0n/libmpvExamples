@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <mpv/client.h>
+#import "MPVPlayerProtocol.h"
 
 typedef NS_ENUM(NSInteger, MPVPlayerStatus) {
     MPVPlayerStatusUnknown,
@@ -19,13 +20,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 @protocol MPVPropertyObserving;
 
-@interface MPVPlayer : NSObject
+@interface MPVPlayer : NSObject<MPVPlayer>
 
 @property (nonatomic, readonly, nullable) mpv_handle *mpv_handle;
 @property (readonly, nullable) NSError *error;
 @property (nonatomic, readonly) MPVPlayerStatus status;
 
-- (void)openURL:(NSURL *)url;
+- (void)loadURL:(NSURL *)url;
 @property (nonatomic, nullable) NSURL *url;
 
 #pragma mark - Playback Control

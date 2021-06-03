@@ -14,4 +14,5 @@
 - (BOOL)isReadyToPlay;
 - (void)play;
 - (void)pause;
+- (void)stop;
 @end

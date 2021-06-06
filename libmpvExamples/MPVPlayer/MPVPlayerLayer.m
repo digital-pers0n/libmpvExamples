@@ -99,11 +99,12 @@ extern void *g_opengl_framework_handle;
         kCGLPFASupportsAutomaticGraphicsSwitching,
         0
     };
-    CGLPixelFormatObj pix;
+    CGLPixelFormatObj pix = nil;
     GLint npix = 0;
     CGLError error = CGLChoosePixelFormat(glAttributes, &pix, &npix);
-    if (error != kCGLNoError) {
-        return nil;
+    if (error != kCGLNoError || pix == nil) {
+        NSLog(@"[MPVPlayerLayer] CGLChoosePixelFormat(): %i", error);
+        return [super copyCGLPixelFormatForDisplayMask:mask];
     }
     return pix;
 }

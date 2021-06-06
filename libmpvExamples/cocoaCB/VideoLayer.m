@@ -80,12 +80,12 @@
         kCGLPFASupportsAutomaticGraphicsSwitching,
         0
     };
-    CGLPixelFormatObj pix;
+    CGLPixelFormatObj pix = nil;
     GLint npix = 0;
     CGLError error = CGLChoosePixelFormat(glAttributes, &pix, &npix);
-    if (error != kCGLNoError) {
+    if (error != kCGLNoError || pix == nil) {
         NSLog(@"CGLChoosePixelFormat() -> %u", error);
-        return nil;
+        return [super copyCGLPixelFormatForDisplayMask:mask];
     }
     return pix;
 }

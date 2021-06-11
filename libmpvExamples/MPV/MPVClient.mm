@@ -94,8 +94,8 @@ struct Node {
 }; // struct Node
 
 template<typename... Ts> struct NodeArray {
-    mpv_node_list List{};
     mpv_node Values[sizeof...(Ts)]{};
+    mpv_node_list List{};
     
     NodeArray(const Ts &... args) noexcept :
     Values{ Node(args)... }, List{ sizeof...(Ts), Values, nullptr } {}
@@ -157,14 +157,14 @@ struct Client {
     template<typename Fn = void(const Client&)>
     static Result<Client> Create(Fn preinit) noexcept {
         auto handle = mpv_create();
-        if (!handle) return {{handle}, MPV_ERROR_NOMEM};
+        if (!handle) return {{handle}, {MPV_ERROR_NOMEM}};
         
         auto result = Client(handle);
         preinit(result);
         const auto error = mpv_initialize(handle);
         if (error != MPV_ERROR_SUCCESS) result.destroy();
         
-        return {result, error};
+        return {result, {error}};
     }
     mpv_handle *Handle{};
     Client() = default;

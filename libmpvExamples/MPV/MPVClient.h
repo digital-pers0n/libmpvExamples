@@ -15,6 +15,23 @@ NS_ASSUME_NONNULL_BEGIN
 @interface MPVClient : NSObject<MPVPlayer>
 @end
 
+//MARK: - Properties
+
+__attribute__((objc_direct_members))
+@interface MPVClient (Properties)
+
+- (void)setBool:(BOOL)value forName:(NSString *)propertyName;
+- (void)setString:(NSString *)value forName:(NSString *)propertyName;
+- (void)setInt:(int64_t)value forName:(NSString *)propertyName;
+- (void)setDouble:(double)value forName:(NSString *)propertyName;
+
+- (BOOL)boolForName:(NSString *)propertyName;
+- (NSString *)stringForName:(NSString *)propertyName;
+- (int64_t)intForName:(NSString *)propertyName;
+- (double)doubleForName:(NSString *)propertyName;
+
+@end
+
 //MARK: - Commands
 
 __attribute__((objc_direct_members))

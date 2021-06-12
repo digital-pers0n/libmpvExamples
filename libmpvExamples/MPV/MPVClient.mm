@@ -281,14 +281,20 @@ NSLog(@fmt " (code: %i, info: %s)", ##__VA_ARGS__, e.Code, e.string())
 
 #define MPVGenericError(fmt, ...) \
 [&](const MPV::Error &e) { \
-MPVErrorLog(e, "[MPVClient] " fmt, ##__VA_ARGS__); \
+MPVErrorLog(e, "[MPVClient] Error: " fmt, ##__VA_ARGS__); \
 }
 
 #define MPVCommandError(cmd, arg) \
-MPVGenericError("Error: command: '%@' args: '%@'", cmd, arg)
+MPVGenericError("command: '%@' args: '%@'", cmd, arg)
 
 #define MPVCommandStringError(cmd) \
-MPVGenericError("Error: command: '%@'", cmd)
+MPVGenericError("command: '%@'", cmd)
+
+#define MPVSetValueError(fmt, value, name) \
+MPVGenericError("set value: '" fmt "' for: '%@'", value, name)
+
+#define MPVGetValueError(err, type, name) \
+MPVErrorLog(err, "[MPVClient] Error: get " type " value for: %@", name)
 
 @interface NSMutableArray (MPVClientAdditions) @end
 
@@ -759,6 +765,61 @@ constexpr MPVEventKind MPVExcludableEventTable[] = {
 
 - (BOOL)isReadyToPlay {
     return _initialized;
+}
+
+@end
+
+//MARK: - Properties
+
+@implementation MPVClient (Properties)
+
+- (void)setBool:(BOOL)v forName:(NSString *)prop {
+    _mpv.setValue(bool(v), prop.UTF8String) | MPVSetValueError("%i", v, prop);
+}
+
+- (void)setString:(NSString *)val forName:(NSString *)prop {
+    _mpv.setValue(val, prop.UTF8String) | MPVSetValueError("%@", val, prop);
+}
+
+- (void)setInt:(int64_t)val forName:(NSString *)prop {
+    _mpv.setValue(val, prop.UTF8String) | MPVSetValueError("%lli", val, prop);
+}
+
+- (void)setDouble:(double)val forName:(NSString *)prop {
+    _mpv.setValue(val, prop.UTF8String) | MPVSetValueError("%f", val, prop);
+}
+
+- (BOOL)boolForName:(NSString *)property {
+    auto result = _mpv.value<bool>(property.UTF8String);
+    if (!result) {
+        MPVGetValueError(result.Err, "bool", property);
+    }
+    return result;
+}
+
+- (NSString *)stringForName:(NSString *)property {
+    const auto result = _mpv.value<char*>(property.UTF8String);
+    if (!result) {
+        MPVGetValueError(result.Err, "string", property);
+        return nil;
+    }
+    auto string = @(result.Value);
+    mpv_free(result.Value);
+    return string;
+}
+- (int64_t)intForName:(NSString *)property {
+    auto result = _mpv.value<int64_t>(property.UTF8String);
+    if (!result) {
+        MPVGetValueError(result.Err, "int", property);
+    }
+    return result;
+}
+- (double)doubleForName:(NSString *)property {
+    auto result = _mpv.value<double>(property.UTF8String);
+    if (!result) {
+        MPVGetValueError(result.Err, "double", property);
+    }
+    return result;
 }
 
 @end

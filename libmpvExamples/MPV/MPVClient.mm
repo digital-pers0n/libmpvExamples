@@ -644,14 +644,15 @@ constexpr MPVEventKind MPVExcludableEventTable[] = {
         .setValue(70, "volume", errLog)
         .setLogLevel("warn");
         
+        _mpv = r;
         preinit(self);
     });
     
     if (!res) {
+        _mpv = {};
         _error = MPVCreateError(res.Err, @"Failed to intialize mpv.",
                                 @"Incorrect parameters or out of memory.");
     } else {
-        _mpv = res.Value;
         for (const auto &event : MPVExcludableEventTable) {
             _mpv.disableEvent(LibMPVEventTable[event]);
         }

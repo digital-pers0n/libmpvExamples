@@ -13,6 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 @interface MPVClient : NSObject<MPVPlayer>
+- (instancetype)initWithBlock:(void(^)(MPVClient*))preinit;
 @end
 
 //MARK: - Properties

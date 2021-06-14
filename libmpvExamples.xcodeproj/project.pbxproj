@@ -91,6 +91,7 @@
 		CEA2BC7B2315844C00353057 /* MPVPlayerLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MPVPlayerLayer.m; path = MPVPlayer/MPVPlayerLayer.m; sourceTree = "<group>"; };
 		CEA4C771234500B9005F533D /* MPVEventView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MPVEventView.h; path = MPVPlayer/MPVEventView.h; sourceTree = "<group>"; };
 		CEA4C772234500B9005F533D /* MPVEventView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MPVEventView.m; path = MPVPlayer/MPVEventView.m; sourceTree = "<group>"; };
+		CEA5DE81267772B300A6A4EB /* Client.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; name = Client.h; path = MPV/Client.h; sourceTree = "<group>"; };
 		CEA6EA222465AC5B00E22F12 /* libmpv.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libmpv.dylib; path = ../../../../../../Developer/opt/lib/libmpv.dylib; sourceTree = "<group>"; };
 		CEA6EA242466BE6900E22F12 /* MPVExampleInfo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = MPVExampleInfo.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -143,6 +144,7 @@
 		CE4A83BA264C36F0004DB6B8 /* MPV */ = {
 			isa = PBXGroup;
 			children = (
+				CEA5DE81267772B300A6A4EB /* Client.h */,
 				CE64AC6626663644008C995F /* MPVClient.h */,
 				CE64AC6726663644008C995F /* MPVClient.mm */,
 			);

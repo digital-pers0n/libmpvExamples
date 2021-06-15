@@ -160,10 +160,7 @@ extern void *g_opengl_framework_handle;
     NSSize  surfaceSize = [self convertRectToBacking:self.bounds].size;
     _mpv_opengl_fbo.w = surfaceSize.width;
     _mpv_opengl_fbo.h = surfaceSize.height;
-}
-
-- (void)update {
-    [_glContext update];
+    [super reshape];
 }
 
 - (void)viewWillStartLiveResize {

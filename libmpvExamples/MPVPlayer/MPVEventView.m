@@ -174,7 +174,7 @@ typedef void (*methodIMP)(id, SEL, id);
         if ([url isFileReferenceURL]) {
             url = [url filePathURL];
         }
-        [_player openURL:url];
+        [_player loadURL:url];
         return YES;
     }
     
@@ -182,13 +182,13 @@ typedef void (*methodIMP)(id, SEL, id);
     if (array.count) {
         NSURL *url = [NSURL URLWithString:array.firstObject];
         if (url) {
-            [_player openURL:url];
+            [_player loadURL:url];
             return YES;
         }
         
         url = [NSURL fileURLWithPath:array.firstObject];
         if (url) {
-            [_player openURL:url];
+            [_player loadURL:url];
             return YES;
         }
     }

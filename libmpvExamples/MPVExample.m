@@ -21,7 +21,7 @@ static const NSRect kMPVExampleDefaultFrame =
 
 @interface MPVExample () {
     NSWindow * _window;
-    id <MPVExampleProtocol> _example;
+    id <MPVExample> _example;
 }
 
 @end
@@ -79,8 +79,8 @@ static const NSRect kMPVExampleDefaultFrame =
     return view;
 }
 
-- (id <MPVExampleProtocol>)createExample:(Class)cls {
-    id <MPVExampleProtocol> example = [[cls alloc] init];
+- (id <MPVExample>)createExample:(Class)cls {
+    id <MPVExample> example = [[cls alloc] init];
     NSAssert(example, @"Cannot create example %@", cls);
     return example;
 }

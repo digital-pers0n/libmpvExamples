@@ -10,8 +10,7 @@
 
 @protocol MPVPlayer;
 
-@protocol MPVExampleProtocol <NSObject>
-
+@protocol MPVExample <NSObject>
 @property (nonatomic, readonly) id<MPVPlayer> player;
 - (void)destroyMPVRenderContext;
 

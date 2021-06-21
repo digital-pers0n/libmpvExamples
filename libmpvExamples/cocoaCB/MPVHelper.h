@@ -9,8 +9,9 @@
 #import <Foundation/Foundation.h>
 #import <mpv/client.h>
 #import <mpv/render_gl.h>
+#import "MPVPlayerProtocol.h"
 
-@interface MPVHelper : NSObject
+@interface MPVHelper : NSObject<MPVPlayer>
 
 - (instancetype)initWithMpvHandle:(mpv_handle *)mpv;
 @property (nonatomic) mpv_handle *mpv_handle;

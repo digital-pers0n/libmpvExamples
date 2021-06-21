@@ -176,4 +176,31 @@ static void *get_proc_address(void *ctx, const char *symbol) {
     return nil;
 }
 
+#pragma mark - MPVPlayer Protocol
+
+- (void)loadURL:(NSURL*)url {
+    [self command:[NSString stringWithFormat:@"loadfile %@", url]];
+}
+
+- (void)shutdown {
+    [self deinitRender];
+    [self deinitMPV:YES];
+}
+
+- (BOOL)isReadyToPlay {
+    return _mpv_handle != nil;
+}
+
+- (void)play {
+    [self command:@"play"];
+}
+
+- (void)pause {
+    [self command:@"pause"];
+}
+
+- (void)stop {
+    [self command:@"stop"];
+}
+
 @end

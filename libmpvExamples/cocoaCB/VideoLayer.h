@@ -22,7 +22,7 @@ typedef enum : NSUInteger {
 - (void)update;
 - (void)setVideo:(BOOL)state;
 
-@property (nonatomic) CocoaCB *cocoaCB;
+@property (weak, nonatomic) CocoaCB *cocoaCB;
 @property (nonatomic) MPVHelper *mpv;
 
 @property (nonatomic) NSLock *videoLock;

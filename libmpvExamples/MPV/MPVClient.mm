@@ -517,7 +517,8 @@ constexpr MPVEventKind MPVExcludableEventTable[] = {
 }
 
 - (void)setString:(NSString *)val forName:(NSString *)prop {
-    _mpv.setValue(val, prop.UTF8String) | MPVSetValueError("%@", val, prop);
+    _mpv.setValue(val.UTF8String, prop.UTF8String)
+        | MPVSetValueError("%@", val, prop);
 }
 
 - (void)setInt:(int64_t)val forName:(NSString *)prop {

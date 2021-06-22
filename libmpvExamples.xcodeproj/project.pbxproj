@@ -16,7 +16,6 @@
 		CE2A56B1243656EA005CF48A /* MPVIOSurfaceView.m in Sources */ = {isa = PBXBuildFile; fileRef = CE2A56B0243656EA005CF48A /* MPVIOSurfaceView.m */; };
 		CE3F2B1F230AF13A004F76B9 /* MPVPlayerProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3F2B1E230AF13A004F76B9 /* MPVPlayerProperties.m */; };
 		CE56FB1D2348E96700F928C5 /* MPVMediaItem.m in Sources */ = {isa = PBXBuildFile; fileRef = CE56FB1C2348E96700F928C5 /* MPVMediaItem.m */; };
-		CE5EA94322F48CE400E15610 /* LEClipView.m in Sources */ = {isa = PBXBuildFile; fileRef = CE5EA94222F48CE400E15610 /* LEClipView.m */; };
 		CE64AC6826663644008C995F /* MPVClient.mm in Sources */ = {isa = PBXBuildFile; fileRef = CE64AC6726663644008C995F /* MPVClient.mm */; };
 		CE7136E1230304E7000B154A /* MPVPlayerView.m in Sources */ = {isa = PBXBuildFile; fileRef = CE7136E0230304E7000B154A /* MPVPlayerView.m */; };
 		CE91A72F22F3382500A6F57F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = CE91A72E22F3382500A6F57F /* AppDelegate.m */; };
@@ -59,8 +58,6 @@
 		CE56FB1B2348E96700F928C5 /* MPVMediaItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MPVMediaItem.h; path = MPVPlayer/MPVMediaItem.h; sourceTree = "<group>"; };
 		CE56FB1C2348E96700F928C5 /* MPVMediaItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MPVMediaItem.m; path = MPVPlayer/MPVMediaItem.m; sourceTree = "<group>"; };
 		CE5EA94022F485EC00E15610 /* libmpvExamples.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = libmpvExamples.h; sourceTree = "<group>"; };
-		CE5EA94122F48CE400E15610 /* LEClipView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LEClipView.h; sourceTree = "<group>"; };
-		CE5EA94222F48CE400E15610 /* LEClipView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LEClipView.m; sourceTree = "<group>"; };
 		CE5FA4C722F5F201006F6A0C /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		CE64AC6626663644008C995F /* MPVClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MPVClient.h; path = MPV/MPVClient.h; sourceTree = "<group>"; };
 		CE64AC6726663644008C995F /* MPVClient.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = MPVClient.mm; path = MPV/MPVClient.mm; sourceTree = "<group>"; };
@@ -177,8 +174,6 @@
 				CE5EA94022F485EC00E15610 /* libmpvExamples.h */,
 				CE91A72D22F3382500A6F57F /* AppDelegate.h */,
 				CE91A72E22F3382500A6F57F /* AppDelegate.m */,
-				CE5EA94122F48CE400E15610 /* LEClipView.h */,
-				CE5EA94222F48CE400E15610 /* LEClipView.m */,
 				CE27F3962466D4AD006362F6 /* MPVExample.h */,
 				CE27F3972466D4AD006362F6 /* MPVExample.m */,
 				CE27F3992466D841006362F6 /* MPVExampleProtocol.h */,
@@ -303,7 +298,6 @@
 				CE14AC7323AE2BEC00BF9DC3 /* MPVTestGLView.m in Sources */,
 				CE91A73222F3382500A6F57F /* main.m in Sources */,
 				CEA2BC7C2315844C00353057 /* MPVPlayerLayer.m in Sources */,
-				CE5EA94322F48CE400E15610 /* LEClipView.m in Sources */,
 				CE04A15F232D43CE00E49164 /* MPVHybridView.m in Sources */,
 				CE27F3982466D4AD006362F6 /* MPVExample.m in Sources */,
 				CE2152F722FB227B00079A6F /* MPVPlayer.m in Sources */,

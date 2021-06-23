@@ -156,7 +156,8 @@ struct Publisher {
             [array replacePointerAtIndex:eventId
                              withPointer:(__bridge void*)task];
             [cache addObject:task];
-            return [subscribers setObject:array forKey:ctx];
+            [subscribers setObject:array forKey:ctx];
+            return done(*this);
         }
         id handler = (__bridge id)[subscribed pointerAtIndex:eventId];
         if (handler) {

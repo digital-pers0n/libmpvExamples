@@ -66,12 +66,13 @@ static inline void check_error(int status) {
 
 - (void)shutdown {
     if (_backendState == MPVStateInitialized) {
+        _backendState = MPVStateUninitialized;
+        mpv_set_wakeup_callback(_mpv.mpv_handle, NULL, NULL);
         [_layer setVideo:NO];
-        [_window orderBack:nil];
+        [_window performClose:nil];
         [_mpv deinitRender];
         [_mpv deinitMPV:YES];
     }
-    _backendState = MPVStateUninitialized;
 }
 
 #pragma mark - mpv update callback

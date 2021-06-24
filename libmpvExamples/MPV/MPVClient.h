@@ -27,7 +27,7 @@ __attribute__((objc_direct_members))
 - (void)setDouble:(double)value forName:(NSString *)propertyName;
 
 - (BOOL)boolForName:(NSString *)propertyName;
-- (NSString *)stringForName:(NSString *)propertyName;
+- (nullable NSString *)stringForName:(NSString *)propertyName;
 - (int64_t)intForName:(NSString *)propertyName;
 - (double)doubleForName:(NSString *)propertyName;
 

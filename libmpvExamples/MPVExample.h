@@ -7,16 +7,17 @@
 //
 
 @import Cocoa;
+#import "MPVExampleProtocol.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @protocol MPVPlayer;
 
-@interface MPVExample : NSObject
+@interface MPVExample : NSObject<MPVExample>
 - (instancetype)init NS_UNAVAILABLE;
 - (instancetype)initWithExampleName:(NSString *)name;
 
-@property (nonatomic, weak, nullable, readonly) id<MPVPlayer> player;
+@property (nonatomic, nullable, readonly) id<MPVPlayer> player;
 @property (nonatomic, nullable, readonly) NSWindow * window;
 - (void)shutdown;
 

@@ -11,7 +11,10 @@
 @protocol MPVPlayer;
 
 @protocol MPVExample <NSObject>
+- (instancetype)initWithExampleName:(NSString *)str;
+
 @property (nonatomic, readonly) id<MPVPlayer> player;
-- (void)destroyMPVRenderContext;
+@property (nonatomic, readonly) NSWindow *window;
+- (void)shutdown;
 
 @end

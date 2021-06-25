@@ -10,44 +10,45 @@
 #import "libmpvExamples.h"
 
 #import "MPVExample.h"
+#import "MPVExampleProtocol.h"
 
 @interface MPVExampleInfo : NSObject
 
-+ (instancetype)exampleWithName:(NSString *)name
-                           info:(NSString *)info
-                            tag:(NSInteger)tag;
-
-- (instancetype)initWith:(NSString *)name
-                    info:(NSString *)info
-                     tag:(NSInteger)tag;
-
 @property (nonatomic) NSString * name;
+@property (nonatomic) NSString * groupName;
 @property (nonatomic) NSString * info;
-@property (nonatomic) NSInteger tag;
 
 @end
 
-@implementation MPVExampleInfo
-
-+ (instancetype)exampleWithName:(NSString *)name
-                           info:(NSString *)info
-                            tag:(NSInteger)tag
-{
-    return [[MPVExampleInfo alloc] initWith:name info:info tag:tag];
+@implementation MPVExampleInfo {
+    Class _groupClass;
 }
 
-- (instancetype)initWith:(NSString *)name
-                    info:(NSString *)info
-                     tag:(NSInteger)tag
-{
-    self = [super init];
-    if (self) {
-        _name = name;
-        _info = info;
-        _tag = tag;
-    }
++ (instancetype)exampleWithName:(NSString *)name group:(NSString *)groupName
+                           info:(NSString *)info {
+    return [[MPVExampleInfo alloc] initWithName:name group:groupName info:info];
+}
+
+- (instancetype)initWithName:(NSString *)name group:(NSString *)groupName
+                        info:(NSString *)info {
+    if (!(self = [super init])) return nil;
+    _name = name;
+    _groupName = groupName;
+    _info = info;
     return self;
 }
+
+- (id<MPVExample>)build {
+    if (!_groupClass) {
+        Class group = NSClassFromString(_groupName);
+        NSAssert(group, @"%@ is unknown group name.", _groupName);
+        NSAssert([group conformsToProtocol:@protocol(MPVExample)],
+                 @"%@ doesn't conform to %@", group, @protocol(MPVExample));
+        _groupClass = group;
+    }
+    return [[_groupClass alloc] initWithExampleName:_name];
+}
+
 @end
 
 @interface AppDelegate ()
@@ -82,18 +83,13 @@
 #endif
     
     NSMutableArray * examples = [NSMutableArray new];
-    NSArray * objects = dict[@"examples"];
-    
-    for (NSDictionary * d in objects) {
-        [examples addObject:[MPVExampleInfo exampleWithName:d[@"name"]
-                                                       info:d[@"info"]
-                                                        tag:0]];
-    }
-    
-    [examples addObject:[MPVExampleInfo exampleWithName:@"CocoaCB"
-                                                   info:@"CAOpenGLLayer example."
-                                                        "Based on CocoaCB from mpv 0.29"
-                                                    tag:1]];
+    [dict enumerateKeysAndObjectsUsingBlock:
+     ^(NSString *_Nonnull key, NSArray *_Nonnull obj, BOOL * _Nonnull _) {
+         for (NSDictionary *d in obj) {
+             [examples addObject:[MPVExampleInfo exampleWithName:d[@"name"]
+                                                  group:key info:d[@"info"]]];
+         }
+    }];
     [_examplesController addObjects:examples];
 }
 
@@ -160,29 +156,16 @@
         return;
     }
     
-    NSWindow * window;
-    if (info.tag == 0) {
-        MPVExample * example = [[MPVExample alloc] initWithExampleName:info.name];
-        MPVPlayer *player = example.player;
-        [self setUpPlayer:player];
-        [player loadURL:_fileURL];
-        [player play];
-        self.currentExample = example;
-        window = example.window;
-    } else {
-        CocoaCB *ccb = [CocoaCB new];
-        const char *args[] = { "loadfile", _fileURL.fileSystemRepresentation, NULL };
-        mpv_command(ccb.mpv.mpv_handle, args);
-        self.currentExample = ccb;
-        window = ccb.window;
-    }
+    id<MPVExample> ex = [info build];
+    [ex.player loadURL:_fileURL];
+    NSWindow *window = ex.window;
+    self.currentExample = ex;
     
     NSNotificationCenter * nc = [NSNotificationCenter defaultCenter];
     [nc addObserver:self
            selector:@selector(windowWillClose:)
                name:NSWindowWillCloseNotification
              object:window];
-    
 }
 
 #pragma mark - IBAction methods

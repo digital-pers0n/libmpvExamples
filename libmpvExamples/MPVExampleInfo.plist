@@ -2,7 +2,7 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>examples</key>
+	<key>MPVExample</key>
 	<array>
 		<dict>
 			<key>name</key>
@@ -39,6 +39,15 @@
 			<string>MPVIOSurfaceView</string>
 			<key>info</key>
 			<string>IOSurfaceRef + CALayer + NSView.</string>
+		</dict>
+	</array>
+	<key>CocoaCBExample</key>
+	<array>
+		<dict>
+			<key>name</key>
+			<string>CocoaCB</string>
+			<key>info</key>
+			<string>CAOpenGLLayer example. Based on CocoaCB from mpv 0.29</string>
 		</dict>
 	</array>
 </dict>

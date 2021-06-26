@@ -92,6 +92,8 @@
 		CEA5DE81267772B300A6A4EB /* Client.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; name = Client.h; path = MPV/Client.h; sourceTree = "<group>"; };
 		CEA6EA222465AC5B00E22F12 /* libmpv.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libmpv.dylib; path = ../../../../../../Developer/opt/lib/libmpv.dylib; sourceTree = "<group>"; };
 		CEA6EA242466BE6900E22F12 /* MPVExampleInfo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = MPVExampleInfo.plist; sourceTree = "<group>"; };
+		CECFB963268777B200288413 /* Renderer.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; name = Renderer.h; path = MPV/Renderer.h; sourceTree = "<group>"; };
+		CECFB96426877B7100288413 /* CGLRenderer.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; name = CGLRenderer.h; path = MPV/CGLRenderer.h; sourceTree = "<group>"; };
 		CED3BACF2680D43500E44D2C /* CocoaCBExample.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CocoaCBExample.h; path = cocoaCB/CocoaCBExample.h; sourceTree = "<group>"; };
 		CED3BAD02680D43500E44D2C /* CocoaCBExample.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = CocoaCBExample.mm; path = cocoaCB/CocoaCBExample.mm; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -145,6 +147,8 @@
 			isa = PBXGroup;
 			children = (
 				CEA5DE81267772B300A6A4EB /* Client.h */,
+				CECFB963268777B200288413 /* Renderer.h */,
+				CECFB96426877B7100288413 /* CGLRenderer.h */,
 				CE64AC6626663644008C995F /* MPVClient.h */,
 				CE64AC6726663644008C995F /* MPVClient.mm */,
 			);

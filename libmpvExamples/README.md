@@ -18,10 +18,6 @@ NSOpenGLView subclass. Low CPU/GPU usage, choppy live resize.
 
 NSView subclass. Highly experimental and very glitchy.
 
-#### MPVHybridView
-
-NSOpenGLView + CAOpenGLLayer. Live resize is smooth, but it has glitches.
-
 #### MPVPlayerLayer
 
 CAOpenGLLayer subclass. Smoothest live resize, but in comparison with other examples has higher CPU/GPU usage.

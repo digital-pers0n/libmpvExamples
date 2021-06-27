@@ -24,12 +24,6 @@
 		</dict>
 		<dict>
 			<key>name</key>
-			<string>MPVHybridView</string>
-			<key>info</key>
-			<string>NSOpenGLView + CAOpenGLLayer.</string>
-		</dict>
-		<dict>
-			<key>name</key>
 			<string>MPVTestGLView</string>
 			<key>info</key>
 			<string>Same as MPVOpenGLView, but uses CVDisplayLinkCallback instead of mpv_render_callback.</string>

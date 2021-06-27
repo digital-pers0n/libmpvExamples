@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		CE04A15F232D43CE00E49164 /* MPVHybridView.m in Sources */ = {isa = PBXBuildFile; fileRef = CE04A15E232D43CE00E49164 /* MPVHybridView.m */; };
 		CE0E31B72310170100EE8E40 /* MPVPlayerCommands.m in Sources */ = {isa = PBXBuildFile; fileRef = CE0E31B62310170100EE8E40 /* MPVPlayerCommands.m */; };
 		CE0E31B9231195E600EE8E40 /* MPVPlayerNotifications.m in Sources */ = {isa = PBXBuildFile; fileRef = CE0E31B8231195E600EE8E40 /* MPVPlayerNotifications.m */; };
 		CE14AC7323AE2BEC00BF9DC3 /* MPVTestGLView.m in Sources */ = {isa = PBXBuildFile; fileRef = CE14AC7223AE2BEC00BF9DC3 /* MPVTestGLView.m */; };
@@ -38,8 +37,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		CE04A15D232D43CE00E49164 /* MPVHybridView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MPVHybridView.h; path = MPVPlayer/MPVHybridView.h; sourceTree = "<group>"; };
-		CE04A15E232D43CE00E49164 /* MPVHybridView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MPVHybridView.m; path = MPVPlayer/MPVHybridView.m; sourceTree = "<group>"; };
 		CE0E31B52310170100EE8E40 /* MPVPlayerCommands.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MPVPlayerCommands.h; path = MPVPlayer/MPVPlayerCommands.h; sourceTree = "<group>"; };
 		CE0E31B62310170100EE8E40 /* MPVPlayerCommands.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MPVPlayerCommands.m; path = MPVPlayer/MPVPlayerCommands.m; sourceTree = "<group>"; };
 		CE0E31B8231195E600EE8E40 /* MPVPlayerNotifications.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MPVPlayerNotifications.m; path = MPVPlayer/MPVPlayerNotifications.m; sourceTree = "<group>"; };
@@ -118,8 +115,6 @@
 				CE166C5A234FA374001AF0CB /* mpv_functions.h */,
 				CEA4C771234500B9005F533D /* MPVEventView.h */,
 				CEA4C772234500B9005F533D /* MPVEventView.m */,
-				CE04A15D232D43CE00E49164 /* MPVHybridView.h */,
-				CE04A15E232D43CE00E49164 /* MPVHybridView.m */,
 				CE2A56AF243656EA005CF48A /* MPVIOSurfaceView.h */,
 				CE2A56B0243656EA005CF48A /* MPVIOSurfaceView.m */,
 				CE56FB1B2348E96700F928C5 /* MPVMediaItem.h */,
@@ -307,7 +302,6 @@
 				CE14AC7323AE2BEC00BF9DC3 /* MPVTestGLView.m in Sources */,
 				CE91A73222F3382500A6F57F /* main.m in Sources */,
 				CEA2BC7C2315844C00353057 /* MPVPlayerLayer.m in Sources */,
-				CE04A15F232D43CE00E49164 /* MPVHybridView.m in Sources */,
 				CE27F3982466D4AD006362F6 /* MPVExample.m in Sources */,
 				CE2152F722FB227B00079A6F /* MPVPlayer.m in Sources */,
 				CE3F2B1F230AF13A004F76B9 /* MPVPlayerProperties.m in Sources */,

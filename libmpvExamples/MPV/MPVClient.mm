@@ -509,6 +509,17 @@ constexpr MPVEventKind MPVExcludableEventTable[] = {
 
 @end
 
+//MARK: - Additional Methods
+
+[[clang::objc_direct_members]]
+@implementation MPVClient (Extended)
+
+- (void *)handle {
+    return _mpv.Handle;
+}
+
+@end
+
 //MARK: - Properties
 
 @implementation MPVClient (Properties)

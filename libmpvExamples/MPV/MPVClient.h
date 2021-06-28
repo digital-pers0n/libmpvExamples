@@ -16,6 +16,14 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)initWithBlock:(void(^)(MPVClient*))preinit;
 @end
 
+//MARK: - Additional Methods
+__attribute__((objc_direct_members))
+@interface MPVClient (Extended)
+
+@property (nonatomic, readonly, nullable) void *handle NS_RETURNS_INNER_POINTER;
+
+@end
+
 //MARK: - Properties
 
 __attribute__((objc_direct_members))

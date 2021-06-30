@@ -8,11 +8,13 @@ mpv client API examples for macOS
 
 CAOpenGLLayer example. Based on CocoaCB from mpv 0.29.1
 
+### MPVClient
+
+#### MPVGLView
+
+NSOpenGLView subclass.
+
 ### MPVPlayer
-
-#### MPVOpenGLView
-
-NSOpenGLView subclass. Low CPU/GPU usage, choppy live resize.
 
 #### MPVPlayerView
 

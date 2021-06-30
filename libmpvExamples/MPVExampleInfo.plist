@@ -2,14 +2,17 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>MPVExample</key>
+	<key>MPVClientExample</key>
 	<array>
 		<dict>
 			<key>name</key>
-			<string>MPVOpenGLView</string>
+			<string>MPVGLView</string>
 			<key>info</key>
 			<string>NSOpenGLView example.</string>
 		</dict>
+	</array>
+	<key>MPVExample</key>
+	<array>
 		<dict>
 			<key>name</key>
 			<string>MPVPlayerLayer</string>

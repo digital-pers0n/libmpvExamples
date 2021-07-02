@@ -414,13 +414,16 @@ constexpr MPVEventKind MPVExcludableEventTable[] = {
     _eventLoop.start(_mpv, [=](mpv_event *ev) {
         switch (ev->event_id) {
         case MPV_EVENT_NONE:
-        case MPV_EVENT_SHUTDOWN:
+        case MPV_EVENT_SHUTDOWN: {
             puts("[MPVClient] shutting down...");
-//            dispatch_async(dispatch_get_main_queue(), ^{
-//                if (!u->_initialized) return;
-//                [u shutdown];
-//            });
-            return MPV::EventLoop::Quit;
+            __strong auto obj = u;
+            if (obj.initialized) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [obj shutdown];
+                });
+            }
+        }
+        return MPV::EventLoop::Quit;
                 
         case MPV_EVENT_LOG_MESSAGE: {
             const auto msg = reinterpret_cast<mpv_event_log_message*>(ev->data);

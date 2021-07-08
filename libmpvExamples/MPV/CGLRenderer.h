@@ -115,6 +115,24 @@ struct CGLRenderer : public Renderer {
         return res;
     }
     
+    static MPV::Result<CGLContextObj, CGLError>
+    CreateGLContext(CGLPixelFormatObj pix) noexcept {
+        CGLContextObj cgl{};
+        const auto e = CGLCreateContext(pix, /*shared context*/ nil, &cgl);
+        return {cgl, e};
+    }
+    
+    static MPV::Result<CGLContextObj, CGLError> CreateGLContext() noexcept {
+        auto pix = MPV::CGLRenderer::ChoosePixelFormat();
+        if (!pix.Value) {
+            NSLog(@"[CGLRenderer] ChoosePixelFormat: %s", CGLErrorString(pix));
+            return {nullptr, pix.Err};
+        }
+        auto cgl = CreateGLContext(pix);
+        CGLReleasePixelFormat(pix);
+        return cgl;
+    }
+    
     MPV::Result<void>
     init(mpv_handle *mpv, CGLContextObj cgl, bool advanced = false) noexcept {
         CGL = cgl;

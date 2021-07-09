@@ -52,8 +52,8 @@
 		CE2A56AF243656EA005CF48A /* MPVIOSurfaceView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MPVIOSurfaceView.h; path = MPVPlayer/MPVIOSurfaceView.h; sourceTree = "<group>"; };
 		CE2A56B0243656EA005CF48A /* MPVIOSurfaceView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MPVIOSurfaceView.m; path = MPVPlayer/MPVIOSurfaceView.m; sourceTree = "<group>"; };
 		CE3574FE2689FAF5000EBE13 /* MPVVideoRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MPVVideoRenderer.h; path = MPV/MPVVideoRenderer.h; sourceTree = "<group>"; };
+		CE357500268A08F5000EBE13 /* DisplayLink.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; name = DisplayLink.h; path = MPV/DisplayLink.h; sourceTree = "<group>"; };
 		CE3F2B1E230AF13A004F76B9 /* MPVPlayerProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MPVPlayerProperties.m; path = MPVPlayer/MPVPlayerProperties.m; sourceTree = "<group>"; };
-		CE357500268A08F5000EBE13 /* DisplayLink.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; path = DisplayLink.h; sourceTree = "<group>"; };
 		CE3F2B20230AF15D004F76B9 /* MPVPlayerProperties.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = MPVPlayerProperties.h; path = MPVPlayer/MPVPlayerProperties.h; sourceTree = "<group>"; };
 		CE4A83D426594F65004DB6B8 /* MPVPlayerProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPVPlayerProtocol.h; sourceTree = "<group>"; };
 		CE54E65E2676829600E2119A /* MPVGLView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MPVGLView.h; path = MPV/MPVGLView.h; sourceTree = "<group>"; };

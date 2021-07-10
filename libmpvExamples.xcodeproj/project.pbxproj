@@ -12,10 +12,10 @@
 		CE14AC7323AE2BEC00BF9DC3 /* MPVTestGLView.m in Sources */ = {isa = PBXBuildFile; fileRef = CE14AC7223AE2BEC00BF9DC3 /* MPVTestGLView.m */; };
 		CE2152F722FB227B00079A6F /* MPVPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = CE2152F622FB227B00079A6F /* MPVPlayer.m */; };
 		CE27F3982466D4AD006362F6 /* MPVExample.m in Sources */ = {isa = PBXBuildFile; fileRef = CE27F3972466D4AD006362F6 /* MPVExample.m */; };
-		CE2A56B1243656EA005CF48A /* MPVIOSurfaceView.m in Sources */ = {isa = PBXBuildFile; fileRef = CE2A56B0243656EA005CF48A /* MPVIOSurfaceView.m */; };
 		CE3F2B1F230AF13A004F76B9 /* MPVPlayerProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3F2B1E230AF13A004F76B9 /* MPVPlayerProperties.m */; };
 		CE54E6602676829600E2119A /* MPVGLView.mm in Sources */ = {isa = PBXBuildFile; fileRef = CE54E65F2676829600E2119A /* MPVGLView.mm */; };
 		CE56FB1D2348E96700F928C5 /* MPVMediaItem.m in Sources */ = {isa = PBXBuildFile; fileRef = CE56FB1C2348E96700F928C5 /* MPVMediaItem.m */; };
+		CE63239A2691ECF300D2A24C /* MPVIOView.mm in Sources */ = {isa = PBXBuildFile; fileRef = CE6323992691ECF300D2A24C /* MPVIOView.mm */; };
 		CE64AC6826663644008C995F /* MPVClient.mm in Sources */ = {isa = PBXBuildFile; fileRef = CE64AC6726663644008C995F /* MPVClient.mm */; };
 		CE7136E1230304E7000B154A /* MPVPlayerView.m in Sources */ = {isa = PBXBuildFile; fileRef = CE7136E0230304E7000B154A /* MPVPlayerView.m */; };
 		CE91A72F22F3382500A6F57F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = CE91A72E22F3382500A6F57F /* AppDelegate.m */; };
@@ -62,6 +62,8 @@
 		CE56FB1C2348E96700F928C5 /* MPVMediaItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MPVMediaItem.m; path = MPVPlayer/MPVMediaItem.m; sourceTree = "<group>"; };
 		CE5EA94022F485EC00E15610 /* libmpvExamples.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = libmpvExamples.h; sourceTree = "<group>"; };
 		CE5FA4C722F5F201006F6A0C /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		CE6323982691ECF300D2A24C /* MPVIOView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MPVIOView.h; path = MPV/MPVIOView.h; sourceTree = "<group>"; };
+		CE6323992691ECF300D2A24C /* MPVIOView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = MPVIOView.mm; path = MPV/MPVIOView.mm; sourceTree = "<group>"; };
 		CE64AC6626663644008C995F /* MPVClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MPVClient.h; path = MPV/MPVClient.h; sourceTree = "<group>"; };
 		CE64AC6726663644008C995F /* MPVClient.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = MPVClient.mm; path = MPV/MPVClient.mm; sourceTree = "<group>"; };
 		CE7136DF230304E7000B154A /* MPVPlayerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MPVPlayerView.h; path = MPVPlayer/MPVPlayerView.h; sourceTree = "<group>"; };
@@ -120,8 +122,6 @@
 				CE166C5A234FA374001AF0CB /* mpv_functions.h */,
 				CEA4C771234500B9005F533D /* MPVEventView.h */,
 				CEA4C772234500B9005F533D /* MPVEventView.m */,
-				CE2A56AF243656EA005CF48A /* MPVIOSurfaceView.h */,
-				CE2A56B0243656EA005CF48A /* MPVIOSurfaceView.m */,
 				CE56FB1B2348E96700F928C5 /* MPVMediaItem.h */,
 				CE56FB1C2348E96700F928C5 /* MPVMediaItem.m */,
 				CE2152F522FB227B00079A6F /* MPVPlayer.h */,
@@ -154,6 +154,8 @@
 				CEA585CD2681E81C00E6AC1D /* MPVClientExample.mm */,
 				CE54E65E2676829600E2119A /* MPVGLView.h */,
 				CE54E65F2676829600E2119A /* MPVGLView.mm */,
+				CE6323982691ECF300D2A24C /* MPVIOView.h */,
+				CE6323992691ECF300D2A24C /* MPVIOView.mm */,
 				CE3574FE2689FAF5000EBE13 /* MPVVideoRenderer.h */,
 			);
 			name = MPV;
@@ -316,10 +318,10 @@
 				CE3F2B1F230AF13A004F76B9 /* MPVPlayerProperties.m in Sources */,
 				CE91A74F22F33A6000A6F57F /* MPVHelper.m in Sources */,
 				CE0E31B9231195E600EE8E40 /* MPVPlayerNotifications.m in Sources */,
+				CE63239A2691ECF300D2A24C /* MPVIOView.mm in Sources */,
 				CE91A75522F33AAF00A6F57F /* Window.m in Sources */,
 				CE0E31B72310170100EE8E40 /* MPVPlayerCommands.m in Sources */,
 				CE91A72F22F3382500A6F57F /* AppDelegate.m in Sources */,
-				CE2A56B1243656EA005CF48A /* MPVIOSurfaceView.m in Sources */,
 				CE64AC6826663644008C995F /* MPVClient.mm in Sources */,
 				CEA585CE2681E81C00E6AC1D /* MPVClientExample.mm in Sources */,
 				CE54E6602676829600E2119A /* MPVGLView.mm in Sources */,

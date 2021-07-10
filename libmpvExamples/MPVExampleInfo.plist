@@ -10,6 +10,12 @@
 			<key>info</key>
 			<string>NSOpenGLView example.</string>
 		</dict>
+		<dict>
+			<key>name</key>
+			<string>MPVIOView</string>
+			<key>info</key>
+			<string>NSView + CALayer + IOSurfaceRef example.</string>
+		</dict>
 	</array>
 	<key>MPVExample</key>
 	<array>
@@ -30,12 +36,6 @@
 			<string>MPVTestGLView</string>
 			<key>info</key>
 			<string>Same as MPVOpenGLView, but uses CVDisplayLinkCallback instead of mpv_render_callback.</string>
-		</dict>
-		<dict>
-			<key>name</key>
-			<string>MPVIOSurfaceView</string>
-			<key>info</key>
-			<string>IOSurfaceRef + CALayer + NSView.</string>
 		</dict>
 	</array>
 	<key>CocoaCBExample</key>

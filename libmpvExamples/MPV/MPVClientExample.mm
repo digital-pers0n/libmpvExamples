@@ -73,13 +73,20 @@ NSPasteboardType MPVPasteboardTypeURL() noexcept {
     [win registerForDraggedTypes:@[ MPVPasteboardTypeFileURL(),
                                     MPVPasteboardTypeURL() ]];
     win.delegate = self;
+    
+    [_mpv subscribe:self toEvent:MPVEventDidLoadFile
+              queue:dispatch_get_main_queue() handler:
+     ^(MPVClient *_Nonnull client, id  _Nullable event) {
+         win.title = [NSString stringWithFormat:@"[%@] %@",
+                      str, client.url.lastPathComponent];
+     }];
+
     _window = win;
     auto nc = [NSNotificationCenter defaultCenter];
     [nc addObserver:self selector:@selector(willClose:)
                name:NSWindowWillCloseNotification object:win];
     [nc addObserver:self selector:@selector(willClose:)
                name:MPVClientWillShutdownNotification object:_mpv];
-    win.title = str;
     [win makeKeyAndOrderFront:nil];
     [win center];
     
@@ -98,6 +105,7 @@ NSPasteboardType MPVPasteboardTypeURL() noexcept {
     [NSNotificationCenter.defaultCenter removeObserver:self];
     id<MPVVideoRenderer> view = _window.contentView;
     [view destroy];
+    [_mpv unsubscribe:self event:MPVEventDidLoadFile];
 }
 
 //MARK:- NSDraggingDestination

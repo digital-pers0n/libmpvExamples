@@ -34,6 +34,7 @@
 		CEA585CE2681E81C00E6AC1D /* MPVClientExample.mm in Sources */ = {isa = PBXBuildFile; fileRef = CEA585CD2681E81C00E6AC1D /* MPVClientExample.mm */; };
 		CEA6EA232465AC5B00E22F12 /* libmpv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = CEA6EA222465AC5B00E22F12 /* libmpv.dylib */; };
 		CEA6EA252466BE6900E22F12 /* MPVExampleInfo.plist in Resources */ = {isa = PBXBuildFile; fileRef = CEA6EA242466BE6900E22F12 /* MPVExampleInfo.plist */; };
+		CEE66A2926A71BC80024B3A0 /* MPVTimeFormatter.mm in Sources */ = {isa = PBXBuildFile; fileRef = CEE66A2826A71BC80024B3A0 /* MPVTimeFormatter.mm */; };
 		CED3BAD12680D43500E44D2C /* CocoaCBExample.mm in Sources */ = {isa = PBXBuildFile; fileRef = CED3BAD02680D43500E44D2C /* CocoaCBExample.mm */; };
 /* End PBXBuildFile section */
 
@@ -98,6 +99,8 @@
 		CEA6EA242466BE6900E22F12 /* MPVExampleInfo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = MPVExampleInfo.plist; sourceTree = "<group>"; };
 		CECFB963268777B200288413 /* Renderer.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; name = Renderer.h; path = MPV/Renderer.h; sourceTree = "<group>"; };
 		CECFB96426877B7100288413 /* CGLRenderer.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; name = CGLRenderer.h; path = MPV/CGLRenderer.h; sourceTree = "<group>"; };
+		CEE66A2726A71BC80024B3A0 /* MPVTimeFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MPVTimeFormatter.h; path = MPV/MPVTimeFormatter.h; sourceTree = "<group>"; };
+		CEE66A2826A71BC80024B3A0 /* MPVTimeFormatter.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = MPVTimeFormatter.mm; path = MPV/MPVTimeFormatter.mm; sourceTree = "<group>"; };
 		CED3BACF2680D43500E44D2C /* CocoaCBExample.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CocoaCBExample.h; path = cocoaCB/CocoaCBExample.h; sourceTree = "<group>"; };
 		CED3BAD02680D43500E44D2C /* CocoaCBExample.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = CocoaCBExample.mm; path = cocoaCB/CocoaCBExample.mm; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -156,6 +159,8 @@
 				CE54E65F2676829600E2119A /* MPVGLView.mm */,
 				CE6323982691ECF300D2A24C /* MPVIOView.h */,
 				CE6323992691ECF300D2A24C /* MPVIOView.mm */,
+				CEE66A2726A71BC80024B3A0 /* MPVTimeFormatter.h */,
+				CEE66A2826A71BC80024B3A0 /* MPVTimeFormatter.mm */,
 				CE3574FE2689FAF5000EBE13 /* MPVVideoRenderer.h */,
 			);
 			name = MPV;
@@ -326,6 +331,7 @@
 				CEA585CE2681E81C00E6AC1D /* MPVClientExample.mm in Sources */,
 				CE54E6602676829600E2119A /* MPVGLView.mm in Sources */,
 				CED3BAD12680D43500E44D2C /* CocoaCBExample.mm in Sources */,
+				CEE66A2926A71BC80024B3A0 /* MPVTimeFormatter.mm in Sources */,
 				CEA4C773234500B9005F533D /* MPVEventView.m in Sources */,
 				CE91A74B22F33A2100A6F57F /* VideoLayer.m in Sources */,
 				CE7136E1230304E7000B154A /* MPVPlayerView.m in Sources */,
